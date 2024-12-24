@@ -2,10 +2,10 @@
 
 #include <string>
 #include <filesystem>
-#include "services/filesystem/filesystem.h"
-#include "services/yaml/yaml.h"
-#include "utils/md5.h"
-#include "types/String.h"
+#include "quark/services/filesystem/filesystem.h"
+#include "quark/services/yaml/yaml.h"
+#include "quark/utils/md5.h"
+#include "quark/types/String.h"
 
 quark::NotebookServerBusiness::NotebookServerBusiness(const std::string& baseUrl)
 {

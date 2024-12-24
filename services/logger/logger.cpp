@@ -11,7 +11,8 @@
 
 void quark::Logger::LogInfo(const std::string& message)
 {
-    std::cout << "[INFO] " << message << std::endl;
+    int a = 10;
+    std::cout << "[INFO] " << message << a << std::endl;
 }
 
 void quark::Logger::LogInfo(std::initializer_list<std::string> messageList)

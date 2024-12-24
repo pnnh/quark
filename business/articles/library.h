@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "models/articles/Library.h"
+#include "quark/models/articles/Library.h"
 
 namespace quark
 {

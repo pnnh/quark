@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "build.h"
+#include "quark/build.h"
 
 namespace quark
 {

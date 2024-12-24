@@ -1,7 +1,7 @@
 #include <filesystem>
 #include "mime.h"
 
-#include "types/String.h"
+#include "quark/types/String.h"
 
 bool quark::MTMime::isImage(const std::string& path)
 {

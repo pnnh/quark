@@ -3,12 +3,12 @@
 #include <string>
 #include <filesystem>
 #include <utility>
-#include <services/database/SqliteService.h>
-#include "types/Exception.h"
-#include "services/filesystem/filesystem.h"
-#include "services/yaml/yaml.h"
-#include "utils/md5.h"
-#include "types/String.h"
+#include "quark/services/database/SqliteService.h"
+#include "quark/types/Exception.h"
+#include "quark/services/filesystem/filesystem.h"
+#include "quark/services/yaml/yaml.h"
+#include "quark/utils/md5.h"
+#include "quark/types/String.h"
 
 quark::ArticleFileService::ArticleFileService(const std::string& baseUrl)
 {

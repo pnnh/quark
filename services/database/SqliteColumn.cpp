@@ -2,7 +2,7 @@
 
 #include <sqlite3.h>
 
-#include "types/Exception.h"
+#include "quark/types/Exception.h"
 
 
 quark::SqliteColumn::SqliteColumn() : colType(), colIndex()

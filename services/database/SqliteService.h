@@ -3,8 +3,8 @@
 #include <sqlite3.h>
 #include <memory>
 #include "SqliteCommand.h"
-#include "types/Exception.h"
-#include "services/database/SqliteResult.h"
+#include "quark/types/Exception.h"
+#include "quark/services/database/SqliteResult.h"
 
 namespace quark
 {

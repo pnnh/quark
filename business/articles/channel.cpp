@@ -2,13 +2,12 @@
 #include "channel.h"
 #include <string>
 #include <filesystem>
-#include <utils/basex.h>
 
-#include "types/Exception.h"
-#include "services/filesystem/filesystem.h"
-#include "services/yaml/yaml.h"
-#include "utils/md5.h"
-#include "types//String.h"
+#include "quark/types/Exception.h"
+#include "quark/services/filesystem/filesystem.h"
+#include "quark/services/yaml/yaml.h"
+#include "quark/utils/md5.h"
+#include "quark/types//String.h"
 
 quark::ChannelServerBusiness::ChannelServerBusiness(const std::string& baseUrl)
 {
