@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include "quark/models/files/File.h"
-#include "build.h"
+#include "quark/build.h"
 
 namespace quark
 {

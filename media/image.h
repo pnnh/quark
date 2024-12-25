@@ -1,19 +1,16 @@
 #pragma once
 
-#include <build.h>
-
+#include "quark/build.h"
 
 
 #ifdef __cplusplus
 
 
-
-namespace quark {
-
-    class MTAPI MTImage {
+namespace quark
+{
+    class MTAPI MTImage{
 
     };
-
 }
 
 extern "C" {

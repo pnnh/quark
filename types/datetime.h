@@ -24,16 +24,16 @@ namespace quark
         PSDatetime& operator=(const std::chrono::system_clock::time_point& x);
         PSDatetime& operator=(const std::time_t& datetime);
 
-        [ [nodiscard] ]
+        [[nodiscard]]
         std::string toString() const;
         [[nodiscard]] std::chrono::system_clock::time_point toTimePoint() const;
+
+        static PSDatetime now();
 
     private:
         std::chrono::system_clock::time_point timeValue;
     };
 }
-
-
 
 
 extern "C" {

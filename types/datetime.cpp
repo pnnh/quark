@@ -110,3 +110,9 @@ std::string quark::PSDatetime::toString() const
 {
     return formatTime(this->timeValue);
 }
+
+quark::PSDatetime quark::PSDatetime::now()
+{
+    return PSDatetime(std::chrono::system_clock::now());
+}
+
