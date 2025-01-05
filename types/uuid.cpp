@@ -2,7 +2,6 @@
 
 #include <random>
 #include <regex>
-#include <__random/random_device.h>
 
 std::regex quark::MTUUID::uuid_regex = std::regex(
     "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$");
