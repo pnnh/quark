@@ -1,14 +1,5 @@
 #pragma once
 
-#include <string>
 #include "quark/build.h"
 
-namespace quark
-{
-    class MTAPI Logger
-    {
-    public:
-        static void LogInfo(const std::string& message);
-        static void LogInfo(std::initializer_list<std::string> messageList);
-    };
-}
+MTCAPI void MTLogInfo(const char* message);

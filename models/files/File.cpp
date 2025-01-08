@@ -1,3 +1,4 @@
+#include "File.hpp"
 #include "File.h"
 
 quark::PSFileModel::PSFileModel(std::string title)

@@ -8,7 +8,7 @@
 
 namespace quark
 {
-    class MTAPI MTImage{
+    class MTCXXAPI MTImage{
 
     };
 }

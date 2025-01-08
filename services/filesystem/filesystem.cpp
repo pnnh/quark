@@ -61,6 +61,7 @@ std::string quark::filesystem::ReadAllText(const std::string& filePath)
 
 bool quark::isHidden(const std::string& path)
 {
+    // todo: 处理在windows下面的隐藏文件类型
     if (path.rfind('.', 0) == 0)
     {
         return true;
@@ -71,9 +72,16 @@ bool quark::isHidden(const std::string& path)
 // 一般不处理这些特殊的路径下面的文件
 bool quark::isIgnore(const std::string& path)
 {
+    // 隐藏文件和特殊目录
     if (isHidden(path) || path.find("node_modules") != std::string::npos || path.find("build") != std::string::npos)
     {
         return true;
     }
+    // 操作系统下面的特殊文件夹
+    if (path.find("$RECYCLE.BIN") != std::string::npos || path.find("System Volume Information") != std::string::npos)
+    {
+        return true;
+    }
+
     return false;
 }

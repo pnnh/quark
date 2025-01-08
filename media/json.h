@@ -7,7 +7,7 @@
 
 namespace quark {
 
-    class MTAPI MTJsonObject {
+    class MTCXXAPI MTJsonObject {
 
     };
 

@@ -7,7 +7,7 @@
 
 namespace quark
 {
-    class MTAPI MTMime
+    class MTCXXAPI MTMime
     {
     public:
         static bool isImage(const std::string& path);

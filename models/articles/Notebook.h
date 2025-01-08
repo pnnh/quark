@@ -6,7 +6,7 @@
 
 namespace quark
 {
-    class MTAPI PSNotebookModel
+    class MTCXXAPI PSNotebookModel
     {
     public:
         PSNotebookModel();

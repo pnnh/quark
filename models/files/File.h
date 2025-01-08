@@ -1,35 +1,8 @@
 #pragma once
-#include <string>
-#include <chrono>
-#include "quark/types/datetime.h"
+
 #include "quark/build.h"
 
-#ifdef __cplusplus
-
-namespace quark
-{
-    class MTAPI PSFileModel
-    {
-    public:
-        explicit PSFileModel(std::string title);
-
-        std::string URN;
-        std::string Title;
-        std::string Name;
-        std::string Keywords;
-        std::string Description;
-        bool IsDir{};
-        bool IsHidden{};
-        bool IsIgnore{};
-        PSDatetime CreateTime;
-        PSDatetime UpdateTime;
-    };
-}
-
-extern "C" {
-#endif
-
-struct PSFileStruct
+MTCAPI typedef struct PSFileStruct
 {
     char* URN{};
     char* Title{};
@@ -39,13 +12,9 @@ struct PSFileStruct
     bool IsDir{};
     bool IsHidden{};
     bool IsIgnore{};
-};
+} PSFileStruct;
 
-PSFileStruct* NewPSFileStruct();
-void DeletePSFileStruct(PSFileStruct* file);
-MTAPI int list_file(int input);
-
-#ifdef __cplusplus
-}
-#endif
+MTCAPI PSFileStruct* NewPSFileStruct();
+MTCAPI void DeletePSFileStruct(PSFileStruct* file);
+MTCAPI int list_file(int input);
 

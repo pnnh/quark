@@ -10,7 +10,7 @@
 
 namespace quark {
 
-    class MTAPI MTSvg {
+    class MTCXXAPI MTSvg {
 
     };
 

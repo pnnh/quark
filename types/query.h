@@ -9,7 +9,7 @@
 
 namespace quark
 {
-  class MTAPI MTQueryString
+  class MTCXXAPI MTQueryString
   {
   public:
     explicit MTQueryString(const std::string& url_string);

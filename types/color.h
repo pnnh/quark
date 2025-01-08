@@ -7,7 +7,7 @@
 
 namespace quark
 {
-    class MTAPI MTColor
+    class MTCXXAPI MTColor
     {
     public:
         MTColor();

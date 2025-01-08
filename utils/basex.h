@@ -4,6 +4,6 @@
 
 namespace quark
 {
-    MTAPI std::string decode64(const std::string& val);
-    MTAPI std::string encode64(const std::string& val);
+    MTCXXAPI std::string decode64(const std::string& val);
+    MTCXXAPI std::string encode64(const std::string& val);
 }

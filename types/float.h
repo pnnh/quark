@@ -7,15 +7,15 @@
 
 namespace quark {
 
-    class MTAPI MTFloat {
+    class MTCXXAPI MTFloat {
 
     };
 
-    class MTAPI MTDouble {
+    class MTCXXAPI MTDouble {
 
     };
 
-    class MTAPI MTDecimal {
+    class MTCXXAPI MTDecimal {
 
     };
 

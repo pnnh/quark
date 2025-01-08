@@ -1,34 +1,47 @@
-#include "file.h"
+#include "file.hpp"
 #include <string>
 #include <filesystem>
-#include <utility>
 #include "quark/services/filesystem/filesystem.h"
 #include "quark/types/datetime.h"
 #include "quark/utils/md5.h"
 #include "quark/types//String.h"
 
-quark::FileServerBusiness::FileServerBusiness(const std::string& baseUrl)
+
+quark::FileServerBusiness::SelectFilesOptions::SelectFilesOptions()
 {
-    this->baseUrl = baseUrl;
+    directories = true; // 默认包含目录
+    files = true;    // 默认包含文件
+    hidden = false; // 默认不包含隐藏文件
+    ignore = false; // 默认不包含忽略文件
 }
 
-std::shared_ptr<std::vector<quark::PSFileModel>>
-quark::FileServerBusiness::selectFiles() const
+std::vector<quark::PSFileModel> quark::FileServerBusiness::selectFilesVector(std::string parentPath,
+            SelectFilesOptions options)
 {
-    return selectFiles("");
-}
+    auto files = std::vector<PSFileModel>();
 
-std::shared_ptr<std::vector<quark::PSFileModel>>
-quark::FileServerBusiness::selectFiles(std::string parentPath) const
-{
-    auto files = std::make_shared<std::vector<PSFileModel>>();
-
-    const std::string fullPath = quark::JoinFilePath({this->baseUrl, std::move(parentPath)});
+    const std::string fullPath = std::move(parentPath);
 
     for (const auto& entry : std::filesystem::directory_iterator(fullPath))
     {
         auto dirName = entry.path().filename();
         if (entry.path() == "." || entry.path() == "..")
+        {
+            continue;
+        }
+        if (!options.directories && entry.is_directory())
+        {
+            continue;
+        }
+        if (!options.files && !entry.is_directory())
+        {
+            continue;
+        }
+        if (!options.hidden && isHidden(dirName.string()))
+        {
+            continue;
+        }
+        if (!options.ignore && isIgnore(dirName.string()))
         {
             continue;
         }
@@ -44,21 +57,12 @@ quark::FileServerBusiness::selectFiles(std::string parentPath) const
         fileModel.IsIgnore = quark::isIgnore(filePath);
         fileModel.Title = filePath;
         fileModel.Name = filePath;
+        fileModel.Path = entry.path().string();
 
         fileModel.UpdateTime = quark::convertFilesystemTime(std::filesystem::last_write_time(entry));
         fileModel.CreateTime = fileModel.UpdateTime;
-        files->emplace_back(fileModel);
+        files.emplace_back(fileModel);
     }
 
     return files;
 }
-std::vector<quark::PSFileModel> quark::FileServerBusiness::selectFilesVector() const
-{
-    return *this->selectFiles();
-}
-
-std::vector<quark::PSFileModel> quark::FileServerBusiness::selectFilesVector(std::string parentPath) const
-{
-    return *this->selectFiles(std::move(parentPath));
-}
-

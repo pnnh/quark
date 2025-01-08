@@ -1,6 +1,6 @@
+#include "logger.hpp"
 #include "logger.h"
 
-#include <iostream>
 #include <iostream>
 
 #ifdef WIN32
@@ -28,4 +28,9 @@ void quark::Logger::LogInfo(std::initializer_list<std::string> messageList)
         fullMessage += " " + item;
     }
     std::cout << "[INFO] " << fullMessage << std::endl;
+}
+
+void MTLogInfo(const char* message)
+{
+    std::cout << "[INFO] " << message << std::endl;
 }

@@ -9,7 +9,7 @@
 
 namespace quark
 {
-    class MTAPI MTRegex
+    class MTCXXAPI MTRegex
     {
     public:
         static bool isMatch(const std::string& str, const std::string& pattern);

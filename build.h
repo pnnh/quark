@@ -1,5 +1,7 @@
 #ifdef _MSC_VER
-#define MTAPI __declspec (dllexport)
+#define MTCXXAPI __declspec (dllexport)
+#define MTCAPI __declspec (dllexport) extern "C"
 #else
-#define MTAPI __attribute__((visibility("default")))
+#define MTCXXAPI __attribute__((visibility("default")))
+#define MTCAPI __attribute__((visibility("default"))) extern "C"
 #endif

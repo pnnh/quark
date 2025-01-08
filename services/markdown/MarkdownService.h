@@ -5,5 +5,5 @@
 
 namespace quark
 {
-     MTAPI std::string markdownToHtml(const std::string& markdownText);
+     MTCXXAPI std::string markdownToHtml(const std::string& markdownText);
 }
