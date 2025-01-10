@@ -1,7 +1,6 @@
+#include "random.hpp"
 #include "random.h"
-
 #include <random>
-#include <ctime>
 
 int quark::PSRandom::randomInt(int min, int max)
 {
@@ -28,4 +27,9 @@ std::string quark::PSRandom::randomString(int length)
         result += str[randomInt(0, str.length() - 1)];
     }
     return result;
+}
+
+int MTRandomInt(int min, int max)
+{
+    return quark::PSRandom::randomInt(min, max);
 }

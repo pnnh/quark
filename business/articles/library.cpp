@@ -5,8 +5,7 @@
 #include "quark/types/String.h"
 
 #include "quark/types/Exception.h"
-#include "quark/services/filesystem/filesystem.h"
-#include "quark/services/logger/logger.h"
+#include "quark/services/filesystem/filesystem.hpp"
 #include "quark/services/yaml/yaml.h"
 #include "quark/utils/md5.h"
 

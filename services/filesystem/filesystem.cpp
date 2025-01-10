@@ -1,3 +1,4 @@
+#include "filesystem.hpp"
 #include "filesystem.h"
 
 #include <fstream>
@@ -84,4 +85,9 @@ bool quark::isIgnore(const std::string& path)
     }
 
     return false;
+}
+
+bool IsFileExist(const char* filePath)
+{
+    return quark::IsFileExist(filePath);
 }
