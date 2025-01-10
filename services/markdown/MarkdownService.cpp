@@ -1,6 +1,7 @@
 #include "MarkdownService.h"
 
 #include <cstring>
+#include <cstdlib>
 
 #include "cmark.h"
 
