@@ -62,6 +62,11 @@ std::chrono::system_clock::time_point quark::makeTimePoint(const std::string& ti
     return timePoint;
 }
 
+std::chrono::system_clock::time_point quark::PSDatetime::toTimePoint() const
+{
+    return this->timeValue;
+}
+
 std::string quark::formatTime(const std::chrono::system_clock::time_point& time_point)
 {
     std::time_t now = std::chrono::system_clock::to_time_t(time_point);
