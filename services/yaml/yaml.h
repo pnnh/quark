@@ -4,17 +4,15 @@
 #include <string>
 #include <yaml-cpp/node/node.h>
 
-namespace quark
-{
-    class YamlHandler
-    {
-    public:
-        explicit YamlHandler(const std::string& filePath);
+namespace quark {
+class YamlHandler {
+public:
+  explicit YamlHandler(const std::string &filePath);
 
-        std::optional<std::string> getString(const std::string& keyName);
+  std::string getString(const std::string &keyName);
 
-    private:
-        std::string _filePath;
-        YAML::Node _yamlConfig;
-    };
-}
+private:
+  std::string _filePath;
+  YAML::Node _yamlConfig;
+};
+} // namespace quark

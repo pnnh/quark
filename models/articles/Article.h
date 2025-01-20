@@ -5,26 +5,24 @@
 #include <chrono>
 #include <string>
 
-namespace quark
-{
-    class MTCXXAPI PSArticleModel
-    {
-    public:
-        PSArticleModel();
-        explicit PSArticleModel(const std::string& title);
+namespace quark {
+class MTCXXAPI PSArticleModel {
+public:
+  PSArticleModel();
+  explicit PSArticleModel(const std::string &title);
 
-        PSArticleModel(const PSArticleModel& other);
+  PSArticleModel(const PSArticleModel &other);
 
-        std::string URN;
-        std::string Title;
-        std::string Header;
-        std::string Body;
-        std::string Keywords;
-        std::string Description;
-        std::string Path;
-        std::string Channel;
-        std::string Cover;
-        quark::PSDatetime CreateTime;
-        quark::PSDatetime UpdateTime;
-    };
-}
+  std::string Uid;
+  std::string Title;
+  std::string Header;
+  std::string Body;
+  std::string Keywords;
+  std::string Description;
+  std::string Path;
+  std::string Channel;
+  std::string Cover;
+  quark::PSDatetime CreateTime;
+  quark::PSDatetime UpdateTime;
+};
+} // namespace quark

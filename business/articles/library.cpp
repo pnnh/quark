@@ -37,10 +37,10 @@ quark::LibraryServerBusiness::selectLibraries() const
         if (quark::IsFileExist(metadataFilePath))
         {
             auto yamlHandler = quark::YamlHandler(metadataFilePath);
-            libraryModel.URN = yamlHandler.getString("metadata.urn").value_or("");
-            libraryModel.Title = yamlHandler.getString("metadata.title").value_or(filePath);
-            libraryModel.Description = yamlHandler.getString("metadata.description").value_or("");
-            libraryModel.Image = yamlHandler.getString("metadata.image").value_or("");
+            libraryModel.URN = yamlHandler.getString("metadata.urn");
+            libraryModel.Title = yamlHandler.getString("metadata.title");
+            libraryModel.Description = yamlHandler.getString("metadata.description");
+            libraryModel.Image = yamlHandler.getString("metadata.image");
         }
         if (libraryModel.URN.empty())
         {
