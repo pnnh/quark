@@ -4,8 +4,6 @@
 #include <chrono>
 #include <ctime>
 
-#ifdef __cplusplus
-
 namespace quark
 {
     std::chrono::system_clock::time_point makeTimePoint(const std::string& s);
@@ -34,12 +32,3 @@ namespace quark
         std::chrono::system_clock::time_point timeValue;
     };
 }
-
-
-extern "C" {
-#endif
-
-
-#ifdef __cplusplus
-}
-#endif

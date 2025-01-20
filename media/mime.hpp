@@ -1,12 +1,11 @@
 #pragma once
 
-#include <string>
 #include "quark/build.h"
-
-#ifdef __cplusplus
+#include <boost/beast/http.hpp>
 
 namespace quark
 {
+    boost::beast::string_view mime_type(boost::beast::string_view path);
     class MTCXXAPI MTMime
     {
     public:
@@ -14,11 +13,3 @@ namespace quark
         static std::string getMimeType(const std::string& path);
     };
 }
-
-extern "C" {
-#endif
-
-
-#ifdef __cplusplus
-}
-#endif
