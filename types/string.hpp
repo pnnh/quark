@@ -36,4 +36,6 @@ private:
   std::string stringValue;
 };
 
+std::string strToLower(const std::string &str);
+
 } // namespace quark

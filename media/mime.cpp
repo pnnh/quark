@@ -1,7 +1,7 @@
 #include <filesystem>
 #include "mime.hpp"
 
-#include "quark/types/String.h"
+#include "quark/types/string.hpp"
 
 
 boost::beast::string_view quark::mime_type(boost::beast::string_view path)

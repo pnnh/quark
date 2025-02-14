@@ -3,7 +3,7 @@
 
 #include <filesystem>
 #include <fstream>
-#include <quark/types/String.h>
+#include <quark/types/string.hpp>
 
 bool quark::IsFileExist(const std::string &filePath) {
   std::ifstream inFile(filePath);

@@ -1,6 +1,6 @@
 #include "yaml.h"
 
-#include "quark/types/String.h"
+#include "quark/types/string.hpp"
 #include <regex>
 #include <yaml-cpp/yaml.h>
 

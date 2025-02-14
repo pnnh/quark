@@ -1,7 +1,7 @@
 #include "query.h"
 
 #include "Exception.h"
-#include "String.h"
+#include "string.hpp"
 
 #include <boost/range/algorithm.hpp>
 #include <regex>

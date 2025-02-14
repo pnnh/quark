@@ -1,4 +1,4 @@
-#include "String.h"
+#include "string.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -102,3 +102,7 @@ quark::PSString::PSString(std::string stdString)
     : stringValue(std::move(stdString)) {}
 
 quark::PSString &quark::PSString::operator=(const PSString &other) = default;
+
+std::string quark::strToLower(const std::string &str) {
+  return PSString::toLower(str);
+}
