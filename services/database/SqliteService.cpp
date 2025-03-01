@@ -1,8 +1,7 @@
 
 #include "SqliteService.h"
-#include "SqliteService.hpp"
 #include <sqlite3.h>
-#include <quark/types/string.hpp>
+#include <quark/types/string.h>
 
 quark::SqliteService::SqliteService(): sqlite3Database(nullptr) {
 }
@@ -57,14 +56,14 @@ std::string quark::SqliteService::sqliteVersion() {
     return verColumn.value().getStringValue();
 }
 
-QKSqliteService * QKSqliteServiceCreate(QKString *message) {
+QKSqliteService *QKSqliteServiceCreate(QKString *message) {
     auto path = QKStringToStdString(message);
     auto qkSvc = new QKSqliteService{};
     qkSvc->mtSqlSvc = new quark::SqliteService(path);
     return qkSvc;
 }
 
-void QKSqliteServiceDelete(QKSqliteService * instance) {
+void QKSqliteServiceDelete(QKSqliteService *instance) {
     if (instance == nullptr) return;
     if (instance->mtSqlSvc != nullptr) {
         auto ptr = static_cast<quark::SqliteService *>(instance->mtSqlSvc);
@@ -74,9 +73,10 @@ void QKSqliteServiceDelete(QKSqliteService * instance) {
     delete instance;
 }
 
-QKString *QKSqliteVersion(QKSqliteService * instance) {
+QKString *QKSqliteVersion(QKSqliteService *instance) {
     auto ptr = static_cast<quark::SqliteService *>(instance->mtSqlSvc);
     auto version = ptr->sqliteVersion();
     auto result = StdStringToQKStringPtr(version);
     return result;
 }
+

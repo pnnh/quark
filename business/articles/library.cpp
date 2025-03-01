@@ -2,7 +2,7 @@
 #include "library.h"
 #include <string>
 #include <filesystem>
-#include "quark/types/string.hpp"
+#include "quark/types/string.h"
 
 #include "quark/types/Exception.h"
 #include "quark/services/filesystem/filesystem.hpp"

@@ -2,7 +2,7 @@
 #include <sqlite3.h>
 #include <memory>
 
-#include "SqliteResult.hpp"
+#include "SqliteResult.h"
 
 namespace quark
 {

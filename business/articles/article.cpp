@@ -1,10 +1,10 @@
 #include "article.h"
 
-#include "quark/services/database/SqliteService.hpp"
+#include "quark/services/database/SqliteService.h"
 #include "quark/services/filesystem/filesystem.hpp"
 #include "quark/services/yaml/yaml.h"
 #include "quark/types/Exception.h"
-#include "quark/types/string.hpp"
+#include "quark/types/string.h"
 #include "quark/utils/md5.h"
 #include <filesystem>
 #include <string>

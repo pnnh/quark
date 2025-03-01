@@ -5,7 +5,7 @@
 
 #include "quark/services/filesystem/filesystem.hpp"
 #include "quark/services/yaml/yaml.h"
-#include "quark/types/string.hpp"
+#include "quark/types/string.h"
 #include "quark/utils/md5.h"
 
 quark::ChannelServerBusiness::ChannelServerBusiness(

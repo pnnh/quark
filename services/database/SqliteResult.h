@@ -1,7 +1,17 @@
 #pragma once
 
-// #include <iostream>
-//#include <string>
+
+#ifdef __cplusplus
+
+
+extern "C" {
+#endif
+
+
+
+#ifdef __cplusplus
+}
+
 #include <vector>
 #include "quark/services/database/SqliteRow.hpp"
 
@@ -27,3 +37,4 @@ namespace quark
     };
 }
 
+#endif
