@@ -12,7 +12,9 @@ typedef struct {
     size_t length;
 } QKString;
 
-CXAPI QKString *QKStringCreate(char *data, size_t length);
+CXAPI QKString *QKStringCreateWithLength(char *data, size_t length);
+
+CXAPI QKString *QKStringCreate(char *data);
 
 
 #ifdef __cplusplus

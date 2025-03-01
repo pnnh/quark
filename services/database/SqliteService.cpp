@@ -22,24 +22,24 @@ quark::SqliteService::~SqliteService() {
     }
 }
 
-quark::SqliteResult quark::SqliteService::runSql(const std::string &sqlText) {
+quark::MTSqliteResult quark::SqliteService::runSql(const std::string &sqlText) {
     auto command = createCommand(sqlText);
     auto runResult = command->Run();
     if (runResult == nullptr) throw PSException("Can't run sql command");
     return *runResult;
 }
 
-quark::SqliteResult quark::SqliteService::runSql(const std::string &&text) {
+quark::MTSqliteResult quark::SqliteService::runSql(const std::string &&text) {
     return runSql(text);
 }
 
-std::shared_ptr<quark::SqliteCommand> quark::SqliteService::createCommand(const std::string &sqlText) {
+std::shared_ptr<quark::MTSqliteCommand> quark::SqliteService::createCommand(const std::string &sqlText) {
     sqlite3_stmt *stmt;
     auto rc = sqlite3_prepare_v2(this->sqlite3Database, sqlText.c_str(), static_cast<int>(sqlText.length() + 1),
                                  &stmt, nullptr);
     if (rc) throw PSException("Can't prepare statement", sqlite3_errmsg(this->sqlite3Database));
 
-    return std::make_shared<SqliteCommand>(this->sqlite3Database, stmt, sqlText);
+    return std::make_shared<MTSqliteCommand>(this->sqlite3Database, stmt, sqlText);
 }
 
 void quark::SqliteService::runSqlBatch(const std::vector<std::string> &sqlTextVector) {
@@ -80,3 +80,11 @@ QKString *QKSqliteVersion(QKSqliteService *instance) {
     return result;
 }
 
+QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance, QKString *sqlText) {
+    auto ptr = static_cast<quark::SqliteService *>(instance->mtSqlSvc);
+    auto stdSqlText = QKStringToStdString(sqlText);
+    auto mtSqlResult = ptr->runSql(stdSqlText);
+    auto qkSqlResult = new QKSqliteResult{};
+    qkSqlResult->mtSqlResult = new quark::MTSqliteResult(mtSqlResult);
+    return qkSqlResult;
+}

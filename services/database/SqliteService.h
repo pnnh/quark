@@ -1,6 +1,9 @@
 #pragma once
 
 #include "quark/types/string.h"
+#include "SqliteResult.h"
+#include "SqliteCommand.h"
+#include <sqlite3.h>
 
 #ifdef __cplusplus
 
@@ -18,18 +21,16 @@ CXAPI void QKSqliteServiceDelete(QKSqliteService *instance);
 
 CXAPI QKString *QKSqliteVersion(QKSqliteService *instance);
 
+CXAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance, QKString *sqlText);
+
 
 #ifdef __cplusplus
 }
 
-
-#include <sqlite3.h>
-#include <memory>
-#include <quark/build.h>
-
-#include "SqliteCommand.hpp"
 #include "quark/types/Exception.h"
-#include "quark/services/database/SqliteResult.h"
+
+
+#include <memory>
 
 namespace quark {
 	class CXAPI SqliteService {
@@ -48,11 +49,11 @@ namespace quark {
 
 		SqliteService &operator=(SqliteService &&) = delete;
 
-		SqliteResult runSql(const std::string &text);
+		MTSqliteResult runSql(const std::string &text);
 
-		SqliteResult runSql(const std::string &&text);
+		MTSqliteResult runSql(const std::string &&text);
 
-		std::shared_ptr<SqliteCommand> createCommand(const std::string &text);
+		std::shared_ptr<MTSqliteCommand> createCommand(const std::string &text);
 
 		void runSqlBatch(const std::vector<std::string> &sqlTextVector);
 

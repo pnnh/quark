@@ -1,26 +1,26 @@
-#include "SqliteColumn.hpp"
+#include "SqliteColumn.h"
 
 #include <sqlite3.h>
 
 #include "quark/types/Exception.h"
 
 
-quark::SqliteColumn::SqliteColumn() : colType(), colIndex()
+quark::MTSqliteColumn::MTSqliteColumn() : colType(), colIndex()
 {
 }
 
-quark::SqliteColumn::SqliteColumn(const int colType, const int colIndex, const std::string&& colName) :
+quark::MTSqliteColumn::MTSqliteColumn(const int colType, const int colIndex, const std::string&& colName) :
     colType(colType), colIndex(colIndex),
     colName(colName)
 {
     if (colIndex < 0) throw quark::PSException("列索引必须大于等于0");
 }
 
-quark::SqliteColumn::~SqliteColumn()
+quark::MTSqliteColumn::~MTSqliteColumn()
 {
 }
 
-quark::SqliteColumn::SqliteColumn(const SqliteColumn& other) :
+quark::MTSqliteColumn::MTSqliteColumn(const MTSqliteColumn& other) :
     colType(other.colType), colIndex(other.colIndex),
     colName(other.colName), colIsNull(other.colIsNull)
 {
@@ -39,7 +39,7 @@ quark::SqliteColumn::SqliteColumn(const SqliteColumn& other) :
     variantValue = other.variantValue;
 }
 
-quark::SqliteColumn& quark::SqliteColumn::operator=(const SqliteColumn& other)
+quark::MTSqliteColumn& quark::MTSqliteColumn::operator=(const MTSqliteColumn& other)
 {
     colType = other.colType;
     colIndex = other.colIndex;
@@ -61,7 +61,7 @@ quark::SqliteColumn& quark::SqliteColumn::operator=(const SqliteColumn& other)
     return *this;
 }
 
-quark::SqliteColumn::SqliteColumn(SqliteColumn&& other) noexcept :
+quark::MTSqliteColumn::MTSqliteColumn(MTSqliteColumn&& other) noexcept :
     colType(other.colType), colIndex(other.colIndex),
     colName(std::move(other.colName)), colIsNull(other.colIsNull)
 {
@@ -80,7 +80,7 @@ quark::SqliteColumn::SqliteColumn(SqliteColumn&& other) noexcept :
     variantValue = std::move(other.variantValue);
 }
 
-quark::SqliteColumn& quark::SqliteColumn::operator=(SqliteColumn&& other) noexcept
+quark::MTSqliteColumn& quark::MTSqliteColumn::operator=(MTSqliteColumn&& other) noexcept
 {
     colType = other.colType;
     colIndex = other.colIndex;
@@ -110,75 +110,75 @@ quark::SqliteColumn& quark::SqliteColumn::operator=(SqliteColumn&& other) noexce
     return *this;
 }
 
-int quark::SqliteColumn::getColIndex() const
+int quark::MTSqliteColumn::getColIndex() const
 {
     return colIndex;
 }
 
-std::string quark::SqliteColumn::getColName() const
+std::string quark::MTSqliteColumn::getColName() const
 {
     if (colName.empty()) return "column" + std::to_string(colIndex);
     return colName;
 }
 
-std::string quark::SqliteColumn::getStringValue() const
+std::string quark::MTSqliteColumn::getStringValue() const
 {
     return variantValue.index() == 0 ? std::get<std::string>(variantValue) : "";
 }
 
-void quark::SqliteColumn::setStringValue(const char* value)
+void quark::MTSqliteColumn::setStringValue(const char* value)
 {
     // stringValue = value;
     variantValue = std::string(value);
 }
 
-void quark::SqliteColumn::setStringValue(const std::string& value)
+void quark::MTSqliteColumn::setStringValue(const std::string& value)
 {
     // stringValue = value;
     variantValue = value;
 }
 
-void quark::SqliteColumn::setStringValue(const std::string&& value)
+void quark::MTSqliteColumn::setStringValue(const std::string&& value)
 {
     // stringValue = value;
     variantValue = value;
 }
 
-int quark::SqliteColumn::getIntValue() const
+int quark::MTSqliteColumn::getIntValue() const
 {
     // return intValue;
     return variantValue.index() == 1 ? static_cast<int>(std::get<long>(variantValue)) : 0;
 }
 
-void quark::SqliteColumn::setIntValue(int value)
+void quark::MTSqliteColumn::setIntValue(int value)
 {
     // intValue = value;
     variantValue = static_cast<long>(value);
 }
 
-double quark::SqliteColumn::getFloatValue() const
+double quark::MTSqliteColumn::getFloatValue() const
 {
     // return floatValue;
     return variantValue.index() == 2 ? std::get<double>(variantValue) : 0;
 }
 
-void quark::SqliteColumn::setFloatValue(double value)
+void quark::MTSqliteColumn::setFloatValue(double value)
 {
     // floatValue = value;
     variantValue = value;
 }
 
-int quark::SqliteColumn::getColType() const
+int quark::MTSqliteColumn::getColType() const
 {
     return colType;
 }
 
-bool quark::SqliteColumn::isNull() const
+bool quark::MTSqliteColumn::isNull() const
 {
     return colIsNull;
 }
 
-void quark::SqliteColumn::setNull()
+void quark::MTSqliteColumn::setNull()
 {
     colIsNull = true;
 }

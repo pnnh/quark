@@ -126,7 +126,7 @@ QKString StdStringToQKString(std::string stdString) {
   return qkStr;
 }
 
-QKString *StdStringToQKStringPtr(const std::string& stdString) {
+QKString *StdStringToQKStringPtr(const std::string &stdString) {
   auto qkStr = new QKString();
   qkStr->data = new char[stdString.size()];
   strcpy(qkStr->data, stdString.c_str());
@@ -134,9 +134,16 @@ QKString *StdStringToQKStringPtr(const std::string& stdString) {
   return qkStr;
 }
 
-QKString *QKStringCreate(char *data, size_t length) {
+QKString *QKStringCreateWithLength(char *data, size_t length) {
   auto qkStr = new QKString();
   qkStr->data = data;
   qkStr->length = length;
+  return qkStr;
+}
+
+QKString *QKStringCreate(char *data) {
+  auto qkStr = new QKString();
+  qkStr->data = data;
+  qkStr->length = sizeof(data);
   return qkStr;
 }
