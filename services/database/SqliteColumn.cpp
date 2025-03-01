@@ -1,4 +1,4 @@
-#include "SqliteColumn.h"
+#include "SqliteColumn.hpp"
 
 #include <sqlite3.h>
 

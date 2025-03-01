@@ -8,7 +8,7 @@
 namespace quark
 {
 
-    class MTCXXAPI FileServerBusiness
+    class CXAPI FileServerBusiness
     {
     public:
 		struct SelectFilesOptions {

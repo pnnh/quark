@@ -6,7 +6,7 @@
 
 namespace quark
 {
-    class MTCXXAPI PSFileModel
+    class CXAPI PSFileModel
     {
     public:
         explicit PSFileModel(std::string title);

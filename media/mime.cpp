@@ -44,7 +44,7 @@ bool quark::MTMime::isImage(const std::string& path)
 {
     const auto stdPath = std::filesystem::path(path);
     auto ext = stdPath.extension().string();
-    ext = PSString::toLower(ext);
+    ext = MTString::toLower(ext);
     if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif" || ext == ".webp")
         return true;
     return false;
@@ -55,7 +55,7 @@ std::string quark::MTMime::getMimeType(const std::string& path)
 {
     const auto stdPath = std::filesystem::path(path);
     auto ext = stdPath.extension().string();
-    ext = PSString::toLower(ext);
+    ext = MTString::toLower(ext);
 
     if (ext == ".txt")
         return "text/plain";

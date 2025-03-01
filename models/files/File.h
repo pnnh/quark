@@ -2,7 +2,7 @@
 
 #include "quark/build.h"
 
-MTCAPI typedef struct PSFileStruct
+CXAPI typedef struct PSFileStruct
 {
     char* URN{};
     char* Title{};
@@ -14,7 +14,7 @@ MTCAPI typedef struct PSFileStruct
     bool IsIgnore{};
 } PSFileStruct;
 
-MTCAPI PSFileStruct* NewPSFileStruct();
-MTCAPI void DeletePSFileStruct(PSFileStruct* file);
-MTCAPI int list_file(int input);
+CXAPI PSFileStruct* NewPSFileStruct();
+CXAPI void DeletePSFileStruct(PSFileStruct* file);
+CXAPI int list_file(int input);
 

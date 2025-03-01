@@ -6,7 +6,7 @@
 #include <string>
 
 namespace quark {
-class MTCXXAPI PSArticleModel {
+class CXAPI PSArticleModel {
 public:
   PSArticleModel();
   explicit PSArticleModel(const std::string &title);

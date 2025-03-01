@@ -8,7 +8,7 @@ std::string quark::YamlHandler::getString(const std::string &keyName) {
   // 多级key
   if (keyName.rfind('.', 0) > 0 &&
       std::regex_match(keyName, std::regex(R"(^(\w+\.)+\w+$)"))) {
-    auto nameList = PSString::SplitChar(keyName, '.');
+    auto nameList = MTString::SplitChar(keyName, '.');
     YAML::Node node = _yamlConfig;
     for (const auto &name : nameList) {
       if (node[name]) {

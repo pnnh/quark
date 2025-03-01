@@ -11,7 +11,7 @@ namespace quark
     // 校验是否合法的Email地址
     bool validateEmail(const std::string& email);
 
-    class MTCXXAPI MTEMail {
+    class CXAPI MTEMail {
 
     };
 }

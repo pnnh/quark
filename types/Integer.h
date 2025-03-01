@@ -7,7 +7,7 @@
 
 namespace quark {
 
-class MTCXXAPI MTInteger {
+class CXAPI MTInteger {
 
 };
 

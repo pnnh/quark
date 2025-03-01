@@ -1,4 +1,4 @@
-#include "SqliteResult.h"
+#include "SqliteResult.hpp"
 
 void quark::SqliteResult::appendRow(const SqliteRow&& row)
 {

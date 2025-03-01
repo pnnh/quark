@@ -2,4 +2,4 @@
 
 #include "quark/build.h"
 
-MTCAPI bool IsFileExist(const char* filePath);
+CXAPI bool IsFileExist(const char* filePath);

@@ -1,4 +1,4 @@
-#include "SqliteRow.h"
+#include "SqliteRow.hpp"
 #include <algorithm>
 
 void quark::SqliteRow::appendColumn(const quark::SqliteColumn&& column)

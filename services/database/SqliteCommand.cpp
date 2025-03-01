@@ -1,4 +1,4 @@
-#include "SqliteCommand.h"
+#include "SqliteCommand.hpp"
 
 #include "quark/types/Exception.h"
 

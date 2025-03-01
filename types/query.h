@@ -6,7 +6,7 @@
 #include <string>
 
 namespace quark {
-class MTCXXAPI MTQueryString {
+class CXAPI MTQueryString {
 public:
   explicit MTQueryString(const std::string &url_string);
 

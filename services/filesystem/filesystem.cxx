@@ -5,6 +5,6 @@ module;
 
 export module logger.filesystem;
 
-export bool MTCXXAPI IsFileExist(const std::string& filePath) {
+export bool CXAPI IsFileExist(const std::string& filePath) {
     return quark::IsFileExist(filePath);
 }

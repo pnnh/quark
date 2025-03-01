@@ -7,7 +7,7 @@
 
 namespace quark {
 
-    class MTCXXAPI MTCube {
+    class CXAPI MTCube {
 
     };
 

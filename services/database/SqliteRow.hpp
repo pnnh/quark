@@ -6,7 +6,7 @@
 #include <sqlite3.h>
 #include <string>
 #include <vector>
-#include "quark/services/database/SqliteColumn.h"
+#include "quark/services/database/SqliteColumn.hpp"
 
 namespace quark
 {

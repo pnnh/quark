@@ -52,12 +52,12 @@ std::string quark::UserHomeDirectory() {
 std::string quark::ResolvePath(const std::string &path) {
   const std::string filePrefix = "file://";
   auto newPath = path;
-  if (PSString::StartsWith(newPath, filePrefix)) {
+  if (MTString::StartsWith(newPath, filePrefix)) {
     newPath = path.substr(filePrefix.length());
   }
-  if (PSString::StartsWith(newPath, "~/")) {
+  if (MTString::StartsWith(newPath, "~/")) {
     return UserHomeDirectory() + newPath.substr(1);
-  } else if (PSString::StartsWith(newPath, "./")) {
+  } else if (MTString::StartsWith(newPath, "./")) {
     return std::filesystem::current_path().string() + newPath.substr(1);
   }
   return path;

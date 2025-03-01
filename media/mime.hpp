@@ -5,7 +5,7 @@
 namespace quark
 {
     std::string mime_type(const std::string& path);
-    class MTCXXAPI MTMime
+    class CXAPI MTMime
     {
     public:
         static bool isImage(const std::string& path);

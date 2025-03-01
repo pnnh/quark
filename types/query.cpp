@@ -8,8 +8,8 @@
 
 quark::MTQueryString::MTQueryString(const std::string &url_string) {
   auto fullUrl = std::string(url_string);
-  if (!quark::PSString::StartsWith(fullUrl, "http://") &&
-      !quark::PSString::StartsWith(fullUrl, "https://")) {
+  if (!quark::MTString::StartsWith(fullUrl, "http://") &&
+      !quark::MTString::StartsWith(fullUrl, "https://")) {
     if (fullUrl.empty()) {
       throw quark::PSException(quark::QuantumEnum::ERROR,
                                "url_string is empty");

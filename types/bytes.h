@@ -10,11 +10,11 @@
 
 namespace quark {
 
-    class MTCXXAPI MTByte {
+    class CXAPI MTByte {
 
     };
 
-    class MTCXXAPI MTBytesArray {
+    class CXAPI MTBytesArray {
 
     };
 

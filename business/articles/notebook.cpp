@@ -46,5 +46,5 @@ quark::NotebookServerBusiness::selectNotebooks() const {
 }
 
 bool quark::isNotebookDirectory(const std::string &directoryName) {
-  return quark::PSString::EndsWith(directoryName, ".notebook");
+  return quark::MTString::EndsWith(directoryName, ".notebook");
 }

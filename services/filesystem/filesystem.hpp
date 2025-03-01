@@ -7,7 +7,7 @@
 #include "quark/types/datetime.hpp"
 
 namespace quark {
-bool MTCXXAPI IsFileExist(const std::string &filePath);
+bool CXAPI IsFileExist(const std::string &filePath);
 
 std::string JoinFilePath(std::initializer_list<std::string> pathList);
 std::string PathFileName(const std::string &filePath);

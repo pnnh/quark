@@ -7,7 +7,7 @@
 
 namespace quark {
 
-    class MTCXXAPI MTSize {
+    class CXAPI MTSize {
 
     };
 

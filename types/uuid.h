@@ -8,7 +8,7 @@
 
 namespace quark
 {
-    class MTCXXAPI MTUUID
+    class CXAPI MTUUID
     {
     public:
         static bool isUUID(const std::string& uuid_string);

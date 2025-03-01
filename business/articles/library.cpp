@@ -54,5 +54,5 @@ quark::LibraryServerBusiness::selectLibraries() const
 
 bool quark::isLibraryDirectory(const std::string& directoryName)
 {
-    return quark::PSString::EndsWith(directoryName, ".notelibrary");
+    return quark::MTString::EndsWith(directoryName, ".notelibrary");
 }

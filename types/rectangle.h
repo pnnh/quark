@@ -7,7 +7,7 @@
 
 namespace quark {
 
-    class MTCXXAPI MTRectangle {
+    class CXAPI MTRectangle {
 
     };
 

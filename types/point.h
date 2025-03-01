@@ -6,7 +6,7 @@
 
 namespace quark {
 
-    class MTCXXAPI MTPoint {
+    class CXAPI MTPoint {
 
     };
 

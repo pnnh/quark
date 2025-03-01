@@ -1,6 +1,6 @@
 #include "article.h"
 
-#include "quark/services/database/SqliteService.h"
+#include "quark/services/database/SqliteService.hpp"
 #include "quark/services/filesystem/filesystem.hpp"
 #include "quark/services/yaml/yaml.h"
 #include "quark/types/Exception.h"
@@ -22,13 +22,13 @@ quark::ArticleFileService::ParseArticle(const std::string &chanURN,
   if (quark::IsFileExist(metadataFilePath)) {
     auto yamlHandler = quark::YamlHandler(metadataFilePath);
     articleModel.Uid =
-        quark::PSString::toLower(yamlHandler.getString("metadata.urn"));
+        quark::MTString::toLower(yamlHandler.getString("metadata.urn"));
     articleModel.Title = yamlHandler.getString("metadata.title");
     articleModel.Description = yamlHandler.getString("metadata.description");
     articleModel.Cover = yamlHandler.getString("metadata.cover");
   }
   if (articleModel.Uid.empty()) {
-    articleModel.Uid = quark::PSString::toLower(quark::calcMd5(fullPath));
+    articleModel.Uid = quark::MTString::toLower(quark::calcMd5(fullPath));
   }
   if (articleModel.Title.empty()) {
     articleModel.Title = quark::PathFileName(fullPath);
@@ -71,7 +71,7 @@ quark::ArticleFileService::scanArticles(const std::string &chanURN,
 }
 
 bool quark::isArticleDirectory(const std::string &directoryName) {
-  return quark::PSString::EndsWith(directoryName, ".note");
+  return quark::MTString::EndsWith(directoryName, ".note");
 }
 
 quark::ArticleSqliteService::ArticleSqliteService(std::string dbPath)

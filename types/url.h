@@ -8,7 +8,7 @@
 
 namespace quark
 {
-    class MTCXXAPI MTUrl
+    class CXAPI MTUrl
     {
     public:
         static std::string encode(const std::string& url);

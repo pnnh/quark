@@ -1,36 +1,25 @@
 #pragma once
 
-#include <sqlite3.h>
-#include <memory>
-#include "SqliteCommand.h"
-#include "quark/types/Exception.h"
-#include "quark/services/database/SqliteResult.h"
+#include "quark/types/string.h"
 
-namespace quark
-{
-    class SqliteService
-    {
-    public:
-        SqliteService();
-        explicit SqliteService(const std::string& path);
-        ~SqliteService();
+#ifdef __cplusplus
 
-        SqliteService(const SqliteService&) = delete;
-        SqliteService& operator=(const SqliteService&) = delete;
-        SqliteService(SqliteService&&) = delete;
-        SqliteService& operator=(SqliteService&&) = delete;
 
-        SqliteResult runSql(const std::string& text);
-        SqliteResult runSql(const std::string&& text);
 
-        std::shared_ptr<SqliteCommand> createCommand(const std::string& text);
+extern "C" {
+#endif
 
-        void runSqlBatch(const std::vector<std::string>& sqlTextVector);
+CXAPI typedef  struct  {
+	void *mtSqlSvc;
+}QKSqliteService;
 
-        std::string sqliteVersion();
+CXAPI QKSqliteService * QKSqliteServiceCreate(QKString *message);
 
-    private:
-        sqlite3* sqlite3Database;
-    };
+CXAPI void QKSqliteServiceDelete(QKSqliteService * instance);
+
+CXAPI QKString *QKSqliteVersion(QKSqliteService * instance);
+
+
+#ifdef __cplusplus
 }
-
+#endif

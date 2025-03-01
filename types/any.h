@@ -6,7 +6,7 @@
 
 namespace quark {
 
-    class MTCXXAPI MTAny {
+    class CXAPI MTAny {
 
     };
 
