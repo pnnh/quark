@@ -34,3 +34,11 @@ std::optional<quark::MTSqliteColumn> quark::MTSqliteResult::getColumn(int rowInd
     if (!sqlRow.has_value()) return std::nullopt;
     return sqlRow.value().getColumn(static_cast<std::string>(colName));
 }
+
+QKSqliteRow *QKSqliteResultGetRow(QKSqliteResult *instance, int index) {
+    auto mtSqlResult = static_cast<quark::MTSqliteResult *>(instance->mtSqlResult);
+    auto row = mtSqlResult->getRow(index);
+    if (!row.has_value()) return nullptr;
+    auto qkRow = MTSqliteRowToQKSqliteRow(row.value());
+    return qkRow;
+}

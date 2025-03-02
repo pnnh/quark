@@ -8,13 +8,12 @@ extern "C" {
 #endif
 
 typedef struct {
-    char *data;
-    size_t length;
+    void *mtStr;
 } QKString;
 
-CXAPI QKString *QKStringCreateWithLength(char *data, size_t length);
-
 CXAPI QKString *QKStringCreate(char *data);
+
+CXAPI char *QKStringGetData(QKString *qkStr);
 
 
 #ifdef __cplusplus
@@ -63,6 +62,10 @@ namespace quark {
 
         static std::string trimRight(const std::string &orgStr,
                                      const std::string &str);
+
+        std::string toStdString() const;
+
+        char *getCString() const;
 
     private:
         std::string stringValue;

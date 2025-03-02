@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-#include "quark/services/filesystem/filesystem.hpp"
+#include "quark/services/filesystem/filesystem.h"
 #include "quark/services/yaml/yaml.h"
 #include "quark/types/string.h"
 #include "quark/utils/md5.h"

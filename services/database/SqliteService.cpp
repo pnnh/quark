@@ -37,7 +37,8 @@ std::shared_ptr<quark::MTSqliteCommand> quark::SqliteService::createCommand(cons
     sqlite3_stmt *stmt;
     auto rc = sqlite3_prepare_v2(this->sqlite3Database, sqlText.c_str(), static_cast<int>(sqlText.length() + 1),
                                  &stmt, nullptr);
-    if (rc) throw PSException("Can't prepare statement", sqlite3_errmsg(this->sqlite3Database));
+    auto sqlErr = sqlite3_errmsg(this->sqlite3Database);
+    if (rc) throw PSException("Can't prepare statement", sqlErr);
 
     return std::make_shared<MTSqliteCommand>(this->sqlite3Database, stmt, sqlText);
 }

@@ -97,6 +97,14 @@ std::string quark::MTString::trimRight(const std::string &orgStr,
   return newStr;
 }
 
+std::string quark::MTString::toStdString() const {
+  return stringValue;
+}
+
+char *quark::MTString::getCString() const {
+  return const_cast<char *>(stringValue.c_str());
+}
+
 quark::MTString::MTString() = default;
 
 quark::MTString::MTString(std::string stdString)
@@ -109,41 +117,31 @@ std::string quark::strToLower(const std::string &str) {
   return MTString::toLower(str);
 }
 
-auto QKStringToMTString(QKString *str) -> quark::MTString {
-  auto stdStr = std::string(str->data, str->length);
-  return quark::MTString(stdStr);
+auto QKStringToMTString(QKString *qkStr) -> quark::MTString {
+  auto mtStr = static_cast<quark::MTString *>(qkStr->mtStr);
+  return quark::MTString(mtStr->toStdString());
 }
 
-std::string QKStringToStdString(QKString *str) {
-  auto stdStr = std::string(str->data, str->length);
-  return stdStr;
-}
-
-QKString StdStringToQKString(std::string stdString) {
-  auto qkStr = QKString();
-  qkStr.data = stdString.data();
-  qkStr.length = stdString.size();
-  return qkStr;
+std::string QKStringToStdString(QKString *qkStr) {
+  auto mtStr = static_cast<quark::MTString *>(qkStr->mtStr);
+  return mtStr->toStdString();
 }
 
 QKString *StdStringToQKStringPtr(const std::string &stdString) {
   auto qkStr = new QKString();
-  qkStr->data = new char[stdString.size()];
-  strcpy(qkStr->data, stdString.c_str());
-  qkStr->length = stdString.size();
-  return qkStr;
-}
-
-QKString *QKStringCreateWithLength(char *data, size_t length) {
-  auto qkStr = new QKString();
-  qkStr->data = data;
-  qkStr->length = length;
+  qkStr->mtStr = new quark::MTString(stdString);
   return qkStr;
 }
 
 QKString *QKStringCreate(char *data) {
   auto qkStr = new QKString();
-  qkStr->data = data;
-  qkStr->length = sizeof(data);
+  auto mtStr = new quark::MTString(data);
+  qkStr->mtStr = mtStr;
   return qkStr;
+}
+
+char *QKStringGetData(QKString *qkStr) {
+  auto mtStr = static_cast<quark::MTString *>(qkStr->mtStr);
+
+  return mtStr->getCString();
 }

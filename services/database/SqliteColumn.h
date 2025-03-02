@@ -13,9 +13,11 @@ typedef struct {
 
 QKSqliteColumn *QKSqliteColumnCreate();
 
-QKString *QKSQliteColumnGetStringVaule(QKSqliteColumn *instance);
+QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance);
 
-int QKSQliteColumnGetIntVaule(QKSqliteColumn *instance);
+int QKSQliteColumnGetIntValue(QKSqliteColumn *instance);
+
+QKSqliteColumn *QKSqliteColumnCreate();
 
 #ifdef __cplusplus
 }
@@ -80,5 +82,7 @@ namespace quark {
         std::variant<std::string, long, double> variantValue;
     };
 }
+
+CXAPI QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(const quark::MTSqliteColumn &mtSqlCol);
 
 #endif

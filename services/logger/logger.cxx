@@ -2,7 +2,12 @@ module;
 
 #include <iostream>
 
-module quark.logger;
+class QKLogger {
+public:
+  QKLogger();
+  static void LogInfo(const char* message);
+};
+
 
 QKLogger::QKLogger() = default;
 

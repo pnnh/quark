@@ -1,7 +1,7 @@
 #include "article.h"
 
 #include "quark/services/database/SqliteService.h"
-#include "quark/services/filesystem/filesystem.hpp"
+#include "quark/services/filesystem/filesystem.h"
 #include "quark/services/yaml/yaml.h"
 #include "quark/types/Exception.h"
 #include "quark/types/string.h"

@@ -1,4 +1,3 @@
-#include "filesystem.hpp"
 #include "filesystem.h"
 
 #include <filesystem>
@@ -13,7 +12,7 @@ bool quark::IsFileExist(const std::string &filePath) {
 std::string quark::JoinFilePath(std::initializer_list<std::string> pathList) {
   std::string temp;
   std::filesystem::path fullPath;
-  for (const std::string &item : pathList) {
+  for (const std::string &item: pathList) {
     std::filesystem::path itemPath(item);
     fullPath = fullPath / itemPath;
   }
@@ -28,21 +27,22 @@ std::string quark::PathFileName(const std::string &filePath) {
 std::time_t
 quark::convertFilesystemTime(const std::filesystem::file_time_type &fileTime) {
   auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(
-      fileTime - std::filesystem::file_time_type::clock::now() +
-      std::chrono::system_clock::now());
+    fileTime - std::filesystem::file_time_type::clock::now() +
+    std::chrono::system_clock::now());
   return std::chrono::system_clock::to_time_t(sctp);
 }
 
 quark::PSDatetime quark::fileLastModifyTime(const std::string &filePath) {
   std::filesystem::path itemPath(filePath);
   quark::PSDatetime lastTime{
-      quark::convertFilesystemTime(last_write_time(itemPath))};
+    quark::convertFilesystemTime(last_write_time(itemPath))
+  };
   return lastTime;
 }
 
 std::string quark::UserHomeDirectory() {
   if (char const *home = getenv("HOME");
-      home or ((home = getenv("USERPROFILE")))) {
+    home or ((home = getenv("USERPROFILE")))) {
     return home;
   }
   char const *hdrive = getenv("HOMEDRIVE"), *hpath = getenv("HOMEPATH");
@@ -94,7 +94,6 @@ bool quark::isIgnore(const std::string &path) {
   return false;
 }
 
-bool IsFileExist(const char* filePath)
-{
-    return quark::IsFileExist(filePath);
+bool IsFileExist(const char *filePath) {
+  return quark::IsFileExist(filePath);
 }

@@ -14,6 +14,8 @@ typedef struct {
 
 QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index);
 
+QKSqliteRow *QKSqliteRowCreate();
+
 #ifdef __cplusplus
 }
 
@@ -27,9 +29,6 @@ QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index);
 namespace quark {
     class MTSqliteRow {
     public:
-        MTSqliteRow(): colNames(), columnValues() {
-        }
-
         void appendColumn(const MTSqliteColumn &&column);
 
         std::optional<MTSqliteColumn> getColumn(const std::string &&colName);
@@ -41,5 +40,7 @@ namespace quark {
         std::map<int, MTSqliteColumn> columnValues;
     };
 }
+
+QKSqliteRow *MTSqliteRowToQKSqliteRow(const quark::MTSqliteRow &mtSqlRow);
 
 #endif
