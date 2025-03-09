@@ -12,11 +12,11 @@ typedef struct {
     void *mtSqlRow;
 } QKSqliteRow;
 
-QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index);
+CXAPI QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index);
 
-QKSqliteColumn *QKSqliteRowGetColumnByName(QKSqliteRow *instance, QKString *name);
+CXAPI QKSqliteColumn *QKSqliteRowGetColumnByName(QKSqliteRow *instance, QKString *name);
 
-QKSqliteRow *QKSqliteRowCreate();
+CXAPI QKSqliteRow *QKSqliteRowCreate();
 
 #ifdef __cplusplus
 }

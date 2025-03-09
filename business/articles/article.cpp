@@ -80,7 +80,7 @@ quark::ArticleSqliteService::ArticleSqliteService(std::string dbPath)
 
 std::shared_ptr<std::vector<quark::PSArticleModel> >
 quark::ArticleSqliteService::selectArticles(const std::string &chanURN) const {
-  auto sqliteService = quark::SqliteService(this->dbPath);
+  auto sqliteService = quark::MTSqliteService(this->dbPath);
 
   std::string sqlText = "SELECT * FROM articles ";
   auto sqlCommand = sqliteService.createCommand(sqlText);
@@ -127,7 +127,7 @@ quark::ArticleSqliteService::selectArticles(const std::string &chanURN) const {
 
 std::shared_ptr<quark::PSArticleModel>
 quark::ArticleSqliteService::getArticle(const std::string &noteURN) const {
-  auto sqliteService = quark::SqliteService(this->dbPath);
+  auto sqliteService = quark::MTSqliteService(this->dbPath);
 
   std::string sqlText = "SELECT * FROM articles where urn=$urn ";
   auto sqlCommand = sqliteService.createCommand(sqlText);

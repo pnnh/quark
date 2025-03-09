@@ -12,7 +12,7 @@ typedef struct {
     void *mtSqlResult;
 } QKSqliteResult;
 
-QKSqliteRow *QKSqliteResultGetRow(QKSqliteResult *instance, int index);
+CXAPI QKSqliteRow *QKSqliteResultGetRow(QKSqliteResult *instance, int index);
 
 #ifdef __cplusplus
 }

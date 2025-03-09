@@ -28,26 +28,24 @@ CXAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance, QKString *sqlTex
 
 #include "quark/types/Exception.h"
 #include <sqlite3.h>
-
-
 #include <memory>
 
 namespace quark {
-	class CXAPI SqliteService {
+	class CXAPI MTSqliteService {
 	public:
-		SqliteService();
+		MTSqliteService();
 
-		explicit SqliteService(const std::string &path);
+		explicit MTSqliteService(const std::string &path);
 
-		~SqliteService();
+		~MTSqliteService();
 
-		SqliteService(const SqliteService &) = delete;
+		MTSqliteService(const MTSqliteService &) = delete;
 
-		SqliteService &operator=(const SqliteService &) = delete;
+		MTSqliteService &operator=(const MTSqliteService &) = delete;
 
-		SqliteService(SqliteService &&) = delete;
+		MTSqliteService(MTSqliteService &&) = delete;
 
-		SqliteService &operator=(SqliteService &&) = delete;
+		MTSqliteService &operator=(MTSqliteService &&) = delete;
 
 		MTSqliteResult runSql(const std::string &text);
 
@@ -58,6 +56,8 @@ namespace quark {
 		void runSqlBatch(const std::vector<std::string> &sqlTextVector);
 
 		std::string sqliteVersion();
+
+		std::string sqliteErrMsg() const;
 
 	private:
 		sqlite3 *sqlite3Database;

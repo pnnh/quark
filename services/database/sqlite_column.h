@@ -11,13 +11,13 @@ typedef struct {
     void *mtSqliteColumn;
 } QKSqliteColumn;
 
-QKSqliteColumn *QKSqliteColumnCreate();
+CXAPI QKSqliteColumn *QKSqliteColumnCreate();
 
-QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance);
+CXAPI QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance);
 
-int QKSQliteColumnGetIntValue(QKSqliteColumn *instance);
+CXAPI int QKSQliteColumnGetIntValue(QKSqliteColumn *instance);
 
-QKSqliteColumn *QKSqliteColumnCreate();
+CXAPI QKSqliteColumn *QKSqliteColumnCreate();
 
 #ifdef __cplusplus
 }
@@ -83,6 +83,6 @@ namespace quark {
     };
 }
 
-CXAPI QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(const quark::MTSqliteColumn &mtSqlCol);
+QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(const quark::MTSqliteColumn &mtSqlCol);
 
 #endif

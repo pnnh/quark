@@ -1,4 +1,5 @@
 #pragma once
+#include "sqlite_service.h"
 
 
 #ifdef __cplusplus
@@ -19,27 +20,33 @@ typedef struct {
 #include "sqlite_result.h"
 
 namespace quark {
-    class MTSqliteCommand {
+    class CXAPI MTSqliteCommand {
     public:
-        explicit MTSqliteCommand(sqlite3 *sqlite3Database, sqlite3_stmt *stmt, std::string sqlText);
+        MTSqliteCommand(const MTSqliteService *sqliteService, sqlite3_stmt *stmt, std::string sqlText);
+
+        MTSqliteCommand(const MTSqliteCommand &mtSqlCmd) = delete;
+
+        MTSqliteCommand &operator=(const MTSqliteCommand &mtSqlCmd) = delete;
+
+        MTSqliteCommand(MTSqliteCommand &&mtSqlCmd) = delete;
+
+        MTSqliteCommand &operator=(MTSqliteCommand &&mtSqlCmd) = delete;
 
         ~MTSqliteCommand();
-
-        void ChangeSqlText(const std::string &text);
 
         void BindInt(const std::string &name, int value);
 
         void BindString(const std::string &name, const std::string &value);
 
-        void Reset();
-
         std::shared_ptr<MTSqliteResult> Run();
 
     private:
         std::string sqlText{};
-        sqlite3_stmt *stmt;
-        sqlite3 *sqlite3Database;
+        sqlite3_stmt *stmtPtr;
+        const MTSqliteService *sqliteService;
     };
 }
+
+QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(quark::MTSqliteCommand *instance);
 
 #endif
