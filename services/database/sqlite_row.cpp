@@ -1,4 +1,4 @@
-#include "SqliteRow.h"
+#include "sqlite_row.h"
 #include <algorithm>
 
 void quark::MTSqliteRow::appendColumn(const quark::MTSqliteColumn &&column) {
@@ -42,4 +42,13 @@ QKSqliteRow *MTSqliteRowToQKSqliteRow(const quark::MTSqliteRow &mtSqlRow) {
     auto *qkRow = new QKSqliteRow();
     qkRow->mtSqlRow = newMtRow;
     return qkRow;
+}
+
+QKSqliteColumn *QKSqliteRowGetColumnByName(QKSqliteRow *instance, QKString *name) {
+    auto mtSqlRow = static_cast<quark::MTSqliteRow *>(instance->mtSqlRow);
+    auto stdColName = QKStringToStdString(name);
+    auto column = mtSqlRow->getColumn(std::move(stdColName));
+    if (!column.has_value()) return nullptr;
+    auto qkCol = MTSqliteColumnToQKSqliteColumn(column.value());
+    return qkCol;
 }

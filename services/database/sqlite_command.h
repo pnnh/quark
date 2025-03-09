@@ -16,7 +16,7 @@ typedef struct {
 #include <sqlite3.h>
 #include <memory>
 
-#include "SqliteResult.h"
+#include "sqlite_result.h"
 
 namespace quark {
     class MTSqliteCommand {

@@ -1,9 +1,8 @@
 #pragma once
 
 #include "quark/types/string.h"
-#include "SqliteResult.h"
-#include "SqliteCommand.h"
-#include <sqlite3.h>
+#include "sqlite_result.h"
+#include "sqlite_command.h"
 
 #ifdef __cplusplus
 
@@ -28,6 +27,7 @@ CXAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance, QKString *sqlTex
 }
 
 #include "quark/types/Exception.h"
+#include <sqlite3.h>
 
 
 #include <memory>

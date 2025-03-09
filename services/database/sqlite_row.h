@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/services/database/SqliteColumn.h"
+#include "quark/services/database/sqlite_column.h"
 #include "quark/types/string.h"
 
 #ifdef __cplusplus
@@ -13,6 +13,8 @@ typedef struct {
 } QKSqliteRow;
 
 QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index);
+
+QKSqliteColumn *QKSqliteRowGetColumnByName(QKSqliteRow *instance, QKString *name);
 
 QKSqliteRow *QKSqliteRowCreate();
 

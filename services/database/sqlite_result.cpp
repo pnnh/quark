@@ -1,4 +1,4 @@
-#include "SqliteResult.h"
+#include "sqlite_result.h"
 
 void quark::MTSqliteResult::appendRow(const MTSqliteRow &&row) {
     rows.push_back(row);

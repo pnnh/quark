@@ -1,4 +1,4 @@
-#include "SqliteColumn.h"
+#include "sqlite_column.h"
 
 #include <sqlite3.h>
 
@@ -180,8 +180,7 @@ QKSqliteColumn *QKSqliteColumnCreate() {
     return new QKSqliteColumn();
 }
 
-QKSqliteColumn * MTSqliteColumnToQKSqliteColumn(const quark::MTSqliteColumn &mtSqlCol) {
-
+QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(const quark::MTSqliteColumn &mtSqlCol) {
     auto newMtRow = new quark::MTSqliteColumn(mtSqlCol);
     auto qkCol = new QKSqliteColumn();
     qkCol->mtSqliteColumn = newMtRow;

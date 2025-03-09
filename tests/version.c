@@ -2,7 +2,7 @@
 #include "string.h"
 #include <stdio.h>
 
-#include <quark/services/database/SqliteService.h>
+#include <quark/services/database/sqlite_service.h>
 #include "quark/types/string.h"
 
 void cSqliteVersion() {
@@ -28,5 +28,12 @@ void cSqliteSelectNames() {
     QKSqliteColumn *intCol = QKSqliteRowGetColumn(sqlRow, 1);
     int intVal = QKSQliteColumnGetIntValue(intCol);
 
-    printf("cSqliteSelectNames: %s, %d\n", strValData, intVal);
+    QKString *strColName = QKStringCreate("strVal");
+    QKSqliteColumn *strColByName = QKSqliteRowGetColumnByName(sqlRow, strColName);
+    QKString *strValByName = QKSQliteColumnGetStringValue(strColByName);
+
+    QKSqliteColumn *intColByName = QKSqliteRowGetColumnByName(sqlRow, QKStringCreate("intVal"));
+    int intValByName = QKSQliteColumnGetIntValue(intColByName);
+
+    printf("cSqliteSelectNames: %s, %d\n%s, %d\n", strValData, intVal, QKStringGetData(strValByName), intValByName);
 }

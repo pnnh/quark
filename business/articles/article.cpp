@@ -1,6 +1,6 @@
 #include "article.h"
 
-#include "quark/services/database/SqliteService.h"
+#include "quark/services/database/sqlite_service.h"
 #include "quark/services/filesystem/filesystem.h"
 #include "quark/services/yaml/yaml.h"
 #include "quark/types/Exception.h"
@@ -44,13 +44,13 @@ quark::ArticleFileService::ParseArticle(const std::string &chanURN,
   return articleModel;
 }
 
-std::shared_ptr<std::vector<quark::PSArticleModel>>
+std::shared_ptr<std::vector<quark::PSArticleModel> >
 quark::ArticleFileService::scanArticles(const std::string &chanURN,
                                         const std::string &chanPath) const {
-  auto libraries = std::make_shared<std::vector<PSArticleModel>>();
+  auto libraries = std::make_shared<std::vector<PSArticleModel> >();
 
   auto chanFullPath = quark::JoinFilePath({this->baseUrl, chanPath});
-  for (const auto &entry : std::filesystem::directory_iterator(chanFullPath)) {
+  for (const auto &entry: std::filesystem::directory_iterator(chanFullPath)) {
     auto dirName = entry.path().filename();
     if (entry.path() == "." || entry.path() == ".." || !entry.is_directory()) {
       continue;
@@ -75,9 +75,10 @@ bool quark::isArticleDirectory(const std::string &directoryName) {
 }
 
 quark::ArticleSqliteService::ArticleSqliteService(std::string dbPath)
-    : dbPath(std::move(dbPath)) {}
+  : dbPath(std::move(dbPath)) {
+}
 
-std::shared_ptr<std::vector<quark::PSArticleModel>>
+std::shared_ptr<std::vector<quark::PSArticleModel> >
 quark::ArticleSqliteService::selectArticles(const std::string &chanURN) const {
   auto sqliteService = quark::SqliteService(this->dbPath);
 
@@ -88,7 +89,7 @@ quark::ArticleSqliteService::selectArticles(const std::string &chanURN) const {
     sqlCommand->ChangeSqlText(sqlText);
     sqlCommand->BindString("$chan", chanURN);
   }
-  auto libraries = std::make_shared<std::vector<PSArticleModel>>();
+  auto libraries = std::make_shared<std::vector<PSArticleModel> >();
   auto sqlResult = sqlCommand->Run();
   if (sqlResult == nullptr) {
     std::cout << "sqlResult is empty" << std::endl;
