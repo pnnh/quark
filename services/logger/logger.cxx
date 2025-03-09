@@ -1,16 +1,16 @@
-module;
+export module quark.logger;
 
 #include <iostream>
 
-class QKLogger {
+export class CXLogger {
 public:
-  QKLogger();
-  static void LogInfo(const char* message);
+  CXLogger();
+
+  static void LogInfo(const char *message);
 };
 
+CXLogger::CXLogger() = default;
 
-QKLogger::QKLogger() = default;
-
-void QKLogger::LogInfo(const char *message) {
-  std::cout << "QKLogger: " << message << std::endl;
+void CXLogger::LogInfo(const char *message) {
+  std::cout << "CXLogger: " << message << std::endl;
 }
