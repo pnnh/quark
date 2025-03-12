@@ -1,35 +1,42 @@
 #include "sqlite_row.h"
 #include <algorithm>
+#include <utility>
 
-void quark::MTSqliteRow::appendColumn(const quark::MTSqliteColumn &&column) {
-    columnValues[column.getColIndex()] = column;
-    colNames.push_back(column.getColName());
+void quark::MTSqliteRow::appendColumn(std::shared_ptr<MTSqliteColumn> column) {
+    columnValues[column->getColIndex()] = column;
+    colNames.push_back(column->getColName());
 }
 
-std::optional<quark::MTSqliteColumn> quark::MTSqliteRow::getColumn(const std::string &&colName) {
+std::shared_ptr<quark::MTSqliteColumn> quark::MTSqliteRow::getColumn(const std::string &&colName) {
     auto indexIt = std::find(colNames.begin(), colNames.end(), colName);
 
     if (indexIt == colNames.end()) {
-        return std::nullopt;
+        return nullptr;
     }
 
     auto index = std::distance(colNames.begin(), indexIt);
     return getColumn(static_cast<int>(index));
 }
 
-std::optional<quark::MTSqliteColumn> quark::MTSqliteRow::getColumn(int colIndex) {
+std::shared_ptr<quark::MTSqliteColumn> quark::MTSqliteRow::getColumn(int colIndex) {
     auto it = columnValues.find(colIndex);
     if (it == columnValues.end())
-        return std::nullopt;
+        return nullptr;
     return it->second;
 }
 
-QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index) {
-    auto mtSqlRow = static_cast<quark::MTSqliteRow *>(instance->mtSqlRow);
-    auto column = mtSqlRow->getColumn(index);
-    if (!column.has_value()) return nullptr;
+std::shared_ptr<quark::MTSqliteColumn> quark::MTSqliteRow::getColumn(const char* colName)
+{
+    auto stdColName = std::string(colName);
+    return getColumn(std::move(stdColName));
+}
 
-    auto qkCol = MTSqliteColumnToQKSqliteColumn(column.value());
+QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index) {
+    auto mtSqlRow = static_cast<std::shared_ptr<quark::MTSqliteRow >*>(instance->mtSqlRow);
+    auto column = (*mtSqlRow)->getColumn(index);
+    if (column == nullptr) return nullptr;
+
+    auto qkCol = MTSqliteColumnToQKSqliteColumn(column);
     return qkCol;
 }
 
@@ -37,18 +44,17 @@ QKSqliteRow *QKSqliteRowCreate() {
     return new QKSqliteRow();
 }
 
-QKSqliteRow *MTSqliteRowToQKSqliteRow(const quark::MTSqliteRow &mtSqlRow) {
-    auto newMtRow = new quark::MTSqliteRow(mtSqlRow);
+QKSqliteRow *MTSqliteRowToQKSqliteRow(std::shared_ptr<quark::MTSqliteRow> mtSqlRow) {
     auto *qkRow = new QKSqliteRow();
-    qkRow->mtSqlRow = newMtRow;
+    qkRow->mtSqlRow = new std::shared_ptr(std::move(mtSqlRow));
     return qkRow;
 }
 
 QKSqliteColumn *QKSqliteRowGetColumnByName(QKSqliteRow *instance, QKString *name) {
-    auto mtSqlRow = static_cast<quark::MTSqliteRow *>(instance->mtSqlRow);
+    auto mtSqlRow = static_cast<std::shared_ptr<quark::MTSqliteRow> *>(instance->mtSqlRow);
     auto stdColName = QKStringToStdString(name);
-    auto column = mtSqlRow->getColumn(std::move(stdColName));
-    if (!column.has_value()) return nullptr;
-    auto qkCol = MTSqliteColumnToQKSqliteColumn(column.value());
+    auto column = (*mtSqlRow)->getColumn(std::move(stdColName));
+    if (column == nullptr) return nullptr;
+    auto qkCol = MTSqliteColumnToQKSqliteColumn(column);
     return qkCol;
 }

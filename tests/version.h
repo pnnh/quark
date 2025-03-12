@@ -11,7 +11,12 @@ CXAPI void cSqliteVersion();
 
 CXAPI void cSqliteSelectNames();
 
+CXAPI void cSqliteStatParams();
+
 #ifdef __cplusplus
 }
+
+CXAPI void cxxSqliteStatParams();
+
 #endif
 

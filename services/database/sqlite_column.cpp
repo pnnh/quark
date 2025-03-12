@@ -14,95 +14,6 @@ quark::MTSqliteColumn::MTSqliteColumn(const int colType, const int colIndex,
     if (colIndex < 0) throw quark::PSException("列索引必须大于等于0");
 }
 
-quark::MTSqliteColumn::~MTSqliteColumn() {
-}
-
-quark::MTSqliteColumn::MTSqliteColumn(const MTSqliteColumn &other) : colType(other.colType), colIndex(other.colIndex),
-                                                                     colName(other.colName),
-                                                                     colIsNull(other.colIsNull) {
-    // if (colType == SQLITE_TEXT)
-    // {
-    //     stringValue = other.stringValue;
-    // }
-    // else if (colType == SQLITE_INTEGER)
-    // {
-    //     intValue = other.intValue;
-    // }
-    // else if (colType == SQLITE_FLOAT)
-    // {
-    //     floatValue = other.floatValue;
-    // }
-    variantValue = other.variantValue;
-}
-
-quark::MTSqliteColumn &quark::MTSqliteColumn::operator=(const MTSqliteColumn &other) {
-    colType = other.colType;
-    colIndex = other.colIndex;
-    colName = other.colName;
-    colIsNull = other.colIsNull;
-    // if (colType == SQLITE_TEXT)
-    // {
-    //     stringValue = other.stringValue;
-    // }
-    // else if (colType == SQLITE_INTEGER)
-    // {
-    //     intValue = other.intValue;
-    // }
-    // else if (colType == SQLITE_FLOAT)
-    // {
-    //     floatValue = other.floatValue;
-    // }
-    variantValue = other.variantValue;
-    return *this;
-}
-
-quark::MTSqliteColumn::MTSqliteColumn(MTSqliteColumn &&other) noexcept : colType(other.colType),
-                                                                         colIndex(other.colIndex),
-                                                                         colName(std::move(other.colName)),
-                                                                         colIsNull(other.colIsNull) {
-    // if (colType == SQLITE_TEXT)
-    // {
-    //     stringValue = std::move(other.stringValue);
-    // }
-    // else if (colType == SQLITE_INTEGER)
-    // {
-    //     intValue = other.intValue;
-    // }
-    // else if (colType == SQLITE_FLOAT)
-    // {
-    //     floatValue = other.floatValue;
-    // }
-    variantValue = std::move(other.variantValue);
-}
-
-quark::MTSqliteColumn &quark::MTSqliteColumn::operator=(MTSqliteColumn &&other) noexcept {
-    colType = other.colType;
-    colIndex = other.colIndex;
-    colName = std::move(other.colName);
-    colIsNull = other.colIsNull;
-
-    // if (colType == SQLITE_TEXT)
-    // {
-    //     stringValue = std::move(other.stringValue);
-    // }
-    // else if (colType == SQLITE_INTEGER)
-    // {
-    //     intValue = other.intValue;
-    // }
-    // else if (colType == SQLITE_FLOAT)
-    // {
-    //     floatValue = other.floatValue;
-    // }
-    variantValue = std::move(other.variantValue);
-    other.colType = 0;
-    other.colIndex = 0;
-    other.colName.clear();
-    other.colIsNull = false;
-    // other.stringValue.clear();
-    // other.intValue = 0;
-    // other.floatValue = 0;
-    return *this;
-}
 
 int quark::MTSqliteColumn::getColIndex() const {
     return colIndex;
@@ -114,7 +25,11 @@ std::string quark::MTSqliteColumn::getColName() const {
 }
 
 std::string quark::MTSqliteColumn::getStringValue() const {
-    return variantValue.index() == 0 ? std::get<std::string>(variantValue) : "";
+    if (variantValue.index() == 0)
+    {
+        return std::get<std::string>(variantValue);
+    }
+    return "";
 }
 
 void quark::MTSqliteColumn::setStringValue(const char *value) {
@@ -166,23 +81,18 @@ void quark::MTSqliteColumn::setNull() {
 }
 
 int QKSQliteColumnGetIntValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<quark::MTSqliteColumn *>(instance->mtSqliteColumn);
-    return mtSqlCol->getIntValue();
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    return (*mtSqlCol)->getIntValue();
 }
 
 QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<quark::MTSqliteColumn *>(instance->mtSqliteColumn);
-    auto stringValue = mtSqlCol->getStringValue();
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    auto stringValue = (*mtSqlCol)->getStringValue();
     return StdStringToQKStringPtr(stringValue);
 }
 
-QKSqliteColumn *QKSqliteColumnCreate() {
-    return new QKSqliteColumn();
-}
-
-QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(const quark::MTSqliteColumn &mtSqlCol) {
-    auto newMtRow = new quark::MTSqliteColumn(mtSqlCol);
+QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol) {
     auto qkCol = new QKSqliteColumn();
-    qkCol->mtSqliteColumn = newMtRow;
+    qkCol->mtSqliteColumn = new std::shared_ptr(std::move(mtSqlCol));
     return qkCol;
 }

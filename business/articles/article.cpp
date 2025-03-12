@@ -83,14 +83,16 @@ quark::ArticleSqliteService::selectArticles(const std::string &chanURN) const {
   auto sqliteService = quark::MTSqliteService(this->dbPath);
 
   std::string sqlText = "SELECT * FROM articles ";
-  auto sqlCommand = sqliteService.createCommand(sqlText);
-  if (!chanURN.empty()) {
+  if (!chanURN.empty())
+  {
     sqlText += " where channel=$chan ";
-    sqlCommand->ChangeSqlText(sqlText);
+  }
+  std::unique_ptr<MTSqliteCommand> sqlCommand {sqliteService.createCommand(sqlText)};
+  if (!chanURN.empty()) {
     sqlCommand->BindString("$chan", chanURN);
   }
   auto libraries = std::make_shared<std::vector<PSArticleModel> >();
-  auto sqlResult = sqlCommand->Run();
+  std::unique_ptr<MTSqliteResult> sqlResult {sqlCommand->Run()};
   if (sqlResult == nullptr) {
     std::cout << "sqlResult is empty" << std::endl;
     return nullptr;
@@ -102,22 +104,23 @@ quark::ArticleSqliteService::selectArticles(const std::string &chanURN) const {
   }
 
   for (auto rowIndex = 0; rowIndex < rowCount; ++rowIndex) {
+    auto row = sqlResult -> getRow(rowIndex);
     auto model = PSArticleModel();
-    model.Uid = sqlResult->getColumn(rowIndex, "urn").value().getStringValue();
+    model.Uid = row->getColumn("urn")->getStringValue();
     model.Title =
-        sqlResult->getColumn(rowIndex, "title").value().getStringValue();
+        row->getColumn("title")->getStringValue();
     model.Header =
-        sqlResult->getColumn(rowIndex, "header").value().getStringValue();
+        row->getColumn("header")->getStringValue();
     model.Body =
-        sqlResult->getColumn(rowIndex, "body").value().getStringValue();
+        row->getColumn("body")->getStringValue();
     model.Keywords =
-        sqlResult->getColumn(rowIndex, "keywords").value().getStringValue();
+        row->getColumn("keywords")->getStringValue();
     model.Description =
-        sqlResult->getColumn(rowIndex, "description").value().getStringValue();
+        row->getColumn("description")->getStringValue();
     model.Channel =
-        sqlResult->getColumn(rowIndex, "channel").value().getStringValue();
+        row->getColumn("channel")->getStringValue();
     model.Cover =
-        sqlResult->getColumn(rowIndex, "cover").value().getStringValue();
+        row->getColumn("cover")->getStringValue();
 
     libraries->emplace_back(model);
   }
@@ -130,9 +133,9 @@ quark::ArticleSqliteService::getArticle(const std::string &noteURN) const {
   auto sqliteService = quark::MTSqliteService(this->dbPath);
 
   std::string sqlText = "SELECT * FROM articles where urn=$urn ";
-  auto sqlCommand = sqliteService.createCommand(sqlText);
+  std::unique_ptr<MTSqliteCommand> sqlCommand {sqliteService.createCommand(sqlText)};
   sqlCommand->BindString("$urn", noteURN);
-  auto sqlResult = sqlCommand->Run();
+  std::unique_ptr<MTSqliteResult> sqlResult {sqlCommand->Run()};
   if (sqlResult == nullptr) {
     std::cout << "sqlResult is empty" << std::endl;
     return nullptr;
@@ -144,8 +147,9 @@ quark::ArticleSqliteService::getArticle(const std::string &noteURN) const {
   }
 
   auto model = PSArticleModel();
-  model.Uid = sqlResult->getColumn(0, "urn").value().getStringValue();
-  model.Title = sqlResult->getColumn(0, "title").value().getStringValue();
+  auto row = sqlResult -> getRow(0);
+  model.Uid = row->getColumn("urn")->getStringValue();
+  model.Title = row->getColumn("title")->getStringValue();
 
   return std::make_shared<PSArticleModel>(model);
 }

@@ -25,23 +25,17 @@ namespace quark {
         MTSqliteResult(): rows() {
         }
 
-        void appendRow(const MTSqliteRow &&row);
+        void appendRow(const std::shared_ptr<MTSqliteRow>& row);
 
-        std::optional<MTSqliteRow> getRow(int index);
+        std::shared_ptr<MTSqliteRow> getRow(int index);
 
         [[nodiscard]] unsigned int getRowCount() const;
 
-        std::optional<MTSqliteColumn> getColumn(int rowIndex, int colIndex);
-
-        std::optional<MTSqliteColumn> getColumn(int rowIndex, const char *colName);
-
-        std::optional<MTSqliteColumn> getColumn(int rowIndex, const std::string &colName);
-
-        std::optional<MTSqliteColumn> getColumn(int rowIndex, const std::string &&colName);
-
     private:
-        std::vector<MTSqliteRow> rows;
+        std::vector<std::shared_ptr<MTSqliteRow>> rows;
     };
 }
+
+QKSqliteResult *MTSqliteResultToQKSqliteResult(quark::MTSqliteResult *instance);
 
 #endif

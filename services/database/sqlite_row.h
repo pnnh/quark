@@ -31,18 +31,23 @@ CXAPI QKSqliteRow *QKSqliteRowCreate();
 namespace quark {
     class MTSqliteRow {
     public:
-        void appendColumn(const MTSqliteColumn &&column);
+        void appendColumn(std::shared_ptr<MTSqliteColumn> column);
 
-        std::optional<MTSqliteColumn> getColumn(const std::string &&colName);
+        std::shared_ptr<MTSqliteColumn> getColumn(const std::string &&colName);
 
-        std::optional<MTSqliteColumn> getColumn(int colIndex);
+        std::shared_ptr<MTSqliteColumn> getColumn(int colIndex);
+
+        std::shared_ptr<MTSqliteColumn> getColumn(const char *colName);
+
+        std::shared_ptr<MTSqliteColumn> getColumn(const std::string &colName);
 
     private:
         std::vector<std::string> colNames;
-        std::map<int, MTSqliteColumn> columnValues;
+        std::map<int, std::shared_ptr<MTSqliteColumn>> columnValues;
     };
+
 }
 
-QKSqliteRow *MTSqliteRowToQKSqliteRow(const quark::MTSqliteRow &mtSqlRow);
+QKSqliteRow *MTSqliteRowToQKSqliteRow(std::shared_ptr<quark::MTSqliteRow> mtSqlRow);
 
 #endif

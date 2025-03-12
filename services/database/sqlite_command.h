@@ -1,6 +1,7 @@
 #pragma once
-#include "sqlite_service.h"
 
+#include "quark/types/string.h"
+#include "sqlite_result.h"
 
 #ifdef __cplusplus
 
@@ -10,6 +11,11 @@ extern "C" {
 typedef struct {
     void *mtSqliteCommand;
 } QKSqliteCommand;
+
+CXAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString* name, int value);
+CXAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString* name, QKString* value);
+CXAPI int QKSqliteCommandRun(QKSqliteCommand *instance, QKSqliteResult **sqlResult);
+CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance);
 
 #ifdef __cplusplus
 }
@@ -22,7 +28,7 @@ typedef struct {
 namespace quark {
     class CXAPI MTSqliteCommand {
     public:
-        MTSqliteCommand(const MTSqliteService *sqliteService, sqlite3_stmt *stmt, std::string sqlText);
+        MTSqliteCommand(sqlite3_stmt *stmt, std::string sqlText);
 
         MTSqliteCommand(const MTSqliteCommand &mtSqlCmd) = delete;
 
@@ -34,19 +40,22 @@ namespace quark {
 
         ~MTSqliteCommand();
 
-        void BindInt(const std::string &name, int value);
+        int BindInt(std::string name, int value);
 
-        void BindString(const std::string &name, const std::string &value);
+        int BindString(std::string name, std::string value);
 
-        std::shared_ptr<MTSqliteResult> Run();
+        MTSqliteResult* Run();
+
+        // int ChangeSqlText(const std::string &text);
+        int Reset();
 
     private:
         std::string sqlText{};
         sqlite3_stmt *stmtPtr;
-        const MTSqliteService *sqliteService;
     };
 }
 
 QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(quark::MTSqliteCommand *instance);
+int QKSqliteCommandBindString2(QKSqliteCommand *instance, QKString* name, QKString* value);
 
 #endif
