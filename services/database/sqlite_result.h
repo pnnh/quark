@@ -14,6 +14,8 @@ typedef struct {
 
 CXAPI QKSqliteRow *QKSqliteResultGetRow(QKSqliteResult *instance, int index);
 
+CXAPI int QKSqliteResultGetRowCount(QKSqliteResult *instance);
+
 #ifdef __cplusplus
 }
 
@@ -25,14 +27,14 @@ namespace quark {
         MTSqliteResult(): rows() {
         }
 
-        void appendRow(const std::shared_ptr<MTSqliteRow>& row);
+        void appendRow(const std::shared_ptr<MTSqliteRow> &row);
 
         std::shared_ptr<MTSqliteRow> getRow(int index);
 
-        [[nodiscard]] unsigned int getRowCount() const;
+        [[nodiscard]] int getRowCount();
 
     private:
-        std::vector<std::shared_ptr<MTSqliteRow>> rows;
+        std::vector<std::shared_ptr<MTSqliteRow> > rows;
     };
 }
 

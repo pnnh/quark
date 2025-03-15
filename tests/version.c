@@ -22,10 +22,10 @@ void cSqliteSelectNames() {
     QKString *sqlText = QKStringCreate("SELECT 'hello呀哈哈' as strVal, 128 as intVal;");
     QKSqliteResult *sqlResult = QKSqliteRunSql(sqliteService, sqlText);
     QKSqliteRow *sqlRow = QKSqliteResultGetRow(sqlResult, 0);
-    QKSqliteColumn *strCol = QKSqliteRowGetColumn(sqlRow, 0);
+    QKSqliteColumn *strCol = QKSqliteRowGetColumnByIndex(sqlRow, 0);
     QKString *strVal = QKSQliteColumnGetStringValue(strCol);
     char *strValData = QKStringGetData(strVal);
-    QKSqliteColumn *intCol = QKSqliteRowGetColumn(sqlRow, 1);
+    QKSqliteColumn *intCol = QKSqliteRowGetColumnByIndex(sqlRow, 1);
     int intVal = QKSQliteColumnGetIntValue(intCol);
 
     QKString *strColName = QKStringCreate("strVal");
@@ -39,8 +39,7 @@ void cSqliteSelectNames() {
     printf("cSqliteSelectNames: %s, %d\n\t%s, %d\n", strValData, intVal, QKStringGetData(strValByName), intValByName);
 }
 
-void cSqliteStatParams()
-{
+void cSqliteStatParams() {
     const char *database_path = "polaris.sqlite";
     QKString *dbPath = QKStringCreate((char *) database_path);
     QKSqliteService *sqliteService = QKSqliteServiceCreate(dbPath);

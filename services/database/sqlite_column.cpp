@@ -25,48 +25,43 @@ std::string quark::MTSqliteColumn::getColName() const {
 }
 
 std::string quark::MTSqliteColumn::getStringValue() const {
-    if (variantValue.index() == 0)
-    {
+    if (variantValue.index() == StringIndex) {
         return std::get<std::string>(variantValue);
     }
     return "";
 }
 
 void quark::MTSqliteColumn::setStringValue(const char *value) {
-    // stringValue = value;
     variantValue = std::string(value);
 }
 
 void quark::MTSqliteColumn::setStringValue(const std::string &value) {
-    // stringValue = value;
     variantValue = value;
 }
 
 void quark::MTSqliteColumn::setStringValue(const std::string &&value) {
-    // stringValue = value;
     variantValue = value;
 }
 
 int quark::MTSqliteColumn::getIntValue() const {
-    // return intValue;
-    return variantValue.index() == 1 ? static_cast<int>(std::get<long>(variantValue)) : 0;
+    return variantValue.index() == LongIndex ? static_cast<int>(std::get<long>(variantValue)) : 0;
 }
 
 void quark::MTSqliteColumn::setIntValue(int value) {
-    // intValue = value;
     variantValue = static_cast<long>(value);
 }
 
 double quark::MTSqliteColumn::getFloatValue() const {
-    // return floatValue;
-    return variantValue.index() == 2 ? std::get<double>(variantValue) : 0;
+    return variantValue.index() == DoubleIndex ? std::get<double>(variantValue) : 0.0;
 }
 
 void quark::MTSqliteColumn::setFloatValue(double value) {
-    // floatValue = value;
     variantValue = value;
 }
 
+quark::MTSqliteValue quark::MTSqliteColumn::getVariantValue() const {
+    return variantValue;
+}
 
 int quark::MTSqliteColumn::getColType() const {
     return colType;
@@ -81,12 +76,12 @@ void quark::MTSqliteColumn::setNull() {
 }
 
 int QKSQliteColumnGetIntValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
     return (*mtSqlCol)->getIntValue();
 }
 
 QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
     auto stringValue = (*mtSqlCol)->getStringValue();
     return StdStringToQKStringPtr(stringValue);
 }
@@ -95,4 +90,29 @@ QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteCo
     auto qkCol = new QKSqliteColumn();
     qkCol->mtSqliteColumn = new std::shared_ptr(std::move(mtSqlCol));
     return qkCol;
+}
+
+int QKSQliteColumnGetDoubleValue(QKSqliteColumn *instance) {
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+    return (*mtSqlCol)->getFloatValue();
+}
+
+int QKSQliteColumnGetValueType(QKSqliteColumn *instance) {
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+    auto sqlType = (*mtSqlCol)->getColType();
+    switch (sqlType) {
+        case SQLITE_TEXT:
+            return QKSqliteValueString;
+        case SQLITE_INTEGER:
+            return QKSqliteValueInt;
+        case SQLITE_FLOAT:
+            return QKSqliteValueDouble;
+        default: return QKSqliteValueNull;
+    }
+}
+
+QKString *QKSQliteColumnGetName(QKSqliteColumn *instance) {
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+    auto colName = (*mtSqlCol)->getColName();
+    return StdStringToQKStringPtr(colName);
 }

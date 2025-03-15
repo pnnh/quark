@@ -15,6 +15,7 @@ typedef struct {
 } QKSqliteService;
 
 CXAPI QKSqliteService *QKSqliteServiceCreate(QKString *message);
+
 CXAPI void QKSqliteServiceDelete(QKSqliteService *instance);
 
 CXAPI QKSqliteCommand *QKSqliteServiceCreateCommand(QKSqliteService *instance, QKString *sqlText);
@@ -49,11 +50,11 @@ namespace quark {
 
 		MTSqliteService &operator=(MTSqliteService &&) = delete;
 
-		MTSqliteResult* runSql(const std::string &text);
+		MTSqliteResult *runSql(const std::string &text);
 
-		MTSqliteResult* runSql(const std::string &&text);
+		MTSqliteResult *runSql(const std::string &&text);
 
-		MTSqliteCommand* createCommand(const std::string &text);
+		std::unique_ptr<MTSqliteCommand> createCommand(const std::string &text);
 
 		void runSqlBatch(const std::vector<std::string> &sqlTextVector);
 

@@ -12,9 +12,12 @@ typedef struct {
     void *mtSqliteCommand;
 } QKSqliteCommand;
 
-CXAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString* name, int value);
-CXAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString* name, QKString* value);
+CXAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int value);
+
+CXAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value);
+
 CXAPI int QKSqliteCommandRun(QKSqliteCommand *instance, QKSqliteResult **sqlResult);
+
 CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance);
 
 #ifdef __cplusplus
@@ -44,9 +47,8 @@ namespace quark {
 
         int BindString(std::string name, std::string value);
 
-        MTSqliteResult* Run();
+        MTSqliteResult *Run();
 
-        // int ChangeSqlText(const std::string &text);
         int Reset();
 
     private:
@@ -55,7 +57,6 @@ namespace quark {
     };
 }
 
-QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(quark::MTSqliteCommand *instance);
-int QKSqliteCommandBindString2(QKSqliteCommand *instance, QKString* name, QKString* value);
+QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(std::unique_ptr<quark::MTSqliteCommand> &&instance);
 
 #endif

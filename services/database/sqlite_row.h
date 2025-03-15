@@ -12,19 +12,17 @@ typedef struct {
     void *mtSqlRow;
 } QKSqliteRow;
 
-CXAPI QKSqliteColumn *QKSqliteRowGetColumn(QKSqliteRow *instance, int index);
+CXAPI int QKSqliteRowGetColumnCount(QKSqliteRow *instance);
 
 CXAPI QKSqliteColumn *QKSqliteRowGetColumnByName(QKSqliteRow *instance, QKString *name);
 
-CXAPI QKSqliteRow *QKSqliteRowCreate();
+CXAPI QKSqliteColumn *QKSqliteRowGetColumnByIndex(QKSqliteRow *instance, int index);
 
 #ifdef __cplusplus
 }
 
 #include <iostream>
 #include <map>
-#include <optional>
-#include <sqlite3.h>
 #include <string>
 #include <vector>
 
@@ -41,13 +39,18 @@ namespace quark {
 
         std::shared_ptr<MTSqliteColumn> getColumn(const std::string &colName);
 
-    private:
-        std::vector<std::string> colNames;
-        std::map<int, std::shared_ptr<MTSqliteColumn>> columnValues;
-    };
+        int getColumnCount();
 
+        std::shared_ptr<std::vector<std::string> > getColumnNames();
+
+        std::shared_ptr<std::vector<MTSqliteValue> > getRowValues();
+
+    private:
+        std::shared_ptr<std::vector<std::string> > colNames;
+        std::map<int, std::shared_ptr<MTSqliteColumn> > columnValues;
+    };
 }
 
-QKSqliteRow *MTSqliteRowToQKSqliteRow(std::shared_ptr<quark::MTSqliteRow> mtSqlRow);
+CXAPI QKSqliteRow *MTSqliteRowToQKSqliteRow(std::shared_ptr<quark::MTSqliteRow> mtSqlRow);
 
 #endif

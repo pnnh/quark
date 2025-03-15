@@ -7,13 +7,26 @@
 extern "C" {
 #endif
 
+CXAPI const int QKSqliteValueNull = 0;
+CXAPI const int QKSqliteValueString = 1;
+CXAPI const int QKSqliteValueInt = 2;
+CXAPI const int QKSqliteValueDouble = 3;
+
+
 typedef struct {
     void *mtSqliteColumn;
 } QKSqliteColumn;
 
+
 CXAPI QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance);
 
 CXAPI int QKSQliteColumnGetIntValue(QKSqliteColumn *instance);
+
+CXAPI int QKSQliteColumnGetDoubleValue(QKSqliteColumn *instance);
+
+CXAPI QKString *QKSQliteColumnGetName(QKSqliteColumn *instance);
+
+CXAPI int QKSQliteColumnGetValueType(QKSqliteColumn *instance);
 
 #ifdef __cplusplus
 }
@@ -23,6 +36,15 @@ CXAPI int QKSQliteColumnGetIntValue(QKSqliteColumn *instance);
 #include <variant>
 
 namespace quark {
+    typedef std::variant<std::string, long, double> MTSqliteValue;
+
+    // 和上方MTSqliteValue类型定义一致
+    inline enum {
+        StringIndex = 0,
+        LongIndex = 1,
+        DoubleIndex = 2
+    } MTSqliteValueIndex;
+
     class MTSqliteColumn {
     public:
         MTSqliteColumn();
@@ -55,17 +77,15 @@ namespace quark {
 
         void setFloatValue(double value);
 
+        [[nodiscard]] MTSqliteValue getVariantValue() const;
+
     private:
         int colType;
         int colIndex;
         std::string colName;
         bool colIsNull{};
 
-        // std::string stringValue;
-        // int intValue{};
-        // double floatValue;
-
-        std::variant<std::string, long, double> variantValue;
+        MTSqliteValue variantValue;
     };
 }
 

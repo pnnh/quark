@@ -1,6 +1,6 @@
 #include "sqlite_result.h"
 
-void quark::MTSqliteResult::appendRow(const std::shared_ptr<MTSqliteRow>& row) {
+void quark::MTSqliteResult::appendRow(const std::shared_ptr<MTSqliteRow> &row) {
     rows.push_back(row);
 }
 
@@ -9,8 +9,8 @@ std::shared_ptr<quark::MTSqliteRow> quark::MTSqliteResult::getRow(int index) {
     return rows[index];
 }
 
-unsigned int quark::MTSqliteResult::getRowCount() const {
-    return this->rows.size();
+int quark::MTSqliteResult::getRowCount() {
+    return (int) this->rows.size();
 }
 
 QKSqliteRow *QKSqliteResultGetRow(QKSqliteResult *instance, int index) {
@@ -21,9 +21,14 @@ QKSqliteRow *QKSqliteResultGetRow(QKSqliteResult *instance, int index) {
     return qkRow;
 }
 
-QKSqliteResult* MTSqliteResultToQKSqliteResult(quark::MTSqliteResult* instance)
-{
+QKSqliteResult *MTSqliteResultToQKSqliteResult(quark::MTSqliteResult *instance) {
     auto qkResult = new QKSqliteResult{};
     qkResult->mtSqlResult = instance;
     return qkResult;
+}
+
+int QKSqliteResultGetRowCount(QKSqliteResult *instance) {
+    auto mtSqlResult = static_cast<quark::MTSqliteResult *>(instance->mtSqlResult);
+    if (mtSqlResult == nullptr) return 0;
+    return mtSqlResult->getRowCount();
 }

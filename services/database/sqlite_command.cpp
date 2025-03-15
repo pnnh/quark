@@ -33,7 +33,7 @@ int quark::MTSqliteCommand::Reset() {
     return rc;
 }
 
-quark::MTSqliteResult* quark::MTSqliteCommand::Run() {
+quark::MTSqliteResult *quark::MTSqliteCommand::Run() {
     auto row = 0;
     auto sqlResult = new MTSqliteResult();
     while (true) {
@@ -80,27 +80,24 @@ quark::MTSqliteResult* quark::MTSqliteCommand::Run() {
     return sqlResult;
 }
 
-QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(quark::MTSqliteCommand *instance) {
+QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(std::unique_ptr<quark::MTSqliteCommand> &&instance) {
     auto qkCmd = new QKSqliteCommand();
-    qkCmd->mtSqliteCommand = instance;
+    qkCmd->mtSqliteCommand = new std::unique_ptr(std::move(instance));
     return qkCmd;
 }
 
-int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString* name, int value)
-{
+int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int value) {
     auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
     return mtCmd->BindInt(QKStringToStdString(name), value);
 }
 
-int QKSqliteCommandBindString(QKSqliteCommand* instance, QKString* name, QKString* value)
-{
+int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value) {
     auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
 
     return mtCmd->BindString(QKStringToStdString(name), QKStringToStdString(value));
 }
 
-int QKSqliteCommandRun(QKSqliteCommand* instance, QKSqliteResult **sqlResult)
-{
+int QKSqliteCommandRun(QKSqliteCommand *instance, QKSqliteResult **sqlResult) {
     auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
     auto mtResult = mtCmd->Run();
     auto qkResult = MTSqliteResultToQKSqliteResult(mtResult);
@@ -108,8 +105,7 @@ int QKSqliteCommandRun(QKSqliteCommand* instance, QKSqliteResult **sqlResult)
     return 0;
 }
 
-int QKSqliteCommandClose(QKSqliteCommand* instance)
-{
+int QKSqliteCommandClose(QKSqliteCommand *instance) {
     auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
     delete mtCmd;
     return 0;
