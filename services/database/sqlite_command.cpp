@@ -66,12 +66,13 @@ quark::MTSqliteResult *quark::MTSqliteCommand::Run() {
                         sqlColumn->setNull();
                         break;
                     }
-                    default: { break; }
+                    default:
+                        break;
                 }
 
                 sqlRow->appendColumn(sqlColumn);
             }
-            sqlResult->appendRow(std::move(sqlRow));
+            sqlResult->appendRow(sqlRow);
             row++;
         } else if (step == SQLITE_DONE) {
             break;
@@ -87,26 +88,25 @@ QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(std::unique_ptr<quark::MTSqlit
 }
 
 int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int value) {
-    auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
-    return mtCmd->BindInt(QKStringToStdString(name), value);
+    auto mtCmd = static_cast<std::unique_ptr<quark::MTSqliteCommand> *>(instance->mtSqliteCommand);
+    return (*mtCmd)->BindInt(QKStringToStdString(name), value);
 }
 
 int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value) {
-    auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
+    auto mtCmd = static_cast<std::unique_ptr<quark::MTSqliteCommand> *>(instance->mtSqliteCommand);
 
-    return mtCmd->BindString(QKStringToStdString(name), QKStringToStdString(value));
+    return (*mtCmd)->BindString(QKStringToStdString(name), QKStringToStdString(value));
 }
 
-int QKSqliteCommandRun(QKSqliteCommand *instance, QKSqliteResult **sqlResult) {
-    auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
-    auto mtResult = mtCmd->Run();
+QKSqliteResult *QKSqliteCommandRun(QKSqliteCommand *instance) {
+    auto mtCmd = static_cast<std::unique_ptr<quark::MTSqliteCommand> *>(instance->mtSqliteCommand);
+    auto mtResult = (*mtCmd)->Run();
     auto qkResult = MTSqliteResultToQKSqliteResult(mtResult);
-    *sqlResult = qkResult;
-    return 0;
+    return qkResult;
 }
 
 int QKSqliteCommandClose(QKSqliteCommand *instance) {
-    auto mtCmd = static_cast<quark::MTSqliteCommand *>(instance->mtSqliteCommand);
+    auto mtCmd = static_cast<std::unique_ptr<quark::MTSqliteCommand> *>(instance->mtSqliteCommand);
     delete mtCmd;
     return 0;
 }

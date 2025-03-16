@@ -29,6 +29,16 @@ CXAPI QKSqliteColumn *QKSqliteRowGetColumnByIndex(QKSqliteRow *instance, int ind
 namespace quark {
     class MTSqliteRow {
     public:
+        MTSqliteRow();
+
+        MTSqliteRow(const MTSqliteRow &other) = delete;
+
+        MTSqliteRow &operator=(const MTSqliteRow &other) = delete;
+
+        MTSqliteRow(MTSqliteRow &&other) = delete;
+
+        MTSqliteRow &operator=(MTSqliteRow &&other) = delete;
+
         void appendColumn(std::shared_ptr<MTSqliteColumn> column);
 
         std::shared_ptr<MTSqliteColumn> getColumn(const std::string &&colName);

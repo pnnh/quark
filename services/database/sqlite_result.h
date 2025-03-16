@@ -22,7 +22,7 @@ CXAPI int QKSqliteResultGetRowCount(QKSqliteResult *instance);
 #include <vector>
 
 namespace quark {
-    class MTSqliteResult {
+    class CXAPI MTSqliteResult {
     public:
         MTSqliteResult(): rows() {
         }

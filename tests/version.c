@@ -57,12 +57,7 @@ void cSqliteStatParams() {
     int intVal = 128;
     QKSqliteCommandBindInt(sqlCmd, intName, intVal);
 
-    QKSqliteResult *sqlResult;
-    rc = QKSqliteCommandRun(sqlCmd, &sqlResult);
-    if (rc != 0) {
-        printf("cSqliteStatParams: error\n");
-        return;
-    }
+    QKSqliteResult *sqlResult = QKSqliteCommandRun(sqlCmd);
     QKSqliteRow *sqlRow = QKSqliteResultGetRow(sqlResult, 0);
 
     QKString *strColName = QKStringCreate("strVal");

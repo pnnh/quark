@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <utility>
 
+quark::MTSqliteRow::MTSqliteRow(): colNames(std::make_shared<std::vector<std::string> >()) {
+}
+
 void quark::MTSqliteRow::appendColumn(std::shared_ptr<MTSqliteColumn> column) {
     columnValues[column->getColIndex()] = column;
     colNames->push_back(column->getColName());

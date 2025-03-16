@@ -16,7 +16,7 @@ CXAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int 
 
 CXAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value);
 
-CXAPI int QKSqliteCommandRun(QKSqliteCommand *instance, QKSqliteResult **sqlResult);
+CXAPI QKSqliteResult *QKSqliteCommandRun(QKSqliteCommand *instance);
 
 CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance);
 
