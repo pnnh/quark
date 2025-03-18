@@ -1,13 +1,13 @@
 
-#include "Codes.h"
+#include "codes.h"
 
 const char* quark::CodeMessage(int code)
 {
   switch (code)
   {
-  case quark::Codes::Ok:
+  case quark::codes::Ok:
     return "Ok";
-  case quark::Codes::Error:
+  case quark::codes::Error:
     return "Error";
   default:
     return "Unknown";

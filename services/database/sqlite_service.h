@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/types/string.h"
+#include "quark/core/types/string.h"
 #include "sqlite_result.h"
 #include "sqlite_command.h"
 
@@ -10,60 +10,63 @@
 extern "C" {
 #endif
 
-typedef struct {
-	void *mtSqlSvc;
+typedef struct
+{
+	void* mtSqlSvc;
 } QKSqliteService;
 
-CXAPI QKSqliteService *QKSqliteServiceCreate(QKString *message);
+CXAPI QKSqliteService* QKSqliteServiceCreate(QKString* message);
 
-CXAPI void QKSqliteServiceDelete(QKSqliteService *instance);
+CXAPI void QKSqliteServiceDelete(QKSqliteService* instance);
 
-CXAPI QKSqliteCommand *QKSqliteServiceCreateCommand(QKSqliteService *instance, QKString *sqlText);
+CXAPI QKSqliteCommand* QKSqliteServiceCreateCommand(QKSqliteService* instance, QKString* sqlText);
 
 
-CXAPI QKString *QKSqliteVersion(QKSqliteService *instance);
+CXAPI QKString* QKSqliteVersion(QKSqliteService* instance);
 
-CXAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance, QKString *sqlText);
+CXAPI QKSqliteResult* QKSqliteRunSql(QKSqliteService* instance, QKString* sqlText);
 
 
 #ifdef __cplusplus
 }
 
-#include "quark/types/Exception.h"
+#include "quark/infra/result/result.h"
 #include <sqlite3.h>
 #include <memory>
 
-namespace quark {
-	class CXAPI MTSqliteService {
+namespace quark
+{
+	class CXAPI MTSqliteService
+	{
 	public:
 		MTSqliteService();
 
-		explicit MTSqliteService(const std::string &path);
+		explicit MTSqliteService(const std::string& path);
 
 		~MTSqliteService();
 
-		MTSqliteService(const MTSqliteService &) = delete;
+		MTSqliteService(const MTSqliteService&) = delete;
 
-		MTSqliteService &operator=(const MTSqliteService &) = delete;
+		MTSqliteService& operator=(const MTSqliteService&) = delete;
 
-		MTSqliteService(MTSqliteService &&) = delete;
+		MTSqliteService(MTSqliteService&&) = delete;
 
-		MTSqliteService &operator=(MTSqliteService &&) = delete;
+		MTSqliteService& operator=(MTSqliteService&&) = delete;
 
-		MTSqliteResult *runSql(const std::string &text);
+		MTSqliteResult* runSql(const std::string& text);
 
-		MTSqliteResult *runSql(const std::string &&text);
+		MTSqliteResult* runSql(const std::string&& text);
 
-		std::unique_ptr<MTSqliteCommand> createCommand(const std::string &text);
+		std::unique_ptr<MTSqliteCommand> createCommand(const std::string& text);
 
-		void runSqlBatch(const std::vector<std::string> &sqlTextVector);
+		void runSqlBatch(const std::vector<std::string>& sqlTextVector);
 
 		std::string sqliteVersion();
 
 		[[nodiscard]] std::string sqliteErrMsg() const;
 
 	private:
-		sqlite3 *sqlite3Database;
+		sqlite3* sqlite3Database;
 	};
 }
 

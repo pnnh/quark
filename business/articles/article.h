@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <memory>
-#include "quark/models/articles/Article.h"
+#include "quark/business/models/articles/Article.h"
 
 namespace quark
 {

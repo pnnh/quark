@@ -5,8 +5,8 @@
 
 #include "quark/services/filesystem/filesystem.h"
 #include "quark/services/yaml/yaml.h"
-#include "quark/types/string.h"
-#include "quark/utils/md5.h"
+#include "quark/core/types/string.h"
+#include "quark/infra/utils/md5.h"
 
 quark::ChannelServerBusiness::ChannelServerBusiness(
     const std::string &baseUrl) {

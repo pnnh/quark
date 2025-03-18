@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "quark/models/articles/Channel.h"
+#include "quark/business/models/articles/Channel.h"
 
 namespace quark
 {

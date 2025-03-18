@@ -7,19 +7,21 @@
 extern "C" {
 #endif
 
-CXAPI bool IsFileExist(const char *filePath);
+CXAPI bool IsFileExist(const char* filePath);
 
 #ifdef __cplusplus
 }
 
 #include <vector>
-#include <string>
-#include "quark/models/files/file.h"
+#include "quark/business/models/files/file.h"
 
-namespace quark {
-	class CXAPI FileServerBusiness {
+namespace quark
+{
+	class CXAPI FileServerBusiness
+	{
 	public:
-		struct SelectFilesOptions {
+		struct SelectFilesOptions
+		{
 			SelectFilesOptions();
 
 			bool directories;
@@ -30,7 +32,7 @@ namespace quark {
 
 		[[nodiscard]] static std::vector<PSFileModel> selectFilesVector(std::string parentPath,
 		                                                                SelectFilesOptions options =
-				                                                                SelectFilesOptions());
+			                                                                SelectFilesOptions());
 	};
 }
 

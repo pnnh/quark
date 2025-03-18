@@ -1,7 +1,7 @@
 #include <filesystem>
 #include "mime.hpp"
 
-#include "quark/types/string.h"
+#include "quark/core/types/string.h"
 
 #include <boost/algorithm/string/predicate.hpp>
 

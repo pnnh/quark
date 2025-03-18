@@ -1,4 +1,4 @@
-#include "color.h"
+#include "quark/core/graphics/color.h"
 #include "quark/services/random/random.hpp"
 
 namespace quark

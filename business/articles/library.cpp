@@ -2,12 +2,10 @@
 #include "library.h"
 #include <string>
 #include <filesystem>
-#include "quark/types/string.h"
-
-#include "quark/types/Exception.h"
+#include "quark/core/types/string.h"
 #include "quark/services/filesystem/filesystem.h"
 #include "quark/services/yaml/yaml.h"
-#include "quark/utils/md5.h"
+#include "quark/infra/utils/md5.h"
 
 quark::LibraryServerBusiness::LibraryServerBusiness(const std::string& baseUrl)
 {

@@ -2,117 +2,141 @@
 
 #include <sqlite3.h>
 
-#include "quark/types/Exception.h"
+#include "quark/infra/result/result.h"
 
 
-quark::MTSqliteColumn::MTSqliteColumn() : colType(), colIndex() {
+quark::MTSqliteColumn::MTSqliteColumn() : colType(), colIndex()
+{
 }
 
 quark::MTSqliteColumn::MTSqliteColumn(const int colType, const int colIndex,
-                                      const std::string &&colName) : colType(colType), colIndex(colIndex),
-                                                                     colName(colName) {
-    if (colIndex < 0) throw quark::PSException("列索引必须大于等于0");
+                                      const std::string&& colName) : colType(colType), colIndex(colIndex),
+                                                                     colName(colName)
+{
+    if (colIndex < 0) throw quark::MTException("列索引必须大于等于0");
 }
 
 
-int quark::MTSqliteColumn::getColIndex() const {
+int quark::MTSqliteColumn::getColIndex() const
+{
     return colIndex;
 }
 
-std::string quark::MTSqliteColumn::getColName() const {
+std::string quark::MTSqliteColumn::getColName() const
+{
     if (colName.empty()) return "column" + std::to_string(colIndex);
     return colName;
 }
 
-std::string quark::MTSqliteColumn::getStringValue() const {
-    if (variantValue.index() == StringIndex) {
+std::string quark::MTSqliteColumn::getStringValue() const
+{
+    if (variantValue.index() == StringIndex)
+    {
         return std::get<std::string>(variantValue);
     }
     return "";
 }
 
-void quark::MTSqliteColumn::setStringValue(const char *value) {
+void quark::MTSqliteColumn::setStringValue(const char* value)
+{
     variantValue = std::string(value);
 }
 
-void quark::MTSqliteColumn::setStringValue(const std::string &value) {
+void quark::MTSqliteColumn::setStringValue(const std::string& value)
+{
     variantValue = value;
 }
 
-void quark::MTSqliteColumn::setStringValue(const std::string &&value) {
+void quark::MTSqliteColumn::setStringValue(const std::string&& value)
+{
     variantValue = value;
 }
 
-int quark::MTSqliteColumn::getIntValue() const {
+int quark::MTSqliteColumn::getIntValue() const
+{
     return variantValue.index() == LongIndex ? static_cast<int>(std::get<long>(variantValue)) : 0;
 }
 
-void quark::MTSqliteColumn::setIntValue(int value) {
+void quark::MTSqliteColumn::setIntValue(int value)
+{
     variantValue = static_cast<long>(value);
 }
 
-double quark::MTSqliteColumn::getFloatValue() const {
+double quark::MTSqliteColumn::getFloatValue() const
+{
     return variantValue.index() == DoubleIndex ? std::get<double>(variantValue) : 0.0;
 }
 
-void quark::MTSqliteColumn::setFloatValue(double value) {
+void quark::MTSqliteColumn::setFloatValue(double value)
+{
     variantValue = value;
 }
 
-quark::MTSqliteValue quark::MTSqliteColumn::getVariantValue() const {
+quark::MTSqliteValue quark::MTSqliteColumn::getVariantValue() const
+{
     return variantValue;
 }
 
-int quark::MTSqliteColumn::getColType() const {
+int quark::MTSqliteColumn::getColType() const
+{
     return colType;
 }
 
-bool quark::MTSqliteColumn::isNull() const {
+bool quark::MTSqliteColumn::isNull() const
+{
     return colIsNull;
 }
 
-void quark::MTSqliteColumn::setNull() {
+void quark::MTSqliteColumn::setNull()
+{
     colIsNull = true;
 }
 
-int QKSQliteColumnGetIntValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+int QKSQliteColumnGetIntValue(QKSqliteColumn* instance)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
     return (*mtSqlCol)->getIntValue();
 }
 
-QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+QKString* QKSQliteColumnGetStringValue(QKSqliteColumn* instance)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
     auto stringValue = (*mtSqlCol)->getStringValue();
     return StdStringToQKStringPtr(stringValue);
 }
 
-QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol) {
+QKSqliteColumn* MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol)
+{
     auto qkCol = new QKSqliteColumn();
     qkCol->mtSqliteColumn = new std::shared_ptr(std::move(mtSqlCol));
     return qkCol;
 }
 
-int QKSQliteColumnGetDoubleValue(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+int QKSQliteColumnGetDoubleValue(QKSqliteColumn* instance)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
     return (*mtSqlCol)->getFloatValue();
 }
 
-int QKSQliteColumnGetValueType(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+int QKSQliteColumnGetValueType(QKSqliteColumn* instance)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
     auto sqlType = (*mtSqlCol)->getColType();
-    switch (sqlType) {
-        case SQLITE_TEXT:
-            return QKSqliteValueString;
-        case SQLITE_INTEGER:
-            return QKSqliteValueInt;
-        case SQLITE_FLOAT:
-            return QKSqliteValueDouble;
-        default: return QKSqliteValueNull;
+    switch (sqlType)
+    {
+    case SQLITE_TEXT:
+        return QKSqliteValueString;
+    case SQLITE_INTEGER:
+        return QKSqliteValueInt;
+    case SQLITE_FLOAT:
+        return QKSqliteValueDouble;
+    default: return QKSqliteValueNull;
     }
 }
 
-QKString *QKSQliteColumnGetName(QKSqliteColumn *instance) {
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn> *>(instance->mtSqliteColumn);
+QKString* QKSQliteColumnGetName(QKSqliteColumn* instance)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
     auto colName = (*mtSqlCol)->getColName();
     return StdStringToQKStringPtr(colName);
 }

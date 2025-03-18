@@ -1,16 +1,18 @@
-export module quark.logger;
 
 #include <iostream>
+#include "quark/services/logger/logger.h"
 
-export class CXLogger {
+export module quark.logger;
+
+export class MXLogger {
 public:
-  CXLogger();
+  MXLogger();
 
   static void LogInfo(const char *message);
 };
 
-CXLogger::CXLogger() = default;
+MXLogger::MXLogger() = default;
 
-void CXLogger::LogInfo(const char *message) {
-  std::cout << "CXLogger: " << message << std::endl;
+void MXLogger::LogInfo(const char *message) {
+  quark::MTLogInfo(message);
 }
