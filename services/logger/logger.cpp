@@ -26,22 +26,22 @@ void quark::MTLogger::LogInfo(std::initializer_list<std::string> messageList)
     {
         fullMessage += " " + item;
     }
-    std::cout << "[INFO] " << fullMessage << std::endl;
+    LogInfo(fullMessage);
 }
 
-void quark::MTLogger::MTLogError(const std::string& message)
+void quark::MTLogger::LogError(const std::string& message)
 {
     std::cerr << "[ERROR] " << message << std::endl;
 }
 
-void quark::MTLogger::MTLogError(std::initializer_list<std::string> messageList)
+void quark::MTLogger::LogError(std::initializer_list<std::string> messageList)
 {
     std::string fullMessage;
     for (const std::string& item : messageList)
     {
         fullMessage += " " + item;
     }
-    std::cerr << "[ERROR] " << fullMessage << std::endl;
+    LogError(fullMessage);
 }
 
 void QKLogInfo(const char* message)
@@ -61,10 +61,10 @@ void quark::MTLogInfo(std::initializer_list<std::string> messageList)
 
 void quark::MTLogError(const std::string& message)
 {
-    quark::MTLogger::Standard.MTLogError(message);
+    quark::MTLogger::Standard.LogError(message);
 }
 
 void quark::MTLogError(std::initializer_list<std::string> messageList)
 {
-    quark::MTLogger::Standard.MTLogError(messageList);
+    quark::MTLogger::Standard.LogError(messageList);
 }

@@ -107,7 +107,7 @@ quark::ArticleSqliteService::selectArticles(const std::string& chanURN) const
     sqlCommand->BindString("$chan", chanURN);
   }
   auto libraries = std::make_shared<std::vector<PSArticleModel>>();
-  std::unique_ptr<MTSqliteResult> sqlResult{sqlCommand->Run()};
+  std::shared_ptr<MTSqliteResult> sqlResult{sqlCommand->Run()};
   if (sqlResult == nullptr)
   {
     MTLogInfo("sqlResult is empty");
@@ -154,7 +154,7 @@ quark::ArticleSqliteService::getArticle(const std::string& noteURN) const
   std::string sqlText = "SELECT * FROM articles where urn=$urn ";
   std::unique_ptr<MTSqliteCommand> sqlCommand{sqliteService.createCommand(sqlText)};
   sqlCommand->BindString("$urn", noteURN);
-  std::unique_ptr<MTSqliteResult> sqlResult{sqlCommand->Run()};
+  std::shared_ptr<MTSqliteResult> sqlResult{sqlCommand->Run()};
   if (sqlResult == nullptr)
   {
     MTLogInfo("sqlResult is empty");

@@ -8,17 +8,18 @@
 extern "C" {
 #endif
 
-typedef struct {
-    void *mtSqliteCommand;
+typedef struct
+{
+    void* mtSqliteCommand;
 } QKSqliteCommand;
 
-CXAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int value);
+CXAPI int QKSqliteCommandBindInt(QKSqliteCommand* instance, QKString* name, int value, int* resultCode);
 
-CXAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value);
+CXAPI int QKSqliteCommandBindString(QKSqliteCommand* instance, QKString* name, QKString* value, int* resultCode);
 
-CXAPI QKSqliteResult *QKSqliteCommandRun(QKSqliteCommand *instance);
+CXAPI QKSqliteResult* QKSqliteCommandRun(QKSqliteCommand* instance, int* resultCode);
 
-CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance);
+CXAPI int QKSqliteCommandClose(QKSqliteCommand* instance, int* resultCode);
 
 #ifdef __cplusplus
 }
@@ -28,18 +29,20 @@ CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance);
 
 #include "sqlite_result.h"
 
-namespace quark {
-    class CXAPI MTSqliteCommand {
+namespace quark
+{
+    class CXAPI MTSqliteCommand
+    {
     public:
-        MTSqliteCommand(sqlite3_stmt *stmt, std::string sqlText);
+        MTSqliteCommand(sqlite3_stmt* stmt, std::string sqlText);
 
-        MTSqliteCommand(const MTSqliteCommand &mtSqlCmd) = delete;
+        MTSqliteCommand(const MTSqliteCommand& mtSqlCmd) = delete;
 
-        MTSqliteCommand &operator=(const MTSqliteCommand &mtSqlCmd) = delete;
+        MTSqliteCommand& operator=(const MTSqliteCommand& mtSqlCmd) = delete;
 
-        MTSqliteCommand(MTSqliteCommand &&mtSqlCmd) = delete;
+        MTSqliteCommand(MTSqliteCommand&& mtSqlCmd) = delete;
 
-        MTSqliteCommand &operator=(MTSqliteCommand &&mtSqlCmd) = delete;
+        MTSqliteCommand& operator=(MTSqliteCommand&& mtSqlCmd) = delete;
 
         ~MTSqliteCommand();
 
@@ -47,16 +50,17 @@ namespace quark {
 
         int BindString(std::string name, std::string value);
 
-        MTSqliteResult *Run();
+        std::shared_ptr<MTSqliteResult> Run();
 
         int Reset();
 
+        static QKSqliteCommand* MTSqliteCommandToQKSqliteCommand(std::unique_ptr<quark::MTSqliteCommand>&& instance);
+
     private:
         std::string sqlText{};
-        sqlite3_stmt *stmtPtr;
+        sqlite3_stmt* stmtPtr;
     };
 }
 
-QKSqliteCommand *MTSqliteCommandToQKSqliteCommand(std::unique_ptr<quark::MTSqliteCommand> &&instance);
 
 #endif

@@ -27,21 +27,17 @@ quark::MTSqliteService::~MTSqliteService()
     auto rc = sqlite3_close(this->sqlite3Database);
     if (rc)
     {
-        std::cerr << "Can't close database: " << rc << " " << sqlite3_errmsg(this->sqlite3Database) << std::endl;
+        auto stdErrMsg = std::format("Can't close database: {}", sqlite3_errmsg(this->sqlite3Database));
+        throw MTException(stdErrMsg);
     }
 }
 
-quark::MTSqliteResult* quark::MTSqliteService::runSql(const std::string& sqlText)
+std::shared_ptr<quark::MTSqliteResult> quark::MTSqliteService::runSql(const std::string& sqlText)
 {
     std::unique_ptr<MTSqliteCommand> command{createCommand(sqlText)};
     auto runResult = command->Run();
     if (runResult == nullptr) throw MTException("Can't run sql command");
     return runResult;
-}
-
-quark::MTSqliteResult* quark::MTSqliteService::runSql(const std::string&& text)
-{
-    return runSql(text);
 }
 
 std::unique_ptr<quark::MTSqliteCommand> quark::MTSqliteService::createCommand(const std::string& sqlText)
@@ -68,7 +64,7 @@ void quark::MTSqliteService::runSqlBatch(const std::vector<std::string>& sqlText
 
 std::string quark::MTSqliteService::sqliteVersion()
 {
-    std::unique_ptr<MTSqliteResult> sqlResult{runSql("SELECT sqlite_version() as version;")};
+    std::shared_ptr<MTSqliteResult> sqlResult{runSql("SELECT sqlite_version() as version;")};
     if (sqlResult == nullptr) throw MTException("Can't get sqlite version");
     auto rowCount = sqlResult->getRowCount();
     if (rowCount < 1) throw MTException("Can't get sqlite version");
@@ -85,7 +81,7 @@ std::string quark::MTSqliteService::sqliteErrMsg() const
     return cErr;
 }
 
-QKSqliteService* QKSqliteServiceCreate(QKString* message)
+QKSqliteService* QKSqliteServiceCreate(QKString* message, int* resultCode)
 {
     auto path = QKStringToStdString(message);
     auto qkSvc = new QKSqliteService{};
@@ -93,7 +89,7 @@ QKSqliteService* QKSqliteServiceCreate(QKString* message)
     return qkSvc;
 }
 
-void QKSqliteServiceDelete(QKSqliteService* instance)
+void QKSqliteServiceDelete(QKSqliteService* instance, int* resultCode)
 {
     if (instance == nullptr) return;
     if (instance->mtSqlSvc != nullptr)
@@ -102,30 +98,34 @@ void QKSqliteServiceDelete(QKSqliteService* instance)
         delete ptr;
         instance->mtSqlSvc = nullptr;
     }
+    if (resultCode != nullptr) *resultCode = QKResultOk;
     delete instance;
 }
 
-QKString* QKSqliteVersion(QKSqliteService* instance)
+QKString* QKSqliteVersion(QKSqliteService* instance, int* resultCode)
 {
     auto ptr = static_cast<quark::MTSqliteService*>(instance->mtSqlSvc);
     auto version = ptr->sqliteVersion();
     auto result = StdStringToQKStringPtr(version);
+    if (resultCode != nullptr) *resultCode = QKResultOk;
     return result;
 }
 
-QKSqliteResult* QKSqliteRunSql(QKSqliteService* instance, QKString* sqlText)
+QKSqliteResult* QKSqliteRunSql(QKSqliteService* instance, QKString* sqlText, int* resultCode)
 {
     auto ptr = static_cast<quark::MTSqliteService*>(instance->mtSqlSvc);
     auto stdSqlText = QKStringToStdString(sqlText);
     auto mtSqlResult = ptr->runSql(stdSqlText);
     auto qkSqlResult = new QKSqliteResult{};
-    qkSqlResult->mtSqlResult = mtSqlResult;
+    qkSqlResult->mtSqlResult = new std::shared_ptr<quark::MTSqliteResult>{mtSqlResult};
+    if (resultCode != nullptr) *resultCode = QKResultOk;
     return qkSqlResult;
 }
 
-QKSqliteCommand* QKSqliteServiceCreateCommand(QKSqliteService* instance, QKString* sqlText)
+QKSqliteCommand* QKSqliteServiceCreateCommand(QKSqliteService* instance, QKString* sqlText, int* resultCode)
 {
     auto svcPtr = static_cast<quark::MTSqliteService*>(instance->mtSqlSvc);
     auto stdSqlText = QKStringToStdString(sqlText);
-    return MTSqliteCommandToQKSqliteCommand(svcPtr->createCommand(stdSqlText));
+    if (resultCode != nullptr) *resultCode = QKResultOk;
+    return quark::MTSqliteCommand::MTSqliteCommandToQKSqliteCommand(svcPtr->createCommand(stdSqlText));
 }

@@ -9,9 +9,9 @@ void cSqliteVersion()
 {
     const char* database_path = "polaris.sqlite";
     QKString* dbPath = QKStringCreate((char*)database_path);
-    QKSqliteService* sqliteService = QKSqliteServiceCreate(dbPath);
-    QKString* version = QKSqliteVersion(sqliteService);
-    QKSqliteServiceDelete(sqliteService);
+    QKSqliteService* sqliteService = QKSqliteServiceCreate(dbPath, nullptr);
+    QKString* version = QKSqliteVersion(sqliteService, nullptr);
+    QKSqliteServiceDelete(sqliteService, nullptr);
     char* verStr = QKStringGetData(version);
     printf("cSqliteVersion: %s\n", verStr);
 }
@@ -20,24 +20,24 @@ void cSqliteSelectNames()
 {
     const char* database_path = "polaris.sqlite";
     QKString* dbPath = QKStringCreate((char*)database_path);
-    QKSqliteService* sqliteService = QKSqliteServiceCreate(dbPath);
+    QKSqliteService* sqliteService = QKSqliteServiceCreate(dbPath, nullptr);
     QKString* sqlText = QKStringCreate("SELECT 'hello呀哈哈' as strVal, 128 as intVal;");
-    QKSqliteResult* sqlResult = QKSqliteRunSql(sqliteService, sqlText);
-    QKSqliteRow* sqlRow = QKSqliteResultGetRow(sqlResult, 0);
-    QKSqliteColumn* strCol = QKSqliteRowGetColumnByIndex(sqlRow, 0);
-    QKString* strVal = QKSQliteColumnGetStringValue(strCol);
+    QKSqliteResult* sqlResult = QKSqliteRunSql(sqliteService, sqlText, nullptr);
+    QKSqliteRow* sqlRow = QKSqliteResultGetRow(sqlResult, 0, nullptr);
+    QKSqliteColumn* strCol = QKSqliteRowGetColumnByIndex(sqlRow, 0, nullptr);
+    QKString* strVal = QKSQliteColumnGetStringValue(strCol, nullptr);
     char* strValData = QKStringGetData(strVal);
-    QKSqliteColumn* intCol = QKSqliteRowGetColumnByIndex(sqlRow, 1);
-    int intVal = QKSQliteColumnGetIntValue(intCol);
+    QKSqliteColumn* intCol = QKSqliteRowGetColumnByIndex(sqlRow, 1, nullptr);
+    int intVal = QKSQliteColumnGetIntValue(intCol, nullptr);
 
     QKString* strColName = QKStringCreate("strVal");
-    QKSqliteColumn* strColByName = QKSqliteRowGetColumnByName(sqlRow, strColName);
-    QKString* strValByName = QKSQliteColumnGetStringValue(strColByName);
+    QKSqliteColumn* strColByName = QKSqliteRowGetColumnByName(sqlRow, strColName, nullptr);
+    QKString* strValByName = QKSQliteColumnGetStringValue(strColByName, nullptr);
 
-    QKSqliteColumn* intColByName = QKSqliteRowGetColumnByName(sqlRow, QKStringCreate("intVal"));
-    int intValByName = QKSQliteColumnGetIntValue(intColByName);
+    QKSqliteColumn* intColByName = QKSqliteRowGetColumnByName(sqlRow, QKStringCreate("intVal"), nullptr);
+    int intValByName = QKSQliteColumnGetIntValue(intColByName, nullptr);
 
-    QKSqliteServiceDelete(sqliteService);
+    QKSqliteServiceDelete(sqliteService, nullptr);
     printf("cSqliteSelectNames: %s, %d\n\t%s, %d\n", strValData, intVal, QKStringGetData(strValByName), intValByName);
 }
 
@@ -45,12 +45,12 @@ void cSqliteStatParams()
 {
     const char* database_path = "polaris.sqlite";
     QKString* dbPath = QKStringCreate((char*)database_path);
-    QKSqliteService* sqliteService = QKSqliteServiceCreate(dbPath);
+    QKSqliteService* sqliteService = QKSqliteServiceCreate(dbPath, nullptr);
     QKString* sqlText = QKStringCreate("SELECT $str as strVal, $int as intVal;");
-    QKSqliteCommand* sqlCmd = QKSqliteServiceCreateCommand(sqliteService, sqlText);
+    QKSqliteCommand* sqlCmd = QKSqliteServiceCreateCommand(sqliteService, sqlText, nullptr);
     QKString* strName = QKStringCreate("$str");
     QKString* strVal = QKStringCreate("hello呀哈哈");
-    int rc = QKSqliteCommandBindString(sqlCmd, strName, strVal);
+    int rc = QKSqliteCommandBindString(sqlCmd, strName, strVal, nullptr);
     if (rc != 0)
     {
         printf("cSqliteStatParams error: %d\n", rc);
@@ -59,17 +59,17 @@ void cSqliteStatParams()
 
     QKString* intName = QKStringCreate("$int");
     int intVal = 128;
-    QKSqliteCommandBindInt(sqlCmd, intName, intVal);
+    QKSqliteCommandBindInt(sqlCmd, intName, intVal, nullptr);
 
-    QKSqliteResult* sqlResult = QKSqliteCommandRun(sqlCmd);
-    QKSqliteRow* sqlRow = QKSqliteResultGetRow(sqlResult, 0);
+    QKSqliteResult* sqlResult = QKSqliteCommandRun(sqlCmd, nullptr);
+    QKSqliteRow* sqlRow = QKSqliteResultGetRow(sqlResult, 0, nullptr);
 
     QKString* strColName = QKStringCreate("strVal");
-    QKSqliteColumn* strColByName = QKSqliteRowGetColumnByName(sqlRow, strColName);
-    QKString* strValByName = QKSQliteColumnGetStringValue(strColByName);
+    QKSqliteColumn* strColByName = QKSqliteRowGetColumnByName(sqlRow, strColName, nullptr);
+    QKString* strValByName = QKSQliteColumnGetStringValue(strColByName, nullptr);
     char* strValData = QKStringGetData(strValByName);
-    QKSqliteColumn* intColByName = QKSqliteRowGetColumnByName(sqlRow, QKStringCreate("intVal"));
-    int intValByName = QKSQliteColumnGetIntValue(intColByName);
+    QKSqliteColumn* intColByName = QKSqliteRowGetColumnByName(sqlRow, QKStringCreate("intVal"), nullptr);
+    int intValByName = QKSQliteColumnGetIntValue(intColByName, nullptr);
 
     // QKSqliteCommandClose(sqlCmd);
     // QKSqliteServiceDelete(sqliteService);

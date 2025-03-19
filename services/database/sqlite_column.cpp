@@ -92,35 +92,40 @@ void quark::MTSqliteColumn::setNull()
     colIsNull = true;
 }
 
-int QKSQliteColumnGetIntValue(QKSqliteColumn* instance)
-{
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
-    return (*mtSqlCol)->getIntValue();
-}
-
-QKString* QKSQliteColumnGetStringValue(QKSqliteColumn* instance)
-{
-    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
-    auto stringValue = (*mtSqlCol)->getStringValue();
-    return StdStringToQKStringPtr(stringValue);
-}
-
-QKSqliteColumn* MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol)
+QKSqliteColumn* quark::MTSqliteColumn::MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol)
 {
     auto qkCol = new QKSqliteColumn();
     qkCol->mtSqliteColumn = new std::shared_ptr(std::move(mtSqlCol));
     return qkCol;
 }
 
-int QKSQliteColumnGetDoubleValue(QKSqliteColumn* instance)
+
+int QKSQliteColumnGetIntValue(QKSqliteColumn* instance, int* resultCode)
 {
     auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    if (resultCode != nullptr) *resultCode = QKResultOk;
+    return (*mtSqlCol)->getIntValue();
+}
+
+QKString* QKSQliteColumnGetStringValue(QKSqliteColumn* instance, int* resultCode)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    auto stringValue = (*mtSqlCol)->getStringValue();
+    if (resultCode != nullptr) *resultCode = QKResultOk;
+    return StdStringToQKStringPtr(stringValue);
+}
+
+int QKSQliteColumnGetDoubleValue(QKSqliteColumn* instance, int* resultCode)
+{
+    auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    if (resultCode != nullptr) *resultCode = QKResultOk;
     return (*mtSqlCol)->getFloatValue();
 }
 
-int QKSQliteColumnGetValueType(QKSqliteColumn* instance)
+int QKSQliteColumnGetValueType(QKSqliteColumn* instance, int* resultCode)
 {
     auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
+    if (resultCode != nullptr) *resultCode = QKResultOk;
     auto sqlType = (*mtSqlCol)->getColType();
     switch (sqlType)
     {
@@ -134,9 +139,10 @@ int QKSQliteColumnGetValueType(QKSqliteColumn* instance)
     }
 }
 
-QKString* QKSQliteColumnGetName(QKSqliteColumn* instance)
+QKString* QKSQliteColumnGetName(QKSqliteColumn* instance, int* resultCode)
 {
     auto mtSqlCol = static_cast<std::shared_ptr<quark::MTSqliteColumn>*>(instance->mtSqliteColumn);
     auto colName = (*mtSqlCol)->getColName();
+    if (resultCode != nullptr) *resultCode = QKResultOk;
     return StdStringToQKStringPtr(colName);
 }

@@ -54,25 +54,25 @@ namespace quark
     class MTResult
     {
     public:
-        MTResult(const T& rhs) : v_(rhs)
+        explicit MTResult(const T& rhs) : v_(rhs)
         {
         }
 
-        MTResult(const T&& rhs) : v_(std::move(rhs))
+        explicit MTResult(const T&& rhs) : v_(std::move(rhs))
         {
         }
 
-        MTResult(const MTException& rhs) : v_(rhs)
+        explicit MTResult(const MTException& rhs) : v_(rhs)
         {
         }
 
-        MTResult(const MTException&& rhs) : v_(std::move(rhs))
+        explicit MTResult(const MTException&& rhs) : v_(std::move(rhs))
         {
         }
 
-        bool has_error() const { return std::holds_alternative<MTException>(v_); }
+        [[nodiscard]] bool has_error() const { return std::holds_alternative<MTException>(v_); }
         const T& value() const { return std::get<T>(v_); };
-        const MTException& error() const { return std::get<MTException>(v_); };
+        [[nodiscard]] const MTException& error() const { return std::get<MTException>(v_); };
 
     private:
         MTResult() = default;

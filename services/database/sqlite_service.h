@@ -15,16 +15,15 @@ typedef struct
 	void* mtSqlSvc;
 } QKSqliteService;
 
-CXAPI QKSqliteService* QKSqliteServiceCreate(QKString* message);
+CXAPI QKSqliteService* QKSqliteServiceCreate(QKString* message, int* resultCode);
 
-CXAPI void QKSqliteServiceDelete(QKSqliteService* instance);
+CXAPI void QKSqliteServiceDelete(QKSqliteService* instance, int* resultCode);
 
-CXAPI QKSqliteCommand* QKSqliteServiceCreateCommand(QKSqliteService* instance, QKString* sqlText);
+CXAPI QKSqliteCommand* QKSqliteServiceCreateCommand(QKSqliteService* instance, QKString* sqlText, int* resultCode);
 
+CXAPI QKString* QKSqliteVersion(QKSqliteService* instance, int* resultCode);
 
-CXAPI QKString* QKSqliteVersion(QKSqliteService* instance);
-
-CXAPI QKSqliteResult* QKSqliteRunSql(QKSqliteService* instance, QKString* sqlText);
+CXAPI QKSqliteResult* QKSqliteRunSql(QKSqliteService* instance, QKString* sqlText, int* resultCode);
 
 
 #ifdef __cplusplus
@@ -53,9 +52,7 @@ namespace quark
 
 		MTSqliteService& operator=(MTSqliteService&&) = delete;
 
-		MTSqliteResult* runSql(const std::string& text);
-
-		MTSqliteResult* runSql(const std::string&& text);
+		std::shared_ptr<MTSqliteResult> runSql(const std::string& text);
 
 		std::unique_ptr<MTSqliteCommand> createCommand(const std::string& text);
 

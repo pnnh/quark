@@ -13,20 +13,21 @@ CXAPI const int QKSqliteValueInt = 2;
 CXAPI const int QKSqliteValueDouble = 3;
 
 
-typedef struct {
-    void *mtSqliteColumn;
+typedef struct
+{
+    void* mtSqliteColumn;
 } QKSqliteColumn;
 
 
-CXAPI QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance);
+CXAPI QKString* QKSQliteColumnGetStringValue(QKSqliteColumn* instance, int* resultCode);
 
-CXAPI int QKSQliteColumnGetIntValue(QKSqliteColumn *instance);
+CXAPI int QKSQliteColumnGetIntValue(QKSqliteColumn* instance, int* resultCode);
 
-CXAPI int QKSQliteColumnGetDoubleValue(QKSqliteColumn *instance);
+CXAPI int QKSQliteColumnGetDoubleValue(QKSqliteColumn* instance, int* resultCode);
 
-CXAPI QKString *QKSQliteColumnGetName(QKSqliteColumn *instance);
+CXAPI QKString* QKSQliteColumnGetName(QKSqliteColumn* instance, int* resultCode);
 
-CXAPI int QKSQliteColumnGetValueType(QKSqliteColumn *instance);
+CXAPI int QKSQliteColumnGetValueType(QKSqliteColumn* instance, int* resultCode);
 
 #ifdef __cplusplus
 }
@@ -35,21 +36,24 @@ CXAPI int QKSQliteColumnGetValueType(QKSqliteColumn *instance);
 #include <string>
 #include <variant>
 
-namespace quark {
+namespace quark
+{
     typedef std::variant<std::string, long, double> MTSqliteValue;
 
     // 和上方MTSqliteValue类型定义一致
-    inline enum {
+    inline enum
+    {
         StringIndex = 0,
         LongIndex = 1,
         DoubleIndex = 2
     } MTSqliteValueIndex;
 
-    class MTSqliteColumn {
+    class MTSqliteColumn
+    {
     public:
         MTSqliteColumn();
 
-        MTSqliteColumn(int colType, int colIndex, const std::string &&colName);
+        MTSqliteColumn(int colType, int colIndex, const std::string&& colName);
 
         [[nodiscard]] int getColIndex() const;
 
@@ -63,11 +67,11 @@ namespace quark {
 
         [[nodiscard]] std::string getStringValue() const;
 
-        void setStringValue(const char *value);
+        void setStringValue(const char* value);
 
-        void setStringValue(const std::string &value);
+        void setStringValue(const std::string& value);
 
-        void setStringValue(const std::string &&value);
+        void setStringValue(const std::string&& value);
 
         [[nodiscard]] int getIntValue() const;
 
@@ -79,6 +83,8 @@ namespace quark {
 
         [[nodiscard]] MTSqliteValue getVariantValue() const;
 
+        static QKSqliteColumn* MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol);
+
     private:
         int colType;
         int colIndex;
@@ -89,6 +95,5 @@ namespace quark {
     };
 }
 
-QKSqliteColumn *MTSqliteColumnToQKSqliteColumn(std::shared_ptr<quark::MTSqliteColumn> mtSqlCol);
 
 #endif

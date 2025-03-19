@@ -2,7 +2,8 @@
 #include "quark/services/database/sqlite_service.h"
 #include <iostream>
 
-void cxxSqliteStatParams() {
+void cxxSqliteStatParams()
+{
     auto sqlSvc = quark::MTSqliteService("polaris.sqlite");
     auto sqlText = "SELECT $str as strVal, $int as intVal;";
     auto sqlCmd{sqlSvc.createCommand(sqlText)};
@@ -14,6 +15,6 @@ void cxxSqliteStatParams() {
     auto strColValue = strCol->getStringValue();
     std::cout << "cSqliteStatParams: " << strColValue << std::endl;
 
-    std::string userInput;
-    std::getline(std::cin, userInput);
+    // std::string userInput;
+    // std::getline(std::cin, userInput);
 }
