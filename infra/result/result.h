@@ -23,7 +23,7 @@ CXAPI constexpr const char* QKResultCodeToString(int qkCode);
 
 namespace quark
 {
-    CXAPI class MTException final : public std::exception
+    class CXAPI MTException final : public std::exception
     {
     public:
         MTException();
@@ -50,8 +50,8 @@ namespace quark
         std::string message_;
     };
 
-    CXAPI template <class T>
-    class MTResult
+    template <class T>
+    class CXAPI MTResult
     {
     public:
         explicit MTResult(const T& rhs) : v_(rhs)
