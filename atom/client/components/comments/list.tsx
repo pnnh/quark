@@ -1,8 +1,8 @@
 import './list.scss'
 import {useEffect, useState} from "react";
 import {PLSelectResult} from "@/quark/atom/common/models/protocol";
-import {fetchComments} from "@/services/client/comments/comment";
 import {PSCommentModel} from "@/quark/atom/common/models/comment";
+import {fetchComments} from "@/quark/atom/client/comments/comment";
 
 export function ListArea({resource}: { resource: string }) {
     const [list, setList] = useState<PLSelectResult<PSCommentModel>>()

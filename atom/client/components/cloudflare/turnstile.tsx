@@ -1,7 +1,6 @@
 'use client'
 
 import React, {useEffect} from "react";
-import {useClientConfig} from "@/services/client/config";
 import $ from "jquery";
 
 function turnstileErrorCallback(error: string) {
@@ -38,8 +37,8 @@ function turnstileScript() {
             return;
         }
         turnstileBody.appendChild(turnstileContent)
-        const clientConfig = useClientConfig()
-        const sitekey = clientConfig.PUBLIC_TURNSTILE
+        // const clientConfig = useClientConfig()
+        const sitekey = 'todo'//clientConfig.PUBLIC_TURNSTILE
         if (!sitekey) {
             return
         }
