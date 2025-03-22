@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"golang.org/x/time/rate"
-	"portal/quark/neutron/config"
+	"portal/neutron/config"
 
 	gomail "gopkg.in/gomail.v2"
 )

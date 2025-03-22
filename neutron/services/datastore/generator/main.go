@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	"github.com/sirupsen/logrus"
-	"portal/quark/neutron/services/datastore"
+	"portal/neutron/services/datastore"
 )
 
 type ModelField struct {
@@ -61,7 +61,7 @@ func main() {
 package %s
 
 import (
-	"portal/quark/neutron/services/datastore"
+	"portal/neutron/services/datastore"
 )
 `
 	packageAndImport = fmt.Sprintf(packageAndImport, f.Name.Name)
