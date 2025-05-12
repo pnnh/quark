@@ -26,6 +26,7 @@ CXAPI QKSqliteColumn* QKSqliteRowGetColumnByIndex(QKSqliteRow* instance, int ind
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace quark
 {

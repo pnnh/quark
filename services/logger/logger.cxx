@@ -1,3 +1,4 @@
+module;
 
 #include <iostream>
 #include "quark/services/logger/logger.h"

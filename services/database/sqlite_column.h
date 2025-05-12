@@ -35,6 +35,7 @@ CXAPI int QKSQliteColumnGetValueType(QKSqliteColumn* instance, int* resultCode);
 #include <iostream>
 #include <string>
 #include <variant>
+#include <memory>
 
 namespace quark
 {
