@@ -1,23 +1,21 @@
 #include "file.h"
-#include "File.h"
 
-quark::PSFileModel::PSFileModel(std::string title)
-{
-    this->Title = title;
-    this->CreateTime = std::chrono::system_clock::now();
-    this->UpdateTime = std::chrono::system_clock::now();
+quark::PSFileModel::PSFileModel(std::string title) {
+  this->Title = title;
+  this->CreateTime = std::chrono::system_clock::now();
+  this->UpdateTime = std::chrono::system_clock::now();
 }
 
-PSFileStruct* NewPSFileStruct() {
-    return new PSFileStruct();
+PSFileStruct *NewPSFileStruct() {
+  return new PSFileStruct();
 }
 
-void DeletePSFileStruct(PSFileStruct* file) {
-    delete file;
+void DeletePSFileStruct(PSFileStruct *file) {
+  delete file;
 }
 
 int list_file(int input) {
-    printf("input2: %d\n", input);
+  printf("input2: %d\n", input);
 
-    return input * 2;
+  return input * 2;
 }
