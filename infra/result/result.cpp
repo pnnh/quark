@@ -1,16 +1,5 @@
 #include "result.h"
 
-constexpr const char *QKResultCodeToString(int qkCode) {
-  switch (qkCode) {
-  case QKResultOk:
-    return "OK";
-  case QKResultError:
-    return "ERROR";
-  default:
-    return "UNKNOWN";
-  }
-}
-
 quark::MTException::MTException() : code_(QKResultError) {
 }
 
