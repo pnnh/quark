@@ -3,9 +3,6 @@
 #include <sqlite3.h>
 #include <quark/core/types/string.h>
 
-quark::MTSqliteService::MTSqliteService(): sqlite3Database(nullptr) {
-}
-
 quark::MTSqliteService::MTSqliteService(const std::string &path) {
   sqlite3 *db;
   auto cPath = path.c_str();
