@@ -1,13 +1,16 @@
 #pragma once
 
 #include "quark/build.h"
+#include "quark/infra/result/result.h"
+
+#include <expected>
 
 #ifdef __cplusplus
 
 extern "C" {
 #endif
 
-CXAPI bool IsFileExist(const char* filePath);
+CXAPI bool IsFileExist(const char *filePath);
 
 #ifdef __cplusplus
 }
@@ -15,25 +18,23 @@ CXAPI bool IsFileExist(const char* filePath);
 #include <vector>
 #include "quark/business/models/files/file.h"
 
-namespace quark
-{
-	class CXAPI FileServerBusiness
-	{
-	public:
-		struct SelectFilesOptions
-		{
-			SelectFilesOptions();
+namespace quark {
+class CXAPI FileServerBusiness {
+public:
+  struct SelectFilesOptions {
+    SelectFilesOptions();
 
-			bool directories;
-			bool files;
-			bool hidden;
-			bool ignore;
-		};
+    bool directories;
+    bool files;
+    bool hidden;
+    bool ignore;
+  };
 
-		[[nodiscard]] static std::vector<PSFileModel> selectFilesVector(std::string parentPath,
-		                                                                SelectFilesOptions options =
-			                                                                SelectFilesOptions());
-	};
+  [[nodiscard]] static std::expected<std::vector<PSFileModel>, MTCode>
+  selectFilesVector(std::string parentPath,
+                    SelectFilesOptions options =
+                        SelectFilesOptions());
+};
 }
 
 #endif

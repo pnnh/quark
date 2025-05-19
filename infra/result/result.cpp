@@ -1,5 +1,6 @@
 #include "result.h"
 
+
 quark::MTException::MTException() : code_(QKResultError) {
 }
 

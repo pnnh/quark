@@ -1,5 +1,7 @@
 #pragma once
 
+#include "quark/business/models/protocol/codes.h"
+
 #include <quark/build.h>
 
 #ifdef __cplusplus
@@ -31,6 +33,40 @@ CXAPI constexpr const char *QKResultCodeToString(int qkCode) {
 #include <variant>
 
 namespace quark {
+
+enum class CXAPI MTCode {
+  Ok = 0,
+  Error = 1,
+  IsNotDirectory = 2,
+  IsNotFile = 3,
+  IsNotExist = 4
+};
+
+inline std::ostream &operator<<(std::ostream &os, quark::MTCode color) {
+  switch (color) {
+  case quark::MTCode::Ok:
+    os << "Ok";
+    break;
+  case quark::MTCode::Error:
+    os << "Error";
+    break;
+  case quark::MTCode::IsNotDirectory:
+    os << "IsNotDirectory";
+    break;
+  case quark::MTCode::IsNotFile:
+    os << "IsNotFile";
+    break;
+  case quark::MTCode::IsNotExist:
+    os << "IsNotExist";
+    break;
+  default:
+    os << "Unknown";
+    break; // 可选：处理未定义值
+  }
+  return os;
+}
+
+
 class CXAPI MTException final : public std::exception {
 public:
   MTException();
