@@ -39,7 +39,8 @@ enum class CXAPI MTCode {
   Error = 1,
   IsNotDirectory = 2,
   IsNotFile = 3,
-  IsNotExist = 4
+  IsNotExist = 4,
+  SqlSelectFailed = 5, // 数据库查询出错
 };
 
 inline std::ostream &operator<<(std::ostream &os, quark::MTCode color) {

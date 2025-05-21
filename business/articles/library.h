@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <quark/business/models/articles/Library.h>
+#include <quark/business/models/articles/location.h>
 
 namespace quark
 {
@@ -11,7 +11,7 @@ namespace quark
     public:
         explicit LibraryServerBusiness(const std::string& baseUrl);
 
-        [[nodiscard]] std::shared_ptr<std::vector<quark::PSLibraryModel>> selectLibraries() const;
+        [[nodiscard]] std::shared_ptr<std::vector<quark::PSLocationModel>> selectLibraries() const;
 
     private:
         std::string baseUrl;

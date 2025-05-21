@@ -12,10 +12,10 @@ quark::LibraryServerBusiness::LibraryServerBusiness(const std::string& baseUrl)
     this->baseUrl = baseUrl;
 }
 
-std::shared_ptr<std::vector<quark::PSLibraryModel>>
+std::shared_ptr<std::vector<quark::PSLocationModel>>
 quark::LibraryServerBusiness::selectLibraries() const
 {
-    auto libraries = std::make_shared<std::vector<quark::PSLibraryModel>>();
+    auto libraries = std::make_shared<std::vector<quark::PSLocationModel>>();
 
     for (const auto& entry : std::filesystem::directory_iterator(this->baseUrl))
     {
@@ -30,7 +30,7 @@ quark::LibraryServerBusiness::selectLibraries() const
         {
             continue;
         }
-        auto libraryModel = quark::PSLibraryModel(filePath);
+        auto libraryModel = quark::PSLocationModel(filePath);
         auto metadataFilePath = quark::JoinFilePath({this->baseUrl, filePath, "metadata.yaml"});
         if (quark::IsFileExist(metadataFilePath))
         {

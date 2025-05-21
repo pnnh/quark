@@ -6,9 +6,8 @@
 
 using boost::uuids::detail::md5;
 
-namespace quark
-{
-    std::string toString(const md5::digest_type& digest);
+namespace quark {
+std::string toString(const md5::digest_type &digest);
 
-    std::string calcMd5(const std::string& content);
+std::string calcMd5(const std::string &content, bool formatUuid = false);
 }
