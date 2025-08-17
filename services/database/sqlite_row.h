@@ -1,7 +1,7 @@
 #pragma once
 
 #include "quark/services/database/sqlite_column.h"
-#include "quark/core/types/string.h"
+#include "quark/core/string/string.h"
 
 #ifdef __cplusplus
 

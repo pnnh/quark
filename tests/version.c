@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include <quark/services/database/sqlite_service.h>
-#include "quark/core/types/string.h"
+#include "quark/core/string/string.h"
 
 void cSqliteVersion()
 {

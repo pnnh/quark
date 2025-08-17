@@ -1,29 +1,17 @@
 #pragma once
 
-#include "quark/business/models/protocol/codes.h"
-
 #include <quark/build.h>
 
 #ifdef __cplusplus
 
-
 extern "C" {
-CXAPI constexpr int QKResultOk = 0;
-CXAPI constexpr int QKResultError = 1;
-
-CXAPI constexpr const char *QKResultCodeToString(int qkCode) {
-  switch (qkCode) {
-  case QKResultOk:
-    return "OK";
-  case QKResultError:
-    return "ERROR";
-  default:
-    return "UNKNOWN";
-  }
-}
 
 #endif
 
+const int QKResultOk=0;
+const int QKResultError=1;
+
+CXAPI constexpr const char *QKResultCodeToString(int qkCode);
 #ifdef __cplusplus
 }
 

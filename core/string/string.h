@@ -12,6 +12,7 @@ typedef struct {
 } QKString;
 
 CXAPI QKString *QKStringCreate(char *data);
+CXAPI int QKStringDelete(QKString * qkStr);
 
 CXAPI char *QKStringGetData(QKString *qkStr);
 

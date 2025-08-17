@@ -1,7 +1,7 @@
 
 #include "md5.h"
 
-#include "quark/core/types/string.h"
+#include "quark/core/string/string.h"
 
 #include <iterator>
 #include <boost/uuid/detail/md5.hpp>

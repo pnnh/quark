@@ -4,6 +4,8 @@
 #include <sstream>
 #include <utility>
 
+#include "quark/infra/result/result.h"
+
 template<typename... Args>
 std::string quark::MTString::DynamicPrint(std::string_view rt_fmt_str,
                                           Args &&... args) {
@@ -138,6 +140,16 @@ QKString *QKStringCreate(char *data) {
   auto mtStr = new quark::MTString(data);
   qkStr->mtStr = mtStr;
   return qkStr;
+}
+
+int QKStringDelete(QKString * qkStr) {
+  auto mtStr = static_cast<quark::MTString *>(qkStr->mtStr);
+  if (mtStr) {
+    delete mtStr;
+    qkStr->mtStr = nullptr;
+  }
+  delete qkStr;
+  return QKResultOk;
 }
 
 char *QKStringGetData(QKString *qkStr) {

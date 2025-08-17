@@ -1,7 +1,7 @@
 
 #include "sqlite_service.h"
 #include <sqlite3.h>
-#include <quark/core/types/string.h>
+#include <quark/core/string/string.h>
 
 quark::MTSqliteService::MTSqliteService(const std::string &path) {
   sqlite3 *db;

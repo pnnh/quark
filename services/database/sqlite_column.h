@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/core/types/string.h"
+#include "quark/core/string/string.h"
 
 #ifdef __cplusplus
 
