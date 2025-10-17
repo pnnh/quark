@@ -1,9 +1,9 @@
 #ifdef _MSC_VER
-#ifdef EXPORTING
+// #ifdef DLL_EXPORTS
 #define CXAPI __declspec(dllexport)
-#else
-#define CXAPI __declspec(dllimport)
-#endif
+// #else
+// #define CXAPI __declspec(dllimport)
+// #endif
 
 #else
 #define CXAPI __attribute__((visibility("default")))
