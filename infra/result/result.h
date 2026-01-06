@@ -8,8 +8,8 @@ extern "C" {
 
 #endif
 
-const int QKResultOk=0;
-const int QKResultError=1;
+const int QKResultOk = 0;
+const int QKResultError = 1;
 
 CXAPI constexpr const char *QKResultCodeToString(int qkCode);
 #ifdef __cplusplus
@@ -31,30 +31,9 @@ enum class CXAPI MTCode {
   SqlSelectFailed = 5, // 数据库查询出错
 };
 
-inline std::ostream &operator<<(std::ostream &os, quark::MTCode color) {
-  switch (color) {
-  case quark::MTCode::Ok:
-    os << "Ok";
-    break;
-  case quark::MTCode::Error:
-    os << "Error";
-    break;
-  case quark::MTCode::IsNotDirectory:
-    os << "IsNotDirectory";
-    break;
-  case quark::MTCode::IsNotFile:
-    os << "IsNotFile";
-    break;
-  case quark::MTCode::IsNotExist:
-    os << "IsNotExist";
-    break;
-  default:
-    os << "Unknown";
-    break; // 可选：处理未定义值
-  }
-  return os;
-}
+std::ostream &operator<<(std::ostream &os, quark::MTCode color);
 
+std::string MTCodeToString(MTCode mtCode);
 
 class CXAPI MTException final : public std::exception {
 public:
@@ -81,20 +60,15 @@ private:
   std::string message_;
 };
 
-template <class T>
-class CXAPI MTResult {
+template <class T> class CXAPI MTResult {
 public:
-  explicit MTResult(const T &rhs) : v_(rhs) {
-  }
+  explicit MTResult(const T &rhs) : v_(rhs) {}
 
-  explicit MTResult(const T &&rhs) : v_(std::move(rhs)) {
-  }
+  explicit MTResult(const T &&rhs) : v_(std::move(rhs)) {}
 
-  explicit MTResult(const MTException &rhs) : v_(rhs) {
-  }
+  explicit MTResult(const MTException &rhs) : v_(rhs) {}
 
-  explicit MTResult(const MTException &&rhs) : v_(std::move(rhs)) {
-  }
+  explicit MTResult(const MTException &&rhs) : v_(std::move(rhs)) {}
 
   [[nodiscard]] bool has_error() const {
     return std::holds_alternative<MTException>(v_);
@@ -112,6 +86,6 @@ private:
 
   std::variant<T, MTException> v_;
 };
-}
+} // namespace quark
 
 #endif
