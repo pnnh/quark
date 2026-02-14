@@ -42,6 +42,12 @@ quark::MTException::MTException(const std::string &message)
 quark::MTException::MTException(const int &code, const std::string &message)
     : code_(code), message_(message) {}
 
+quark::MTException::~MTException() = default;
+
+const char *quark::MTException::what() const noexcept {
+  return QKResultCodeToString(code_);
+}
+
 void quark::MTException::appendMessage(const std::string &message) {
   message_ = message_ + message;
 }
