@@ -1,5 +1,5 @@
 #include "version.h"
-#include "quark/services/database/sqlite_service.h"
+#include "services/database/sqlite_service.h"
 #include <iostream>
 
 void cxxSqliteStatParams()

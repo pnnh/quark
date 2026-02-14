@@ -1,6 +1,15 @@
 #pragma once
 
-#include "quark/build.h"
+
+
+#include "build.h"
+
+
+
+#ifdef __cplusplus
+
+#include <string>
+
 
 namespace quark
 {
@@ -12,3 +21,13 @@ namespace quark
         static std::string getMimeType(const std::string& path);
     };
 }
+
+
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
+

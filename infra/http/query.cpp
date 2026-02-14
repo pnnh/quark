@@ -1,7 +1,7 @@
-#include "quark/infra/http/query.h"
+#include "infra/http/query.h"
 
-#include "quark/infra/result/result.h"
-#include "quark/core/string/string.h"
+#include "infra/result/result.h"
+#include "core/string/string.h"
 
 #include <boost/range/algorithm.hpp>
 #include <regex>

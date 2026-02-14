@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/services/database/sqlite_row.h"
+#include "services/database/sqlite_row.h"
 
 #ifdef __cplusplus
 

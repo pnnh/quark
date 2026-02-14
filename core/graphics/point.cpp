@@ -1,1 +1,1 @@
-#include "quark/core/graphics/point.h"
+#include "core/graphics/point.h"

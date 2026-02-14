@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/core/string/string.h"
+#include "core/string/string.h"
 #include "sqlite_result.h"
 
 #ifdef __cplusplus

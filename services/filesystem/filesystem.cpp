@@ -2,9 +2,9 @@
 
 #include <filesystem>
 #include <fstream>
-#include <quark/core/string/string.h>
+#include <core/string/string.h>
 
-#include "quark/infra/utils/md5.h"
+#include "infra/utils/md5.h"
 
 bool quark::IsFileExist(const std::string &filePath) {
   std::ifstream inFile(filePath);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/build.h"
+#include "build.h"
 
 #ifdef __cplusplus
 

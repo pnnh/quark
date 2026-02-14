@@ -2,7 +2,7 @@
 
 #include <sqlite3.h>
 
-#include "quark/infra/result/result.h"
+#include "infra/result/result.h"
 
 
 quark::MTSqliteColumn::MTSqliteColumn() : colType(), colIndex()

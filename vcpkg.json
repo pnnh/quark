@@ -1,0 +1,61 @@
+{
+  "name": "quark",
+  "version": "0.1.0",
+  "dependencies": [
+    {
+      "name": "spdlog"
+    },
+    {
+      "name": "zlib"
+    },
+    {
+      "name": "boost-filesystem"
+    },
+    {
+      "name": "boost-chrono"
+    },
+    {
+      "name": "boost-thread"
+    },
+    {
+      "name": "boost-iterator"
+    },
+    {
+      "name": "boost-property-map"
+    },
+    {
+      "name": "boost-system"
+    },
+    {
+      "name": "boost-url"
+    },
+    {
+      "name": "boost-property-tree"
+    },
+    {
+      "name": "boost-uuid"
+    },
+    {
+      "name": "cmark"
+    },
+    {
+      "name": "sqlite3"
+    },
+    {
+      "name": "date"
+    },
+    {
+      "name": "inja"
+    },
+    {
+      "name": "nlohmann-json"
+    },
+    {
+      "name": "libenvpp"
+    },
+    {
+      "name": "yaml-cpp"
+    }
+  ],
+  "overrides": []
+}

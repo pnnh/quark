@@ -1,7 +1,7 @@
 module;
 
 #include <iostream>
-#include "quark/services/logger/logger.h"
+#include "services/logger/logger.h"
 
 export module quark.logger;
 

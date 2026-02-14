@@ -1,1 +1,1 @@
-#include "quark/core/graphics/rectangle.h"
+#include "core/graphics/rectangle.h"

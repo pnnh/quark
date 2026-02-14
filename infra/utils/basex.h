@@ -1,5 +1,5 @@
 #pragma once
-#include "quark/build.h"
+#include "build.h"
 #include <string>
 
 namespace quark

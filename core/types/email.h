@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "quark/build.h"
+#include "build.h"
 
 #ifdef __cplusplus
 

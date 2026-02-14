@@ -2,8 +2,8 @@
 #include "string.h"
 #include <stdio.h>
 
-#include <quark/services/database/sqlite_service.h>
-#include "quark/core/string/string.h"
+#include <services/database/sqlite_service.h>
+#include "core/string/string.h"
 
 void cSqliteVersion()
 {

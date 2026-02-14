@@ -1,6 +1,6 @@
 #include "sqlite_command.h"
 
-#include "quark/infra/result/result.h"
+#include "infra/result/result.h"
 
 #include <utility>
 

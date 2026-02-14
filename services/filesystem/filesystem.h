@@ -2,8 +2,8 @@
 
 #include <expected>
 
-#include "quark/build.h"
-#include "quark/infra/result/result.h"
+#include "build.h"
+#include "infra/result/result.h"
 
 
 #ifdef __cplusplus
@@ -19,7 +19,7 @@ CXAPI bool IsFileExist(const char *filePath);
 #include <filesystem>
 #include <string>
 
-#include "quark/core/types/datetime.h"
+#include "core/types/datetime.h"
 
 namespace quark {
     bool CXAPI IsFileExist(const std::string &filePath);

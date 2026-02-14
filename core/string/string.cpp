@@ -4,7 +4,7 @@
 #include <sstream>
 #include <utility>
 
-#include "quark/infra/result/result.h"
+#include "infra/result/result.h"
 
 template<typename... Args>
 std::string quark::MTString::DynamicPrint(std::string_view rt_fmt_str,

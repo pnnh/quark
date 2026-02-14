@@ -1,6 +1,6 @@
 #include "sqlite_result.h"
 
-#include <quark/infra/result/result.h>
+#include <infra/result/result.h>
 
 void quark::MTSqliteResult::appendRow(const std::shared_ptr<MTSqliteRow>& row)
 {

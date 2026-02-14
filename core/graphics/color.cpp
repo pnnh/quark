@@ -1,5 +1,5 @@
-#include "quark/core/graphics/color.h"
-#include "quark/services/random/random.hpp"
+#include "core/graphics/color.h"
+#include "services/random/random.h"
 
 namespace quark
 {
