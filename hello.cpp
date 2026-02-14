@@ -1,5 +1,9 @@
 #include "hello.h"
 
-std::string sayHello(const std::string& name) {
-    return std::string("Hello World") + name;
+namespace quark {
+
+std::string hello(const std::string& name) {
+    return std::string("Hello, ") + name + "!";
 }
+
+} // namespace quark
