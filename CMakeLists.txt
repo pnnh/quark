@@ -63,6 +63,7 @@ set(QUARK_SOURCES
 # 收集所有头文件
 set(QUARK_HEADERS
         hello.h
+        build.h
         infra/result/result.h
         infra/collection/list.h
         infra/http/http.h
@@ -159,8 +160,13 @@ set_target_properties(quark PROPERTIES
 )
 
 # 安装header文件
-install(FILES ${QUARK_HEADERS}
+install(FILES hello.h build.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/quark
+)
+
+install(DIRECTORY core/ infra/ services/
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/quark
+        FILES_MATCHING PATTERN "*.h"
 )
 
 # ============ CMake 配置文件安装 ============
