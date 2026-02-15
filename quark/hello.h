@@ -2,10 +2,11 @@
 #define QUARK_HELLO_H
 
 #include <string>
+#include "build.h"
 
 namespace quark {
 
-std::string hello(const std::string& name);
+CXAPI std::string hello(const std::string& name);
 
 } // namespace quark
 

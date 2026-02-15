@@ -28,13 +28,13 @@ namespace quark {
         void LogError(std::initializer_list<std::string> messageList);
     };
 
-    void MTLogInfo(const std::string &message);
+    CXAPI void MTLogInfo(const std::string &message);
 
-    void MTLogInfo(std::initializer_list<std::string> messageList);
+    CXAPI void MTLogInfo(std::initializer_list<std::string> messageList);
 
-    void MTLogError(const std::string &message);
+    CXAPI void MTLogError(const std::string &message);
 
-    void MTLogError(std::initializer_list<std::string> messageList);
+    CXAPI void MTLogError(std::initializer_list<std::string> messageList);
 }
 
 
