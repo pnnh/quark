@@ -1,6 +1,6 @@
 #pragma once
 
-#include "build.h"
+#include "quark/build.h"
 
 #ifdef __cplusplus
 
@@ -19,4 +19,3 @@ CXAPI void cSqliteStatParams();
 CXAPI void cxxSqliteStatParams();
 
 #endif
-

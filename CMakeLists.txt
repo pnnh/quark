@@ -25,77 +25,77 @@ link_directories(${PROJECT_BINARY_DIR})
 
 # 收集所有源文件
 set(QUARK_SOURCES
-        hello.cpp
-        infra/result/result.cpp
-        infra/collection/list.cpp
-        infra/http/http.cpp
-        infra/http/query.cpp
-        infra/http/url.cpp
-        infra/media/image.cpp
-        infra/media/json.cpp
-        infra/media/mime.cpp
-        infra/media/svg.cpp
-        infra/utils/basex.cpp
-        infra/utils/md5.cpp
-        core/graphics/color.cpp
-        core/graphics/cube.cpp
-        core/graphics/point.cpp
-        core/graphics/rectangle.cpp
-        core/types/any.cpp
-        core/types/bytes.cpp
-        core/types/datetime.cpp
-        core/types/email.cpp
-        core/types/float.cpp
-        core/types/integer.cpp
-        core/types/regex.cpp
-        core/types/size.cpp
-        core/string/string.cpp
-        services/logger/logger.cpp
-        services/random/random.cpp
-        services/filesystem/filesystem.cpp
-        services/database/sqlite_column.cpp
-        services/database/sqlite_command.cpp
-        services/database/sqlite_result.cpp
-        services/database/sqlite_row.cpp
-        services/database/sqlite_service.cpp
+        quark/hello.cpp
+        quark/infra/result/result.cpp
+        quark/infra/collection/list.cpp
+        quark/infra/http/http.cpp
+        quark/infra/http/query.cpp
+        quark/infra/http/url.cpp
+        quark/infra/media/image.cpp
+        quark/infra/media/json.cpp
+        quark/infra/media/mime.cpp
+        quark/infra/media/svg.cpp
+        quark/infra/utils/basex.cpp
+        quark/infra/utils/md5.cpp
+        quark/core/graphics/color.cpp
+        quark/core/graphics/cube.cpp
+        quark/core/graphics/point.cpp
+        quark/core/graphics/rectangle.cpp
+        quark/core/types/any.cpp
+        quark/core/types/bytes.cpp
+        quark/core/types/datetime.cpp
+        quark/core/types/email.cpp
+        quark/core/types/float.cpp
+        quark/core/types/integer.cpp
+        quark/core/types/regex.cpp
+        quark/core/types/size.cpp
+        quark/core/string/string.cpp
+        quark/services/logger/logger.cpp
+        quark/services/random/random.cpp
+        quark/services/filesystem/filesystem.cpp
+        quark/services/database/sqlite_column.cpp
+        quark/services/database/sqlite_command.cpp
+        quark/services/database/sqlite_result.cpp
+        quark/services/database/sqlite_row.cpp
+        quark/services/database/sqlite_service.cpp
 )
 
 # 收集所有头文件
 set(QUARK_HEADERS
-        hello.h
-        build.h
-        infra/result/result.h
-        infra/collection/list.h
-        infra/http/http.h
-        infra/http/query.h
-        infra/http/url.h
-        infra/media/image.h
-        infra/media/json.h
-        infra/media/mime.h
-        infra/media/svg.h
-        infra/utils/basex.h
-        infra/utils/md5.h
-        core/graphics/color.h
-        core/graphics/cube.h
-        core/graphics/point.h
-        core/graphics/rectangle.h
-        core/types/any.h
-        core/types/bytes.h
-        core/types/datetime.h
-        core/types/email.h
-        core/types/float.h
-        core/types/integer.h
-        core/types/regex.h
-        core/types/size.h
-        core/string/string.h
-        services/logger/logger.h
-        services/random/random.h
-        services/filesystem/filesystem.h
-        services/database/sqlite_column.h
-        services/database/sqlite_command.h
-        services/database/sqlite_result.h
-        services/database/sqlite_row.h
-        services/database/sqlite_service.h
+        quark/hello.h
+        quark/build.h
+        quark/infra/result/result.h
+        quark/infra/collection/list.h
+        quark/infra/http/http.h
+        quark/infra/http/query.h
+        quark/infra/http/url.h
+        quark/infra/media/image.h
+        quark/infra/media/json.h
+        quark/infra/media/mime.h
+        quark/infra/media/svg.h
+        quark/infra/utils/basex.h
+        quark/infra/utils/md5.h
+        quark/core/graphics/color.h
+        quark/core/graphics/cube.h
+        quark/core/graphics/point.h
+        quark/core/graphics/rectangle.h
+        quark/core/types/any.h
+        quark/core/types/bytes.h
+        quark/core/types/datetime.h
+        quark/core/types/email.h
+        quark/core/types/float.h
+        quark/core/types/integer.h
+        quark/core/types/regex.h
+        quark/core/types/size.h
+        quark/core/string/string.h
+        quark/services/logger/logger.h
+        quark/services/random/random.h
+        quark/services/filesystem/filesystem.h
+        quark/services/database/sqlite_column.h
+        quark/services/database/sqlite_command.h
+        quark/services/database/sqlite_result.h
+        quark/services/database/sqlite_row.h
+        quark/services/database/sqlite_service.h
 )
 
 
@@ -122,7 +122,6 @@ target_link_libraries(quark PRIVATE unofficial::sqlite3::sqlite3)
 # 查找并引用yaml-cpp解析库
 find_package(yaml-cpp CONFIG REQUIRED)
 target_link_libraries(quark PRIVATE yaml-cpp::yaml-cpp)
-
 
 # 查找JSON库
 find_package(nlohmann_json CONFIG REQUIRED)
@@ -160,11 +159,7 @@ set_target_properties(quark PROPERTIES
 )
 
 # 安装header文件
-install(FILES hello.h build.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/quark
-)
-
-install(DIRECTORY core/ infra/ services/
+install(DIRECTORY quark/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/quark
         FILES_MATCHING PATTERN "*.h"
 )

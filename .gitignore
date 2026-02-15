@@ -1,4 +1,3 @@
-
 # JetBrains
 .idea/
 .cache/
@@ -17,32 +16,4 @@ x64/
 build/
 cmake-build-*
 vcpkg_installed/
-
-# xcode macos and ios
-xcuserdata/
-*.xcscmblueprint
-*.xccheckout
-*.ipa
-*.dSYM.zip
-*.dSYM
-.build/
-Packages/
-DerivedData/
-*.moved-aside
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-*.hmap
-Pods/
-.swiftpm/
-
-# Nodejs
-node_modules/
-
-# Rust
-target/
+install/
