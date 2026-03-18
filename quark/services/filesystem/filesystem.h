@@ -38,7 +38,7 @@ namespace quark {
     bool isIgnore(const std::string &path);
 
     // 返回不同平台下的用户主目录
-    std::string UserHomeDirectory();
+    QKAPI std::string UserHomeDirectory();
 
     // 解析路径，将一些占位符替换为特殊目录
     std::string ResolvePath(const std::string &path);

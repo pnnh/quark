@@ -8,10 +8,12 @@
 extern "C" {
 #endif
 
-QKAPI const int QKSqliteValueNull = 0;
-QKAPI const int QKSqliteValueString = 1;
-QKAPI const int QKSqliteValueInt = 2;
-QKAPI const int QKSqliteValueDouble = 3;
+enum {
+    QKSqliteValueNull = 0,
+    QKSqliteValueString = 1,
+    QKSqliteValueInt = 2,
+    QKSqliteValueDouble = 3
+};
 
 
 typedef struct {
@@ -47,7 +49,7 @@ namespace quark {
         DoubleIndex = 2
     } MTSqliteValueIndex;
 
-    class MTSqliteColumn {
+    class QKAPI MTSqliteColumn {
     public:
         MTSqliteColumn();
 

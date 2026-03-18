@@ -9,20 +9,20 @@
 #  ifndef QKAPI
 #    ifdef quark_EXPORTS
         /* We are building this library */
-#      define QKAPI __attribute__((visibility("default")))
+#      define QKAPI __declspec(dllexport)
 #    else
         /* We are using this library */
-#      define QKAPI __attribute__((visibility("default")))
+#      define QKAPI __declspec(dllimport)
 #    endif
 #  endif
 
 #  ifndef MTQUARK_NO_EXPORT
-#    define MTQUARK_NO_EXPORT __attribute__((visibility("hidden")))
+#    define MTQUARK_NO_EXPORT 
 #  endif
 #endif
 
 #ifndef MTQUARK_DEPRECATED
-#  define MTQUARK_DEPRECATED __attribute__ ((__deprecated__))
+#  define MTQUARK_DEPRECATED __declspec(deprecated)
 #endif
 
 #ifndef MTQUARK_DEPRECATED_EXPORT
