@@ -1,12 +1,13 @@
 #pragma once
 
-#include "quark/build.h"
+
+#include <quark/quark.h>
 
 #ifdef __cplusplus
 
 namespace quark {
 
-    class CXAPI MTPoint {
+    class QKAPI MTPoint {
 
     };
 

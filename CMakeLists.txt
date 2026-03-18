@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2.0)
+cmake_minimum_required(VERSION 3.29...4.2.3)
 
 project(quark VERSION 0.2.0 LANGUAGES C CXX)
 
@@ -23,9 +23,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${PROJECT_BINARY_DIR})
 link_directories(${PROJECT_BINARY_DIR})
 
+# 引用头文件导出助手函数
+include(GenerateExportHeader)
+
 # 收集所有源文件
 set(QUARK_SOURCES
-        quark/hello.cpp
         quark/infra/result/result.cpp
         quark/infra/collection/list.cpp
         quark/infra/http/http.cpp
@@ -50,6 +52,7 @@ set(QUARK_SOURCES
         quark/core/types/regex.cpp
         quark/core/types/size.cpp
         quark/core/string/string.cpp
+        quark/core/uuid/uuid.cpp
         quark/services/logger/logger.cpp
         quark/services/random/random.cpp
         quark/services/filesystem/filesystem.cpp
@@ -58,12 +61,12 @@ set(QUARK_SOURCES
         quark/services/database/sqlite_result.cpp
         quark/services/database/sqlite_row.cpp
         quark/services/database/sqlite_service.cpp
+        quark/services/markdown/MarkdownService.cpp
+        quark/services/yaml/yaml.cpp
 )
 
 # 收集所有头文件
 set(QUARK_HEADERS
-        quark/hello.h
-        quark/build.h
         quark/infra/result/result.h
         quark/infra/collection/list.h
         quark/infra/http/http.h
@@ -88,6 +91,7 @@ set(QUARK_HEADERS
         quark/core/types/regex.h
         quark/core/types/size.h
         quark/core/string/string.h
+        quark/core/uuid/uuid.h
         quark/services/logger/logger.h
         quark/services/random/random.h
         quark/services/filesystem/filesystem.h
@@ -96,11 +100,27 @@ set(QUARK_HEADERS
         quark/services/database/sqlite_result.h
         quark/services/database/sqlite_row.h
         quark/services/database/sqlite_service.h
+        quark/services/markdown/MarkdownService.h
+        quark/services/yaml/yaml.h
 )
 
 
 # 创建library目标
 add_library(quark SHARED ${QUARK_SOURCES} ${QUARK_HEADERS})
+
+generate_export_header(quark
+        BASE_NAME MTQuark           # 决定生成的宏前缀
+        EXPORT_FILE_NAME          # 指定输出路径
+        "${CMAKE_CURRENT_SOURCE_DIR}/quark/quark.h"
+        EXPORT_MACRO_NAME QKAPI
+)
+
+# 让使用方能找到生成的头文件
+target_include_directories(quark
+        PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+        "$<INSTALL_INTERFACE:include>"
+)
 
 # 查找并引用日志库
 find_package(spdlog CONFIG REQUIRED)

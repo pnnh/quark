@@ -1,13 +1,14 @@
 #pragma once
 
-#include "quark/build.h"
+
+#include <quark/quark.h>
 
 #ifdef __cplusplus
 
 extern "C" {
 #endif
 
-CXAPI void QKLogInfo(const char *message);
+QKAPI void QKLogInfo(const char *message);
 
 #ifdef __cplusplus
 }
@@ -15,7 +16,7 @@ CXAPI void QKLogInfo(const char *message);
 #include <string>
 
 namespace quark {
-    class CXAPI MTLogger {
+    class QKAPI MTLogger {
     public:
         static MTLogger Standard;
 
@@ -28,13 +29,13 @@ namespace quark {
         void LogError(std::initializer_list<std::string> messageList);
     };
 
-    CXAPI void MTLogInfo(const std::string &message);
+    QKAPI void MTLogInfo(const std::string &message);
 
-    CXAPI void MTLogInfo(std::initializer_list<std::string> messageList);
+    QKAPI void MTLogInfo(std::initializer_list<std::string> messageList);
 
-    CXAPI void MTLogError(const std::string &message);
+    QKAPI void MTLogError(const std::string &message);
 
-    CXAPI void MTLogError(std::initializer_list<std::string> messageList);
+    QKAPI void MTLogError(std::initializer_list<std::string> messageList);
 }
 
 

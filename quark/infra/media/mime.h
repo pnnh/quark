@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "quark/build.h"
+#include "quark/quark.h"
 
 
 #ifdef __cplusplus
@@ -12,7 +12,7 @@
 namespace quark {
     std::string mime_type(const std::string &path);
 
-    class CXAPI MTMime {
+    class QKAPI MTMime {
     public:
         static bool isImage(const std::string &path);
 

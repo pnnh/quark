@@ -2,13 +2,14 @@
 
 #include <string>
 
-#include "quark/build.h"
+#include <quark/quark.h>
+
 
 #ifdef __cplusplus
 
 namespace quark
 {
-    class CXAPI MTUrl
+    class QKAPI MTUrl
     {
     public:
         static std::string encode(const std::string& url);

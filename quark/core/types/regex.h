@@ -2,14 +2,15 @@
 
 #include <string>
 
-#include "quark/build.h"
+
+#include <quark/quark.h>
 
 #ifdef __cplusplus
 
 
 namespace quark
 {
-    class CXAPI MTRegex
+    class QKAPI MTRegex
     {
     public:
         static bool isMatch(const std::string& str, const std::string& pattern);

@@ -2,7 +2,7 @@
 
 #include <expected>
 
-#include "quark/build.h"
+
 #include "quark/infra/result/result.h"
 
 
@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-CXAPI bool IsFileExist(const char *filePath);
+QKAPI bool IsFileExist(const char *filePath);
 
 #ifdef __cplusplus
 }
@@ -22,7 +22,7 @@ CXAPI bool IsFileExist(const char *filePath);
 #include "quark/core/types/datetime.h"
 
 namespace quark {
-    bool CXAPI IsFileExist(const std::string &filePath);
+    bool QKAPI IsFileExist(const std::string &filePath);
 
     std::string JoinFilePath(std::initializer_list<std::string> pathList);
 
@@ -46,7 +46,7 @@ namespace quark {
     namespace filesystem {
         std::string ReadAllText(const std::string &filePath);
 
-        class CXAPI MTFileModel {
+        class QKAPI MTFileModel {
         public:
             explicit MTFileModel(std::string title);
 
@@ -63,7 +63,7 @@ namespace quark {
             quark::PSDatetime UpdateTime;
         };
 
-        class CXAPI MTFileServerBusiness {
+        class QKAPI MTFileServerBusiness {
         public:
             struct SelectFilesOptions {
                 SelectFilesOptions();

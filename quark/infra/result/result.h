@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quark/build.h"
+#include "quark/quark.h"
 
 #ifdef __cplusplus
 
@@ -10,7 +10,7 @@ extern "C" {
 const int QKResultOk = 0;
 const int QKResultError = 1;
 
-CXAPI constexpr const char *QKResultCodeToString(int qkCode);
+QKAPI constexpr const char *QKResultCodeToString(int qkCode);
 #ifdef __cplusplus
 }
 
@@ -20,7 +20,7 @@ CXAPI constexpr const char *QKResultCodeToString(int qkCode);
 #include <variant>
 
 namespace quark {
-  enum class CXAPI MTCode {
+  enum class QKAPI MTCode {
     Ok = 0,
     Error = 1,
     IsNotDirectory = 2,
@@ -33,7 +33,7 @@ namespace quark {
 
   std::string MTCodeToString(MTCode mtCode);
 
-  class CXAPI MTException final : public std::exception {
+  class QKAPI MTException final : public std::exception {
   public:
     MTException();
 
@@ -60,7 +60,7 @@ namespace quark {
   };
 
   template<class T>
-  class CXAPI MTResult {
+  class QKAPI MTResult {
   public:
     explicit MTResult(const T &rhs) : v_(rhs) {
     }

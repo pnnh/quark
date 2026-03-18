@@ -1,7 +1,7 @@
 #include "sqlite_row.h"
 #include <utility>
 #include "quark/infra/result/result.h"
-
+#include <algorithm>
 #include "sqlite_command.h"
 
 quark::MTSqliteRow::MTSqliteRow(): colNames(std::make_shared<std::vector<std::string>>())

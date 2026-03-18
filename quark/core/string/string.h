@@ -1,6 +1,6 @@
 #pragma once
+#include <quark/quark.h>
 
-#include "quark/build.h"
 
 #ifdef __cplusplus
 
@@ -11,10 +11,10 @@ typedef struct {
     void *mtStr;
 } QKString;
 
-CXAPI QKString *QKStringCreate(char *data);
-CXAPI int QKStringDelete(QKString * qkStr);
+QKAPI QKString *QKStringCreate(char *data);
+QKAPI int QKStringDelete(QKString * qkStr);
 
-CXAPI char *QKStringGetData(QKString *qkStr);
+QKAPI char *QKStringGetData(QKString *qkStr);
 
 
 #ifdef __cplusplus

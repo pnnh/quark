@@ -1,12 +1,12 @@
 #pragma once
 
-#include "quark/build.h"
+#include "quark/quark.h"
 #include <boost/url.hpp>
 #include <optional>
 #include <string>
 
 namespace quark {
-class CXAPI MTQueryString {
+class QKAPI MTQueryString {
 public:
   explicit MTQueryString(const std::string &url_string);
 

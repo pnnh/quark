@@ -1,21 +1,21 @@
 #pragma once
 
-#include "quark/build.h"
+#include "quark/quark.h"
 
 #ifdef __cplusplus
 
 extern "C" {
 #endif
 
-CXAPI void cSqliteVersion();
+QKAPI void cSqliteVersion();
 
-CXAPI void cSqliteSelectNames();
+QKAPI void cSqliteSelectNames();
 
-CXAPI void cSqliteStatParams();
+QKAPI void cSqliteStatParams();
 
 #ifdef __cplusplus
 }
 
-CXAPI void cxxSqliteStatParams();
+QKAPI void cxxSqliteStatParams();
 
 #endif

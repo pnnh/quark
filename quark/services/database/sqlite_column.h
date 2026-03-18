@@ -1,16 +1,17 @@
 #pragma once
 
 #include "quark/core/string/string.h"
+#include <quark/quark.h>
 
 #ifdef __cplusplus
 
 extern "C" {
 #endif
 
-CXAPI const int QKSqliteValueNull = 0;
-CXAPI const int QKSqliteValueString = 1;
-CXAPI const int QKSqliteValueInt = 2;
-CXAPI const int QKSqliteValueDouble = 3;
+QKAPI const int QKSqliteValueNull = 0;
+QKAPI const int QKSqliteValueString = 1;
+QKAPI const int QKSqliteValueInt = 2;
+QKAPI const int QKSqliteValueDouble = 3;
 
 
 typedef struct {
@@ -18,15 +19,15 @@ typedef struct {
 } QKSqliteColumn;
 
 
-CXAPI QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance, int *resultCode);
+QKAPI QKString *QKSQliteColumnGetStringValue(QKSqliteColumn *instance, int *resultCode);
 
-CXAPI int QKSQliteColumnGetIntValue(QKSqliteColumn *instance, int *resultCode);
+QKAPI int QKSQliteColumnGetIntValue(QKSqliteColumn *instance, int *resultCode);
 
-CXAPI int QKSQliteColumnGetDoubleValue(QKSqliteColumn *instance, int *resultCode);
+QKAPI int QKSQliteColumnGetDoubleValue(QKSqliteColumn *instance, int *resultCode);
 
-CXAPI QKString *QKSQliteColumnGetName(QKSqliteColumn *instance, int *resultCode);
+QKAPI QKString *QKSQliteColumnGetName(QKSqliteColumn *instance, int *resultCode);
 
-CXAPI int QKSQliteColumnGetValueType(QKSqliteColumn *instance, int *resultCode);
+QKAPI int QKSQliteColumnGetValueType(QKSqliteColumn *instance, int *resultCode);
 
 #ifdef __cplusplus
 }

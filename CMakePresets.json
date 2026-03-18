@@ -1,8 +1,8 @@
 {
   "version": 3,
   "cmakeMinimumRequired": {
-    "major": 4,
-    "minor": 2,
+    "major": 3,
+    "minor": 29,
     "patch": 0
   },
   "configurePresets": [
@@ -11,7 +11,7 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/linux",
       "installDir": "${sourceDir}/install/linux",
-      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "toolchainFile": "$env{HOME}/opt/vcpkg/scripts/buildsystems/vcpkg.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",

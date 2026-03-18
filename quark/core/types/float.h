@@ -1,21 +1,22 @@
 #pragma once
 
-#include "quark/build.h"
+
+#include <quark/quark.h>
 
 #ifdef __cplusplus
 
 
 namespace quark {
 
-    class CXAPI MTFloat {
+    class QKAPI MTFloat {
 
     };
 
-    class CXAPI MTDouble {
+    class QKAPI MTDouble {
 
     };
 
-    class CXAPI MTDecimal {
+    class QKAPI MTDecimal {
 
     };
 

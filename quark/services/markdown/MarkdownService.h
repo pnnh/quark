@@ -1,8 +1,9 @@
 #pragma once
 
-#include "quark/build.h"
+
+#include <quark/quark.h>
 #include <string>
 
 namespace quark {
-     CXAPI std::string markdownToHtml(const std::string &markdownText);
+     QKAPI std::string markdownToHtml(const std::string &markdownText);
 }

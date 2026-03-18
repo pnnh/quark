@@ -1,10 +1,10 @@
 module;
 
-#include "quark/build.h"
+#include "quark/quark.h"
 #include "filesystem.h"
 
 export module logger.filesystem;
 
-export bool CXAPI IsFileExist(const std::string &filePath) {
+export bool QKAPI IsFileExist(const std::string &filePath) {
     return quark::IsFileExist(filePath);
 }

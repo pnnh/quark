@@ -14,17 +14,17 @@ typedef struct {
     void *mtSqlSvc;
 } QKSqliteService;
 
-CXAPI QKSqliteService *
+QKAPI QKSqliteService *
 QKSqliteServiceCreate(QKString *message, int *resultCode);
 
-CXAPI void QKSqliteServiceDelete(QKSqliteService *instance, int *resultCode);
+QKAPI void QKSqliteServiceDelete(QKSqliteService *instance, int *resultCode);
 
-CXAPI QKSqliteCommand *QKSqliteServiceCreateCommand(
+QKAPI QKSqliteCommand *QKSqliteServiceCreateCommand(
     QKSqliteService *instance, QKString *sqlText, int *resultCode);
 
-CXAPI QKString *QKSqliteVersion(QKSqliteService *instance, int *resultCode);
+QKAPI QKString *QKSqliteVersion(QKSqliteService *instance, int *resultCode);
 
-CXAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance,
+QKAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance,
                                      QKString *sqlText, int *resultCode);
 
 
@@ -36,7 +36,7 @@ CXAPI QKSqliteResult *QKSqliteRunSql(QKSqliteService *instance,
 #include <memory>
 
 namespace quark {
-    class CXAPI MTSqliteService {
+    class QKAPI MTSqliteService {
     public:
         explicit MTSqliteService(const std::string &path);
 

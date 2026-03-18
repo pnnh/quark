@@ -13,9 +13,9 @@ typedef struct
     void* mtSqlResult;
 } QKSqliteResult;
 
-CXAPI QKSqliteRow* QKSqliteResultGetRow(QKSqliteResult* instance, int index, int* resultCode);
+QKAPI QKSqliteRow* QKSqliteResultGetRow(QKSqliteResult* instance, int index, int* resultCode);
 
-CXAPI int QKSqliteResultGetRowCount(QKSqliteResult* instance, int* resultCode);
+QKAPI int QKSqliteResultGetRowCount(QKSqliteResult* instance, int* resultCode);
 
 #ifdef __cplusplus
 }
@@ -24,7 +24,7 @@ CXAPI int QKSqliteResultGetRowCount(QKSqliteResult* instance, int* resultCode);
 
 namespace quark
 {
-    class CXAPI MTSqliteResult
+    class QKAPI MTSqliteResult
     {
     public:
         MTSqliteResult(): rows()

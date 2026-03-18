@@ -12,13 +12,13 @@ typedef struct {
     void *mtSqliteCommand;
 } QKSqliteCommand;
 
-CXAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int value, int *resultCode);
+QKAPI int QKSqliteCommandBindInt(QKSqliteCommand *instance, QKString *name, int value, int *resultCode);
 
-CXAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value, int *resultCode);
+QKAPI int QKSqliteCommandBindString(QKSqliteCommand *instance, QKString *name, QKString *value, int *resultCode);
 
-CXAPI QKSqliteResult *QKSqliteCommandRun(QKSqliteCommand *instance, int *resultCode);
+QKAPI QKSqliteResult *QKSqliteCommandRun(QKSqliteCommand *instance, int *resultCode);
 
-CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance, int *resultCode);
+QKAPI int QKSqliteCommandClose(QKSqliteCommand *instance, int *resultCode);
 
 #ifdef __cplusplus
 }
@@ -29,7 +29,7 @@ CXAPI int QKSqliteCommandClose(QKSqliteCommand *instance, int *resultCode);
 #include "sqlite_result.h"
 
 namespace quark {
-    class CXAPI MTSqliteCommand {
+    class QKAPI MTSqliteCommand {
     public:
         MTSqliteCommand(sqlite3_stmt *stmt, std::string sqlText);
 

@@ -1,17 +1,18 @@
 #pragma once
 
 #include <string>
-#include "quark/build.h"
+
 
 #ifdef __cplusplus
 
+#include <quark/quark.h>
 
 namespace quark
 {
     // 校验是否合法的Email地址
     bool validateEmail(const std::string& email);
 
-    class CXAPI MTEMail {
+    class QKAPI MTEMail {
 
     };
 }

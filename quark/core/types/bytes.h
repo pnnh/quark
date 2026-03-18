@@ -1,17 +1,18 @@
 #pragma once
 
-#include "quark/build.h"
+
+#include <quark/quark.h>
 
 
 #ifdef __cplusplus
 
 
 namespace quark {
-    class CXAPI MTByte{
+    class QKAPI MTByte{
 
     };
 
-    class CXAPI MTBytesArray{
+    class QKAPI MTBytesArray{
 
     };
 }
