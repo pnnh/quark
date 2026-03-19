@@ -1,11 +1,11 @@
 #pragma once
 
-#include <optional>
+#include <quark/quark.h>
 #include <string>
 #include <yaml-cpp/node/node.h>
 
 namespace quark {
-class YamlHandler {
+class QKAPI YamlHandler {
 public:
   explicit YamlHandler(const std::string &filePath);
 

@@ -1,28 +1,26 @@
 #pragma once
 
-
-
+#include <quark/quark.h>
 
 #ifdef __cplusplus
-
 
 #include <string>
 
 namespace quark {
-    class PSRandom {
-    public:
-        static int randomInt(int min, int max);
+class QKAPI PSRandom {
+public:
+  static int randomInt(int min, int max);
 
-        static double randomDouble(double min, double max);
+  static double randomDouble(double min, double max);
 
-        static std::string randomString(int length);
-    };
-}
+  static std::string randomString(int length);
+};
+} // namespace quark
 
 extern "C" {
 #endif
 
-int MTRandomInt(int min, int max);
+QKAPI int MTRandomInt(int min, int max);
 
 #ifdef __cplusplus
 }

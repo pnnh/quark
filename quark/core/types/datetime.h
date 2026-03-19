@@ -1,34 +1,35 @@
 #pragma once
 
-#include <string>
 #include <chrono>
 #include <ctime>
+#include <string>
 
-namespace quark
-{
-    std::chrono::system_clock::time_point makeTimePoint(const std::string& s);
+#include "quark/quark.h"
 
-    std::string formatTime(const std::chrono::system_clock::time_point& time_point);
+namespace quark {
+QKAPI std::chrono::system_clock::time_point makeTimePoint(const std::string &s);
 
-    class PSDatetime
-    {
-    public:
-        explicit PSDatetime();
-        explicit PSDatetime(const std::string& datetime);
-        explicit PSDatetime(const std::chrono::system_clock::time_point& datetime);
-        explicit PSDatetime(const std::time_t& datetime);
+QKAPI std::string
+formatTime(const std::chrono::system_clock::time_point &time_point);
 
-        PSDatetime& operator=(const PSDatetime& other);
-        PSDatetime& operator=(const std::chrono::system_clock::time_point& x);
-        PSDatetime& operator=(const std::time_t& datetime);
+class QKAPI PSDatetime {
+public:
+  explicit PSDatetime();
+  explicit PSDatetime(const std::string &datetime);
+  explicit PSDatetime(const std::chrono::system_clock::time_point &datetime);
+  explicit PSDatetime(const std::time_t &datetime);
 
-        [[nodiscard]]
-        std::string toString() const;
-        [[nodiscard]] std::chrono::system_clock::time_point toTimePoint() const;
+  PSDatetime &operator=(const PSDatetime &other);
+  PSDatetime &operator=(const std::chrono::system_clock::time_point &x);
+  PSDatetime &operator=(const std::time_t &datetime);
 
-        static PSDatetime now();
+  [[nodiscard]]
+  std::string toString() const;
+  [[nodiscard]] std::chrono::system_clock::time_point toTimePoint() const;
 
-    private:
-        std::chrono::system_clock::time_point timeValue;
-    };
-}
+  static PSDatetime now();
+
+private:
+  std::chrono::system_clock::time_point timeValue;
+};
+} // namespace quark
