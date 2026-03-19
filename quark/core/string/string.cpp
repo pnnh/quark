@@ -6,11 +6,6 @@
 
 #include "quark/infra/result/result.h"
 
-template<typename... Args>
-std::string quark::MTString::DynamicPrint(std::string_view rt_fmt_str,
-                                          Args &&... args) {
-  return std::vformat(rt_fmt_str, std::make_format_args(args...));
-}
 
 bool quark::MTString::IsBlank(const std::string &str) {
   return str.empty() ||
@@ -129,13 +124,19 @@ std::string QKStringToStdString(QKString *qkStr) {
   return mtStr->toStdString();
 }
 
+QKString StdStringToQKString(std::string stdString) {
+  QKString qkStr{};
+  qkStr.mtStr = new quark::MTString(std::move(stdString));
+  return qkStr;
+}
+
 QKString *StdStringToQKStringPtr(const std::string &stdString) {
   auto qkStr = new QKString();
   qkStr->mtStr = new quark::MTString(stdString);
   return qkStr;
 }
 
-QKString *QKStringCreate(char *data) {
+QKString *QKStringCreate(const char *data) {
   auto qkStr = new QKString();
   auto mtStr = new quark::MTString(data);
   qkStr->mtStr = mtStr;

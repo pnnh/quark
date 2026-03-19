@@ -7,15 +7,15 @@
 extern "C" {
 #endif
 
-QKAPI void cSqliteVersion();
+void cSqliteVersion();
 
-QKAPI void cSqliteSelectNames();
+void cSqliteSelectNames();
 
-QKAPI void cSqliteStatParams();
+void cSqliteStatParams();
 
 #ifdef __cplusplus
 }
 
-QKAPI void cxxSqliteStatParams();
+void cxxSqliteStatParams();
 
 #endif

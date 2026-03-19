@@ -26,6 +26,9 @@ link_directories(${PROJECT_BINARY_DIR})
 # 引用头文件导出助手函数
 include(GenerateExportHeader)
 
+# 选项：是否构建单元测试
+option(QUARK_BUILD_TESTS "Build unit tests" OFF)
+
 # 收集所有源文件
 set(QUARK_SOURCES
         quark/infra/result/result.cpp
@@ -215,25 +218,7 @@ install(FILES
 )
 
 #===========================测试相关开始============================
-add_subdirectory(tests)
-## C++动态库测试
-#file(GLOB_RECURSE CXXTest_SOURCES tests/*.cpp)
-#add_executable(CXXTest ${CXXTest_SOURCES})
-#add_dependencies(CXXTest quark)
-#target_include_directories(CXXTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-#target_link_libraries(CXXTest PRIVATE quark)
-#
-## 查找并引用Sqlite解析库
-#find_package(unofficial-sqlite3 CONFIG REQUIRED)
-#target_link_libraries(CXXTest PRIVATE unofficial::sqlite3::sqlite3)
-#
-#add_test(NAME CXXTestHelloWorld COMMAND CXXTest TestHelloWorld)
-#add_test(NAME CXXTestSqliteVersion COMMAND CXXTest TestSqliteVersion)
-#
-## C动态库测试
-#file(GLOB_RECURSE CTest_SOURCES tests/*.c)
-#add_executable(CTest ${CTest_SOURCES})
-#add_dependencies(CTest quark)
-#target_include_directories(CTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-#target_link_libraries(CTest PRIVATE quark)
+if (QUARK_BUILD_TESTS)
+    add_subdirectory(tests)
+endif ()
 #===========================测试相关结束============================

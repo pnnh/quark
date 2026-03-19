@@ -55,6 +55,9 @@
     },
     {
       "name": "yaml-cpp"
+    },
+    {
+      "name": "gtest"
     }
   ],
   "overrides": []

@@ -54,7 +54,8 @@
         "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
         "VCPKG_HOST_TRIPLET": "x64-windows",
         "VCPKG_TARGET_TRIPLET": "x64-windows",
-        "FEATURES": "http,database,yaml"
+        "FEATURES": "http,database,yaml",
+        "QUARK_BUILD_TESTS": "ON"
       },
       "environment": {}
     }

@@ -1,7 +1,11 @@
 
 #===========================测试相关开始============================
 # C++动态库测试
-file(GLOB_RECURSE CXXTest_SOURCES ./*.cpp)
+# 注意：不使用 GLOB_RECURSE，避免将 string/string_test.cpp（含gtest头）误收入 CXXTest
+file(GLOB CXXTest_SOURCES_ROOT   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB CXXTest_SOURCES_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/files/*.cpp)
+file(GLOB CXXTest_SOURCES_SQLITE ${CMAKE_CURRENT_SOURCE_DIR}/sqlite/*.cpp)
+set(CXXTest_SOURCES ${CXXTest_SOURCES_ROOT} ${CXXTest_SOURCES_FILES} ${CXXTest_SOURCES_SQLITE})
 add_executable(CXXTest ${CXXTest_SOURCES})
 add_dependencies(CXXTest quark)
 target_include_directories(CXXTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
@@ -48,14 +52,40 @@ target_link_libraries(CXXTest PRIVATE libenvpp::libenvpp)
 find_package(date CONFIG REQUIRED)
 target_link_libraries(CXXTest PRIVATE date::date-tz)
 
+add_test(NAME TestHelloWorld COMMAND CXXTest TestHelloWorld)
+add_test(NAME TestSqliteVersion COMMAND CXXTest TestSqliteVersion)
+add_test(NAME TestSqliteSelect COMMAND CXXTest TestSqliteSelect)
+add_test(NAME TestSelectFiles COMMAND CXXTest TestSelectFiles)
 
-add_test(NAME CXXTestHelloWorld COMMAND CXXTest TestHelloWorld)
-add_test(NAME CXXTestSqliteVersion COMMAND CXXTest TestSqliteVersion)
+# 将所有运行时依赖DLL（含quark.dll及vcpkg第三方DLL）复制到CXXTest.exe所在目录
+# 解决Windows下ctest找不到DLL的问题（quark.dll输出在父级build目录，与CXXTest.exe不同目录）
+add_custom_command(TARGET CXXTest POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_RUNTIME_DLLS:CXXTest>
+        $<TARGET_FILE_DIR:CXXTest>
+        COMMAND_EXPAND_LISTS
+)
 
-# C动态库测试
-file(GLOB_RECURSE CTest_SOURCES ./*.c)
-add_executable(CTest ${CTest_SOURCES})
-add_dependencies(CTest quark)
-target_include_directories(CTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(CTest PRIVATE quark)
-#===========================测试相关结束============================
+# ============================================================
+#  StringTest — Google Test 单元测试（string.h C 与 C++ 接口）
+# ============================================================
+find_package(GTest CONFIG REQUIRED)
+include(GoogleTest)
+
+add_executable(StringTest string/string_test.cpp)
+add_dependencies(StringTest quark)
+target_include_directories(StringTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(StringTest PRIVATE quark GTest::gtest GTest::gtest_main)
+
+# 自动将所有 TEST() 注册为独立的 CTest 测试项
+# PRE_TEST: 推迟到 ctest 运行时发现测试，避免构建阶段因 DLL 缺失导致 exe 无法运行
+gtest_discover_tests(StringTest DISCOVERY_MODE PRE_TEST)
+
+# 复制运行时 DLL 到 StringTest.exe 所在目录（与 CXXTest 同理）
+add_custom_command(TARGET StringTest POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_RUNTIME_DLLS:StringTest>
+        $<TARGET_FILE_DIR:StringTest>
+        COMMAND_EXPAND_LISTS
+)
+#===========================测试相关结束===========================

@@ -11,7 +11,7 @@ typedef struct {
     void *mtStr;
 } QKString;
 
-QKAPI QKString *QKStringCreate(char *data);
+QKAPI QKString *QKStringCreate(const char *data);
 QKAPI int QKStringDelete(QKString * qkStr);
 
 QKAPI char *QKStringGetData(QKString *qkStr);
@@ -25,7 +25,7 @@ QKAPI char *QKStringGetData(QKString *qkStr);
 #include <vector>
 
 namespace quark {
-    class MTString {
+    class QKAPI MTString {
     public:
         explicit MTString();
 
@@ -34,7 +34,9 @@ namespace quark {
         MTString &operator=(const MTString &other);
 
         template<typename... Args>
-        static std::string DynamicPrint(std::string_view rt_fmt_str, Args &&... args);
+        static std::string DynamicPrint(std::string_view rt_fmt_str, Args &&... args) {
+            return std::vformat(rt_fmt_str, std::make_format_args(args...));
+        }
 
         static bool IsBlank(const std::string &str);
 
@@ -72,14 +74,14 @@ namespace quark {
         std::string stringValue;
     };
 
-    std::string strToLower(const std::string &str);
+    QKAPI std::string strToLower(const std::string &str);
 } // namespace quark
 
-quark::MTString QKStringToMTString(QKString *str);
+QKAPI quark::MTString QKStringToMTString(QKString *str);
 
-std::string QKStringToStdString(QKString *str);
+QKAPI std::string QKStringToStdString(QKString *str);
 
-QKString StdStringToQKString(std::string stdString);
+QKAPI QKString StdStringToQKString(std::string stdString);
 
-QKString *StdStringToQKStringPtr(const std::string &stdString);
+QKAPI QKString *StdStringToQKStringPtr(const std::string &stdString);
 #endif
