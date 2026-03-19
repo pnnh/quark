@@ -1,7 +1,6 @@
-
 #===========================测试相关开始============================
 # C++动态库测试
-# 注意：不使用 GLOB_RECURSE，避免将 string/string_test.cpp（含gtest头）误收入 CXXTest
+# 注意：不使用 GLOB_RECURSE，避免将 gtest 测试源文件误收入 CXXTest
 file(GLOB CXXTest_SOURCES_ROOT   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 file(GLOB CXXTest_SOURCES_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/files/*.cpp)
 file(GLOB CXXTest_SOURCES_SQLITE ${CMAKE_CURRENT_SOURCE_DIR}/sqlite/*.cpp)
@@ -67,25 +66,29 @@ add_custom_command(TARGET CXXTest POST_BUILD
 )
 
 # ============================================================
-#  StringTest — Google Test 单元测试（string.h C 与 C++ 接口）
+#  QuarkTest — 统一 Google Test 可执行程序
+#  包含：string.h / uuid.h / basex.h 的完整单元测试
 # ============================================================
 find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)
 
-add_executable(StringTest string/string_test.cpp)
-add_dependencies(StringTest quark)
-target_include_directories(StringTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(StringTest PRIVATE quark GTest::gtest GTest::gtest_main)
+add_executable(QuarkTest
+        string/string_test.cpp
+        uuid/uuid_test.cpp
+        basex/basex_test.cpp
+)
+add_dependencies(QuarkTest quark)
+target_include_directories(QuarkTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(QuarkTest PRIVATE quark GTest::gtest GTest::gtest_main)
 
-# 自动将所有 TEST() 注册为独立的 CTest 测试项
 # PRE_TEST: 推迟到 ctest 运行时发现测试，避免构建阶段因 DLL 缺失导致 exe 无法运行
-gtest_discover_tests(StringTest DISCOVERY_MODE PRE_TEST)
+gtest_discover_tests(QuarkTest DISCOVERY_MODE PRE_TEST)
 
-# 复制运行时 DLL 到 StringTest.exe 所在目录（与 CXXTest 同理）
-add_custom_command(TARGET StringTest POST_BUILD
+# 复制运行时 DLL 到 QuarkTest.exe 所在目录
+add_custom_command(TARGET QuarkTest POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_RUNTIME_DLLS:StringTest>
-        $<TARGET_FILE_DIR:StringTest>
+        $<TARGET_RUNTIME_DLLS:QuarkTest>
+        $<TARGET_FILE_DIR:QuarkTest>
         COMMAND_EXPAND_LISTS
 )
 #===========================测试相关结束===========================
