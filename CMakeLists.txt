@@ -214,3 +214,26 @@ install(FILES
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/quark
 )
 
+#===========================测试相关开始============================
+add_subdirectory(tests)
+## C++动态库测试
+#file(GLOB_RECURSE CXXTest_SOURCES tests/*.cpp)
+#add_executable(CXXTest ${CXXTest_SOURCES})
+#add_dependencies(CXXTest quark)
+#target_include_directories(CXXTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+#target_link_libraries(CXXTest PRIVATE quark)
+#
+## 查找并引用Sqlite解析库
+#find_package(unofficial-sqlite3 CONFIG REQUIRED)
+#target_link_libraries(CXXTest PRIVATE unofficial::sqlite3::sqlite3)
+#
+#add_test(NAME CXXTestHelloWorld COMMAND CXXTest TestHelloWorld)
+#add_test(NAME CXXTestSqliteVersion COMMAND CXXTest TestSqliteVersion)
+#
+## C动态库测试
+#file(GLOB_RECURSE CTest_SOURCES tests/*.c)
+#add_executable(CTest ${CTest_SOURCES})
+#add_dependencies(CTest quark)
+#target_include_directories(CTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+#target_link_libraries(CTest PRIVATE quark)
+#===========================测试相关结束============================
